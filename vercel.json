@@ -6,7 +6,7 @@
     "rewrites": [
         {
             "source": "/api/:path*",
-            "destination": "https://YOUR_RENDER_SERVICE_NAME.onrender.com/api/:path*"
+            "destination": "https://srucodingclub1.onrender.com/api/:path*"
         }
     ],
     "headers": [
@@ -26,3 +26,4 @@
     ]
 
 }
+
