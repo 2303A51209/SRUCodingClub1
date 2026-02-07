@@ -15,7 +15,7 @@ const getApiBase = () => {
     }
 
     // Production fallback
-    return '/api/v1';
+    return 'https://srucodingclub1.onrender.com';
 };
 
 const API_BASE = getApiBase();
