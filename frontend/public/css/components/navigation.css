@@ -1,0 +1,435 @@
+/* ==========================================================================
+   DUAL-IDENTITY NAVIGATION
+   Light: Centered, balanced / Dark: Left-weighted, asymmetric
+   ========================================================================== */
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-fixed);
+    height: var(--header-height);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--nav-border);
+    transition: background var(--duration-base) var(--ease-default),
+        border-color var(--duration-base) var(--ease-default);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+}
+
+/* ==========================================================================
+   LOGO
+   ========================================================================== */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    font-weight: var(--font-bold);
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    transition: all var(--duration-base) var(--ease-default);
+}
+
+.logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-weight: var(--font-extrabold);
+    font-size: var(--text-sm);
+    transition: all var(--duration-base) var(--ease-default);
+}
+
+/* Light: Solid rounded logo */
+[data-theme="light"] .logo-icon {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-1);
+}
+
+[data-theme="light"] .logo:hover .logo-icon {
+    transform: translateY(-2px) rotateZ(-5deg);
+    box-shadow: var(--shadow-2);
+}
+
+/* Dark: Sharp edged logo with glow */
+[data-theme="dark"] .logo-icon {
+    background: var(--bg-surface);
+    color: var(--primary);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--primary);
+}
+
+[data-theme="dark"] .logo:hover .logo-icon {
+    transform: translateX(-3px) rotateY(-5deg);
+    box-shadow: var(--glow-primary);
+}
+
+/* ==========================================================================
+   MAIN NAVIGATION
+   ========================================================================== */
+
+.nav-main {
+    display: flex;
+    align-items: center;
+}
+
+/* Light: Centered nav with even spacing */
+[data-theme="light"] .nav-main {
+    gap: var(--space-1);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Dark: Left-weighted, tighter spacing */
+[data-theme="dark"] .nav-main {
+    gap: 0;
+    margin-left: var(--space-12);
+}
+
+/* Nav Links */
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: all var(--duration-base) var(--ease-default);
+    position: relative;
+}
+
+/* Light: Rounded hover bg */
+[data-theme="light"] .nav-link {
+    border-radius: var(--radius-md);
+}
+
+[data-theme="light"] .nav-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface-sunken);
+}
+
+[data-theme="light"] .nav-link.active {
+    color: var(--primary);
+    background: var(--primary-subtle);
+}
+
+/* Dark: Underline indicator, no background */
+[data-theme="dark"] .nav-link {
+    padding: var(--space-2) var(--space-3);
+}
+
+[data-theme="dark"] .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--space-3);
+    right: var(--space-3);
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transition: transform var(--duration-base) var(--ease-snap);
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+[data-theme="dark"] .nav-link.active {
+    color: var(--primary);
+}
+
+[data-theme="dark"] .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+/* ==========================================================================
+   NAV ACTIONS
+   ========================================================================== */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+/* Auth navigation containers */
+.auth-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* ==========================================================================
+   THEME TOGGLE
+   ========================================================================== */
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all var(--duration-base) var(--ease-default);
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: transform var(--duration-base) var(--ease-default);
+}
+
+/* Light: Subtle hover */
+[data-theme="light"] .theme-toggle {
+    border-radius: var(--radius-md);
+}
+
+[data-theme="light"] .theme-toggle:hover {
+    background: var(--bg-surface-sunken);
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .theme-toggle:hover svg {
+    transform: rotate(15deg);
+}
+
+/* Dark: Glow on hover */
+[data-theme="dark"] .theme-toggle {
+    border-radius: var(--radius-sm);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    color: var(--primary);
+    background: rgba(6, 214, 160, 0.1);
+}
+
+[data-theme="dark"] .theme-toggle:hover svg {
+    transform: rotate(-15deg) scale(1.1);
+}
+
+/* ==========================================================================
+   MOBILE MENU TOGGLE
+   ========================================================================== */
+
+.mobile-menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+.mobile-menu-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .nav-main {
+        display: none;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        padding: var(--space-4);
+        border-bottom: 1px solid var(--border-default);
+    }
+
+    .nav-main.open {
+        display: flex;
+    }
+
+    [data-theme="light"] .nav-main {
+        background: var(--bg-surface);
+        transform: none;
+        position: absolute;
+        left: 0;
+    }
+
+    [data-theme="dark"] .nav-main {
+        background: var(--bg-body);
+        margin-left: 0;
+    }
+
+    .nav-link {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-actions .btn span {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   USER MENU
+   ========================================================================== */
+
+.user-menu {
+    position: relative;
+}
+
+.user-menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--radius-full);
+    transition: all var(--duration-base) var(--ease-default);
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+}
+
+.user-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+}
+
+[data-theme="light"] .user-initials {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+}
+
+[data-theme="dark"] .user-initials {
+    background: var(--bg-surface);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.user-menu-divider {
+    height: 1px;
+    background: var(--border-default);
+    margin: var(--space-2) 0;
+    border: none;
+}
+
+[data-theme="light"] .user-menu-trigger:hover {
+    background: var(--bg-surface-sunken);
+}
+
+[data-theme="dark"] .user-menu-trigger {
+    border: 1px solid transparent;
+}
+
+[data-theme="dark"] .user-menu-trigger:hover {
+    border-color: var(--primary);
+}
+
+.user-menu-dropdown {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    min-width: 180px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    padding: var(--space-2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--duration-base) var(--ease-default);
+}
+
+[data-theme="light"] .user-menu-dropdown {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-3);
+}
+
+[data-theme="dark"] .user-menu-dropdown {
+    border-radius: var(--radius-sm);
+    box-shadow: var(--glow-subtle);
+}
+
+.user-menu.open .user-menu-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-menu-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: all var(--duration-fast) var(--ease-default);
+}
+
+[data-theme="light"] .user-menu-item {
+    border-radius: var(--radius-md);
+}
+
+[data-theme="light"] .user-menu-item:hover {
+    background: var(--bg-surface-sunken);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .user-menu-item:hover {
+    color: var(--primary);
+    background: rgba(6, 214, 160, 0.1);
+}
+
+.user-menu-item.danger {
+    color: var(--error);
+}
+
+[data-theme="light"] .user-menu-item.danger:hover {
+    background: rgba(220, 38, 38, 0.1);
+}
+
+[data-theme="dark"] .user-menu-item.danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+}

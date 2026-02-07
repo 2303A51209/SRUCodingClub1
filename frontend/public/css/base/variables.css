@@ -1,0 +1,297 @@
+/* ==========================================================================
+   DUAL-IDENTITY THEME VARIABLES
+   Light: "Innovation Lab" - Structured, Premium, Shadow Depth
+   Dark: "Hacker Terminal" - Bold, Asymmetric, Glow Accents
+   ========================================================================== */
+
+:root {
+  /* ========== SHARED TOKENS ========== */
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+
+  /* Font Weights */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 700ms;
+
+  /* Z-Index Scale */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal: 400;
+  --z-tooltip: 500;
+
+  /* Header */
+  --header-height: 72px;
+}
+
+/* ==========================================================================
+   🌞 LIGHT THEME — "Innovation Lab"
+   Structured • Engineered • Premium
+   ========================================================================== */
+
+[data-theme="light"] {
+  /* === Colors === */
+  --bg-body: #FAFAF9;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFFFFF;
+  --bg-surface-sunken: #F5F5F4;
+  --bg-card: #FFFFFF;
+  --bg-overlay: rgba(0, 0, 0, 0.4);
+
+  /* Text */
+  --text-primary: #1C1917;
+  --text-secondary: #57534E;
+  --text-muted: #A8A29E;
+  --text-inverse: #FFFFFF;
+
+  /* Borders */
+  --border-default: #E7E5E4;
+  --border-strong: #D6D3D1;
+  --border-subtle: #F5F5F4;
+
+  /* Brand Colors */
+  --primary: #2563EB;
+  --primary-hover: #1D4ED8;
+  --primary-subtle: rgba(37, 99, 235, 0.08);
+  --accent: #7C3AED;
+  --accent-hover: #6D28D9;
+
+  /* Status Colors */
+  --success: #059669;
+  --warning: #D97706;
+  --error: #DC2626;
+  --info: #0284C7;
+
+  /* === Innovation Lab Depth System === */
+  /* Physical shadow layers - NO blur effects */
+  --shadow-1: 0 1px 2px rgba(28, 25, 23, 0.04),
+    0 2px 4px rgba(28, 25, 23, 0.04);
+  --shadow-2: 0 4px 6px rgba(28, 25, 23, 0.05),
+    0 10px 15px rgba(28, 25, 23, 0.05);
+  --shadow-3: 0 10px 25px rgba(28, 25, 23, 0.08),
+    0 20px 40px rgba(28, 25, 23, 0.06);
+  --shadow-4: 0 25px 50px rgba(28, 25, 23, 0.12),
+    0 12px 24px rgba(28, 25, 23, 0.08);
+
+  /* Card Depth */
+  --card-shadow: var(--shadow-2);
+  --card-shadow-hover: var(--shadow-3);
+  --card-border: 1px solid var(--border-default);
+  --card-radius: var(--radius-xl);
+
+  /* === Layout Tokens === */
+  --layout-mode: "structured";
+  --grid-gap: var(--space-6);
+  --section-padding: var(--space-20) var(--space-6);
+  --container-max: 1200px;
+  --content-align: center;
+
+  /* === Motion System: Gravity-Based === */
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Animation Direction (vertical, gravity-based) */
+  --animate-from: translateY(40px);
+  --animate-to: translateY(0);
+  --animate-duration: 600ms;
+  --animate-timing: var(--ease-out);
+
+  /* Hover Transforms */
+  --hover-lift: translateY(-8px);
+  --hover-scale: scale(1.02);
+  --hover-rotate: rotateX(2deg);
+
+  /* 3D Perspective */
+  --perspective: 1200px;
+  --transform-origin: center bottom;
+
+  /* === Typography Styles === */
+  --heading-weight: var(--font-bold);
+  --heading-tracking: -0.02em;
+  --body-weight: var(--font-regular);
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* === Component Tokens === */
+  --btn-radius: var(--radius-lg);
+  --btn-shadow: var(--shadow-1);
+  --btn-shadow-hover: var(--shadow-2);
+
+  --input-bg: var(--bg-surface);
+  --input-border: var(--border-default);
+  --input-radius: var(--radius-md);
+
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --nav-border: var(--border-default);
+}
+
+/* ==========================================================================
+   🌑 DARK THEME — "Hacker Terminal"
+   Dynamic • Bold • Builder Energy
+   ========================================================================== */
+
+[data-theme="dark"] {
+  /* === Colors === */
+  --bg-body: #0A0A0F;
+  --bg-surface: #12121A;
+  --bg-surface-elevated: #1A1A24;
+  --bg-surface-sunken: #08080C;
+  --bg-card: linear-gradient(135deg, #1A1A24 0%, #12121A 100%);
+  --bg-overlay: rgba(0, 0, 0, 0.8);
+
+  /* Text */
+  --text-primary: #F4F4F5;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+  --text-inverse: #0A0A0F;
+
+  /* Borders */
+  --border-default: #27272A;
+  --border-strong: #3F3F46;
+  --border-subtle: #18181B;
+
+  /* Neon Accent Colors */
+  --primary: #06D6A0;
+  --primary-hover: #00F5B8;
+  --primary-subtle: rgba(6, 214, 160, 0.1);
+  --accent: #FF006E;
+  --accent-hover: #FF3385;
+  --accent-secondary: #CCFF00;
+  --accent-cyan: #00D4FF;
+
+  /* Status Colors */
+  --success: #10B981;
+  --warning: #FBBF24;
+  --error: #EF4444;
+  --info: #3B82F6;
+
+  /* === Hacker Terminal Glow System === */
+  /* Sharp edge glows - NO blur! */
+  --glow-primary: 0 0 0 1px var(--primary),
+    inset 0 1px 0 rgba(6, 214, 160, 0.15);
+  --glow-accent: 0 0 0 1px var(--accent),
+    inset 0 1px 0 rgba(255, 0, 110, 0.15);
+  --glow-subtle: inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 0 rgba(0, 0, 0, 0.5);
+
+  /* Gradient Borders */
+  --gradient-border: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  --gradient-border-subtle: linear-gradient(135deg, #27272A 0%, #3F3F46 100%);
+
+  /* Card Glow */
+  --card-shadow: var(--glow-subtle);
+  --card-shadow-hover: var(--glow-primary);
+  --card-border: 1px solid var(--border-default);
+  --card-radius: var(--radius-sm);
+
+  /* === Layout Tokens === */
+  --layout-mode: "dynamic";
+  --grid-gap: var(--space-8);
+  --section-padding: var(--space-16) var(--space-4);
+  --container-max: 1400px;
+  --content-align: left;
+
+  /* === Motion System: Parallax + Snap === */
+  --ease-default: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Animation Direction (horizontal + depth) */
+  --animate-from: translateX(-60px) translateZ(-100px) rotateY(5deg);
+  --animate-to: translateX(0) translateZ(0) rotateY(0deg);
+  --animate-duration: 400ms;
+  --animate-timing: var(--ease-snap);
+
+  /* Hover Transforms */
+  --hover-lift: translateZ(40px);
+  --hover-scale: scale(1.03);
+  --hover-rotate: rotateY(-3deg);
+
+  /* 3D Perspective */
+  --perspective: 1000px;
+  --transform-origin: center center;
+
+  /* === Typography Styles === */
+  --heading-weight: var(--font-extrabold);
+  --heading-tracking: -0.03em;
+  --body-weight: var(--font-regular);
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* === Component Tokens === */
+  --btn-radius: var(--radius-sm);
+  --btn-shadow: none;
+  --btn-shadow-hover: var(--glow-primary);
+
+  --input-bg: var(--bg-surface);
+  --input-border: var(--border-default);
+  --input-radius: var(--radius-sm);
+
+  --nav-bg: rgba(10, 10, 15, 0.95);
+  --nav-border: var(--border-subtle);
+}
+
+/* ==========================================================================
+   GRADIENT TEXT (Theme-Aware)
+   ========================================================================== */
+
+[data-theme="light"] .text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-cyan) 50%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Member Dashboard - SR University Coding Club">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="../../css/main.css">
+
+    <title>Dashboard | SR University Coding Club</title>
+</head>
+
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="page-loader">
+        <div class="loader-logo">
+            <div class="spinner spinner-xl"></div>
+        </div>
+        <p class="loader-text">Loading dashboard...</p>
+    </div>
+
+    <div class="dashboard" id="dashboard" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="logo">
+                    <div class="logo-icon">>_</div>
+                    <span>srucc</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Menu</p>
+                    <a href="./index.html" class="sidebar-link active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        Dashboard
+                    </a>
+                    <a href="./events.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                        My Events
+                    </a>
+                    <a href="./certificates.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="8" r="7" />
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                        </svg>
+                        Certificates
+                    </a>
+                    <a href="./profile.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Profile
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Explore</p>
+                    <a href="../../projects.html" class="sidebar-link">
+                        <svg viewBox="0 0 16 16" fill="currentColor" stroke="none">
+                            <path
+                                d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8z" />
+                        </svg>
+                        Projects
+                    </a>
+                    <a href="../../learn.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+                            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+                        </svg>
+                        Learn
+                    </a>
+                    <a href="../../events.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polygon points="10 8 16 12 10 16 10 8" />
+                        </svg>
+                        Browse Events
+                    </a>
+                    <a href="../../community.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+                        </svg>
+                        Community
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-ghost w-full" id="logout-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">Welcome back, <span id="user-name">Member</span>!</h1>
+                    <p class="dashboard-subtitle">Here's what's happening with your account</p>
+                </div>
+                <div class="nav-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5" />
+                            <path
+                                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                        </svg>
+                    </button>
+                    <div class="user-menu">
+                        <button class="user-menu-trigger">
+                            <img src="" alt="Avatar" class="user-avatar" id="user-avatar">
+                        </button>
+                        <div class="user-menu-dropdown">
+                            <a href="./profile.html" class="user-menu-item">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                Profile
+                            </a>
+                            <a href="#" class="user-menu-item danger" data-logout>
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                                    <polyline points="16 17 21 12 16 7" />
+                                    <line x1="21" y1="12" x2="9" y2="12" />
+                                </svg>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Complete Profile Banner (hidden by default, shown for OAuth users with incomplete profiles) -->
+            <div class="profile-complete-banner" id="profile-complete-banner" style="display: none;">
+                <div class="banner-content">
+                    <div class="banner-icon">📝</div>
+                    <div class="banner-text">
+                        <h3>Complete your profile</h3>
+                        <p>Add your roll number, branch, and year to access all club features.</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm" id="complete-profile-btn">Complete Profile</button>
+            </div>
+
+            <!-- Complete Profile Modal -->
+            <div class="modal-overlay" id="profile-modal-overlay" style="display: none;">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Complete Your Profile</h2>
+                        <button class="modal-close" id="modal-close">&times;</button>
+                    </div>
+                    <form id="complete-profile-form" class="modal-body">
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="phone" class="form-input" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Roll Number *</label>
+                            <input type="text" name="roll_no" class="form-input" placeholder="21BCE1234" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Branch/Department *</label>
+                            <select name="branch" class="form-input" required>
+                                <option value="">Select Branch</option>
+                                <option value="cse">Computer Science</option>
+                                <option value="it">Information Technology</option>
+                                <option value="ece">Electronics & Communication</option>
+                                <option value="eee">Electrical Engineering</option>
+                                <option value="mech">Mechanical Engineering</option>
+                                <option value="civil">Civil Engineering</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Year of Study *</label>
+                            <select name="year" class="form-input" required>
+                                <option value="">Select Year</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Skills (select all that apply)</label>
+                            <div class="skills-grid">
+                                <label class="skill-checkbox"><input type="checkbox" name="skills"
+                                        value="html">HTML/CSS</label>
+                                <label class="skill-checkbox"><input type="checkbox" name="skills"
+                                        value="js">JavaScript</label>
+                                <label class="skill-checkbox"><input type="checkbox" name="skills"
+                                        value="python">Python</label>
+                                <label class="skill-checkbox"><input type="checkbox" name="skills"
+                                        value="java">Java</label>
+                                <label class="skill-checkbox"><input type="checkbox" name="skills"
+                                        value="cpp">C/C++</label>
+                                <label class="skill-checkbox"><input type="checkbox" name="skills"
+                                        value="react">React</label>
+                                <label class="skill-checkbox"><input type="checkbox" name="skills"
+                                        value="node">Node.js</label>
+                                <label class="skill-checkbox"><input type="checkbox" name="skills"
+                                        value="ml">AI/ML</label>
+                                <label class="skill-checkbox"><input type="checkbox" name="skills"
+                                        value="beginner">Beginner</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-ghost" id="modal-cancel">Skip for now</button>
+                            <button type="submit" class="btn btn-primary">Save Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <article class="card card-stat">
+                    <span class="stat-value" id="events-count">-</span>
+                    <span class="stat-label">Events Attended</span>
+                </article>
+                <article class="card card-stat">
+                    <span class="stat-value" id="upcoming-count">-</span>
+                    <span class="stat-label">Upcoming Events</span>
+                </article>
+                <article class="card card-stat">
+                    <span class="stat-value" id="certs-count">-</span>
+                    <span class="stat-label">Certificates</span>
+                </article>
+                <article class="card card-stat">
+                    <span class="stat-value text-accent" id="member-since">New</span>
+                    <span class="stat-label">Member Since</span>
+                </article>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+                <!-- Upcoming Events -->
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">My Upcoming Events</h2>
+                        <a href="./events.html" class="btn btn-ghost btn-sm">View All</a>
+                    </div>
+                    <div class="card-body stack" id="upcoming-events">
+                        <div class="skeleton-loader" style="height: 80px;"></div>
+                        <div class="skeleton-loader" style="height: 80px;"></div>
+                    </div>
+                </section>
+
+                <!-- Announcements -->
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Announcements</h2>
+                    </div>
+                    <div class="card-body stack" id="announcements">
+                        <div class="skeleton-loader" style="height: 80px;"></div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Recent Activity -->
+            <section class="card mt-8">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Activity</h2>
+                </div>
+                <div class="card-body" id="recent-activity">
+                    <p class="text-muted text-center py-8">No recent activity</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Scripts -->
+    <script type="module">
+        import auth from '../../js/core/auth.js';
+        import routeGuard from '../../js/guards/routeGuard.js';
+        import dataService from '../../js/core/data.js';
+        import store from '../../js/core/store.js';
+        import { escapeHtml } from '../../js/utils/security.js';
+
+        // Initialize theme
+        store.initTheme();
+
+        // DOM selectors
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        // Format date
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function formatMemberSince(dateStr) {
+            const date = new Date(dateStr);
+            const now = new Date();
+            const months = Math.floor((now - date) / (1000 * 60 * 60 * 24 * 30));
+
+            if (months < 1) return 'New';
+            if (months < 12) return `${months}mo`;
+            return `${Math.floor(months / 12)}yr`;
+        }
+
+        // Render upcoming event
+        function renderUpcomingEvent(registration) {
+            const event = registration.events;
+            if (!event) return '';
+
+            const eventDate = new Date(event.start_date);
+            const day = eventDate.getDate().toString().padStart(2, '0');
+            const month = eventDate.toLocaleString('en', { month: 'short' });
+
+            return `
+                <article class="flex gap-4 p-3 rounded hover-lift" style="background: var(--bg-surface-elevated);">
+                    <div class="event-date-badge">
+                        <span class="day">${day}</span>
+                        <span class="month">${month}</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-sm font-semibold">${escapeHtml(event.title)}</h3>
+                        <p class="text-xs text-muted mt-1">${escapeHtml(event.event_type)} • ${escapeHtml(event.location || 'TBA')}</p>
+                    </div>
+                </article>
+            `;
+        }
+
+        // Render announcement
+        function renderAnnouncement(announcement) {
+            const priorityColors = {
+                high: 'var(--error)',
+                normal: 'var(--primary)',
+                low: 'var(--text-muted)'
+            };
+
+            return `
+                <article class="flex gap-4 p-3 rounded hover-lift" style="background: var(--bg-surface-elevated);">
+                    <div class="flex-shrink-0">
+                        <div style="width:40px;height:40px;background:${priorityColors[announcement.priority] || priorityColors.normal};border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2">
+                                <path d="M22 17H2a3 3 0 003-3V9a7 7 0 0114 0v5a3 3 0 003 3zm-8.27 4a2 2 0 01-3.46 0" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold">${escapeHtml(announcement.title)}</h3>
+                        <p class="text-xs text-muted mt-1">${escapeHtml(announcement.content.substring(0, 100))}${announcement.content.length > 100 ? '...' : ''}</p>
+                    </div>
+                </article>
+            `;
+        }
+
+        // Load dashboard data
+        async function loadDashboardData(user) {
+            try {
+                // Load user's events
+                const eventsResponse = await dataService.getMyEvents();
+                const myEvents = eventsResponse || [];
+
+                // Filter upcoming events
+                const upcomingEvents = myEvents.filter(r =>
+                    r.events && new Date(r.events.start_date) > new Date()
+                );
+                const pastEvents = myEvents.filter(r =>
+                    r.events && new Date(r.events.start_date) <= new Date()
+                );
+
+                // Update stats
+                $('#events-count').textContent = pastEvents.length;
+                $('#upcoming-count').textContent = upcomingEvents.length;
+                $('#member-since').textContent = formatMemberSince(user.created_at);
+
+                // Render upcoming events
+                if (upcomingEvents.length > 0) {
+                    $('#upcoming-events').innerHTML = upcomingEvents
+                        .slice(0, 3)
+                        .map(renderUpcomingEvent)
+                        .join('');
+                } else {
+                    $('#upcoming-events').innerHTML = `
+                        <p class="text-muted text-center py-4">No upcoming events. <a href="../../events.html" class="text-primary">Browse events</a></p>
+                    `;
+                }
+
+                // Load announcements
+                const announcementsResponse = await dataService.getAnnouncements({ limit: 3 });
+                const announcements = announcementsResponse || [];
+
+                if (announcements.length > 0) {
+                    $('#announcements').innerHTML = announcements
+                        .map(renderAnnouncement)
+                        .join('');
+                } else {
+                    $('#announcements').innerHTML = `
+                        <p class="text-muted text-center py-4">No announcements</p>
+                    `;
+                }
+
+                // Certificates count (placeholder)
+                $('#certs-count').textContent = '0';
+
+            } catch (error) {
+                console.error('Failed to load dashboard data:', error);
+                $('#upcoming-events').innerHTML = `<p class="text-muted text-center py-4">Unable to load events</p>`;
+                $('#announcements').innerHTML = `<p class="text-muted text-center py-4">Unable to load announcements</p>`;
+            }
+        }
+
+        // Initialize
+        async function init() {
+            const allowed = await routeGuard.autoProtect();
+
+            if (!allowed) return;
+
+            const user = auth.getUser();
+
+            // Update UI with user info
+            $('#user-name').textContent = user?.full_name?.split(' ')[0] || user?.email?.split('@')[0] || 'Member';
+            $('#user-avatar').src = user?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.id || 'member'}`;
+
+            // Hide loader, show dashboard
+            $('#page-loader').style.display = 'none';
+            $('#dashboard').style.display = 'grid';
+
+            // Load dashboard data
+            await loadDashboardData(user);
+
+            // Setup UI handlers
+            setupThemeToggle();
+            setupLogout();
+            setupUserMenu();
+
+            // Check profile completion and setup modal (for OAuth users)
+            checkProfileComplete(user);
+            setupProfileModal();
+        }
+
+        function setupThemeToggle() {
+            const btn = $('.theme-toggle');
+            if (!btn) return;
+
+            const updateIcon = () => {
+                const isDark = store.getState().theme === 'dark';
+                btn.innerHTML = isDark
+                    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+                    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+            };
+
+            updateIcon();
+            btn.addEventListener('click', () => {
+                store.toggleTheme();
+                updateIcon();
+            });
+        }
+
+        function setupLogout() {
+            $$('#logout-btn, [data-logout]').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    await auth.logout();
+                });
+            });
+        }
+
+        function setupUserMenu() {
+            const menu = $('.user-menu');
+            if (!menu) return;
+
+            const trigger = menu.querySelector('.user-menu-trigger');
+            trigger?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menu.classList.toggle('open');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.user-menu')) {
+                    menu.classList.remove('open');
+                }
+            });
+        }
+
+        // Check if profile is complete (for OAuth users)
+        function checkProfileComplete(user) {
+            // Show banner if roll_no, branch, or year is missing
+            const isIncomplete = !user.roll_no || !user.branch || !user.year;
+
+            if (isIncomplete) {
+                $('#profile-complete-banner').style.display = 'flex';
+            }
+        }
+
+        // Setup Profile Modal
+        function setupProfileModal() {
+            const banner = $('#profile-complete-banner');
+            const completeBtn = $('#complete-profile-btn');
+            const modalOverlay = $('#profile-modal-overlay');
+            const modalClose = $('#modal-close');
+            const modalCancel = $('#modal-cancel');
+            const form = $('#complete-profile-form');
+
+            // Open modal
+            completeBtn?.addEventListener('click', () => {
+                modalOverlay.style.display = 'flex';
+            });
+
+            // Close modal
+            const closeModal = () => {
+                modalOverlay.style.display = 'none';
+            };
+
+            modalClose?.addEventListener('click', closeModal);
+            modalCancel?.addEventListener('click', closeModal);
+
+            // Close on overlay click
+            modalOverlay?.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeModal();
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
+                    closeModal();
+                }
+            });
+
+            // Form submission
+            form?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Saving...';
+
+                try {
+                    const formData = new FormData(form);
+                    const profileData = {
+                        phone: formData.get('phone'),
+                        roll_no: formData.get('roll_no'),
+                        branch: formData.get('branch'),
+                        year: formData.get('year'),
+                        skills: formData.getAll('skills'),
+                        profile_completed: true
+                    };
+
+                    // Call API to update profile
+                    await dataService.updateProfile(profileData);
+
+                    // Hide banner and modal
+                    banner.style.display = 'none';
+                    closeModal();
+
+                    // Show success message
+                    alert('Profile updated successfully!');
+
+                } catch (error) {
+                    console.error('Failed to update profile:', error);
+                    alert(error.message || 'Failed to update profile. Please try again.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            });
+        }
+
+        init();
+    </script>
+
+    <style>
+        .font-semibold {
+            font-weight: var(--font-semibold);
+        }
+
+        .event-date-badge {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--radius-lg);
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .event-date-badge .day {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            line-height: 1;
+        }
+
+        .event-date-badge .month {
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+        }
+
+        .skeleton-loader {
+            background: linear-gradient(90deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 50%, var(--bg-surface-elevated) 100%);
+            background-size: 200% 100%;
+            animation: skeleton 1.5s ease-in-out infinite;
+            border-radius: var(--radius-lg);
+        }
+
+        @keyframes skeleton {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Complete Profile Banner */
+        .profile-complete-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-4) var(--space-5);
+            margin-bottom: var(--space-6);
+            border-radius: var(--radius-lg);
+            gap: var(--space-4);
+        }
+
+        [data-theme="dark"] .profile-complete-banner {
+            background: rgba(6, 214, 160, 0.1);
+            border: 1px solid var(--primary);
+        }
+
+        [data-theme="light"] .profile-complete-banner {
+            background: #fffbe6;
+            border: 1px solid #ffc107;
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .banner-icon {
+            font-size: var(--text-2xl);
+        }
+
+        .banner-text h3 {
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .banner-text p {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4);
+            z-index: 1000;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: var(--radius-lg);
+        }
+
+        [data-theme="dark"] .modal {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+        }
+
+        [data-theme="light"] .modal {
+            background: var(--bg-body);
+            box-shadow: var(--shadow-3);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-5);
+            border-bottom: 1px solid var(--border-default);
+        }
+
+        .modal-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: var(--text-2xl);
+            color: var(--text-muted);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: var(--space-5);
+        }
+
+        .modal-body .form-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-3);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--border-default);
+            margin-top: var(--space-4);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-2);
+        }
+
+        .skill-checkbox {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2);
+            font-size: var(--text-sm);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background var(--duration-fast) var(--ease-default);
+        }
+
+        [data-theme="dark"] .skill-checkbox {
+            background: var(--bg-surface-elevated);
+        }
+
+        [data-theme="light"] .skill-checkbox {
+            background: var(--bg-muted);
+        }
+
+        .skill-checkbox:hover {
+            background: var(--bg-elevated);
+        }
+
+        .skill-checkbox input {
+            accent-color: var(--primary);
+        }
+
+        @media (max-width: 640px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .profile-complete-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .banner-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</body>
+
+</html>

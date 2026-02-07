@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Login | Hackathons Platform</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--bg-body);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: var(--space-6);
+        }
+
+        .login-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+        }
+
+        [data-theme="dark"] .login-card {
+            box-shadow: var(--glow-subtle);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .login-header__icon {
+            font-size: var(--text-5xl);
+            margin-bottom: var(--space-4);
+        }
+
+        .login-header__title {
+            font-size: var(--text-2xl);
+            margin-bottom: var(--space-2);
+        }
+
+        .login-header__subtitle {
+            color: var(--text-muted);
+            font-size: var(--text-sm);
+        }
+
+        .login-error {
+            padding: var(--space-3);
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: var(--radius-md);
+            color: var(--error);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-4);
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <header class="login-header">
+                <div class="login-header__icon">🔐</div>
+                <h1 class="login-header__title">Admin Access</h1>
+                <p class="login-header__subtitle">Hackathons Platform</p>
+            </header>
+
+            <div id="login-error" class="login-error"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-input" required>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn btn-primary btn-lg"
+                    style="width: 100%; margin-top: var(--space-6);">
+                    Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/config.js"></script>
+    <script>
+        (function () {
+            const form = document.getElementById('login-form');
+            const errorDiv = document.getElementById('login-error');
+            const submitBtn = document.getElementById('submit-btn');
+
+            // Check if already logged in
+            checkAuth();
+
+            async function checkAuth() {
+                try {
+                    const response = await api('/auth/me');
+                    if (response.success) {
+                        window.location.href = '/admin/dashboard.html';
+                    }
+                } catch (e) {
+                    // Not logged in, show form
+                }
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                errorDiv.classList.remove('show');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Signing in...';
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                try {
+                    const response = await adminApi.login(email, password);
+                    if (response.success) {
+                        window.location.href = '/admin/dashboard.html';
+                    }
+                } catch (error) {
+                    errorDiv.textContent = error.message || 'Invalid credentials';
+                    errorDiv.classList.add('show');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Sign In';
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gallery - SR University Coding Club photos and memories.">
+
+    <meta name="theme-color" content="#7c3aed">
+    <link rel="stylesheet" href="./css/main.css">
+
+    <title>Gallery | SR University Coding Club</title>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="bg-gradient-orbs" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">>_</div>
+                <span>srucc</span>
+            </a>
+
+            <nav class="nav-main" role="navigation" aria-label="Main navigation">
+                <a href="./projects.html" class="nav-link">Projects</a>
+                <a href="./learn.html" class="nav-link">Learn</a>
+                <a href="./events.html" class="nav-link">Events</a>
+                <a href="./gallery.html" class="nav-link active">Gallery</a>
+                <a href="./team.html" class="nav-link">Team</a>
+                <a href="./community.html" class="nav-link">Community</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                </button>
+                <!-- Guest buttons (shown when logged out) -->
+                <div id="guest-nav" class="auth-nav">
+                    <a href="./login.html" class="btn btn-ghost btn-sm">Sign in</a>
+                    <a href="./join.html" class="btn btn-primary btn-sm">Join</a>
+                </div>
+                <!-- User menu (shown when logged in) -->
+                <div id="user-nav" class="user-menu" style="display: none;">
+                    <button class="user-menu-trigger" aria-expanded="false" aria-haspopup="true" aria-label="User menu">
+                        <span class="user-initials" id="user-initials">?</span>
+                        <img class="user-avatar" id="user-avatar" src="" alt="" style="display: none;">
+                    </button>
+                    <div class="user-menu-dropdown" role="menu">
+                        <a href="#" id="profile-link" class="user-menu-item" role="menuitem">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            Profile
+                        </a>
+                        <a href="#" id="dashboard-link" class="user-menu-item" role="menuitem">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                            Dashboard
+                        </a>
+                        <hr class="user-menu-divider">
+                        <button id="logout-btn" class="user-menu-item danger" role="menuitem">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                                <polyline points="16,17 21,12 16,7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg>
+                            Sign out
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <!-- Page Header -->
+        <section class="section page-header-section">
+            <div class="container">
+                <div class="page-header" data-animate>
+                    <h1 class="page-title">
+                        <span class="page-title-prefix">~/</span>gallery
+                    </h1>
+                    <p class="page-description">
+                        Moments from hackathons, workshops, and build sessions.
+                    </p>
+                </div>
+
+                <!-- Filters -->
+                <div class="gallery-filters" data-animate data-delay="1">
+                    <button class="filter-btn active" data-filter="all">All Photos</button>
+                    <button class="filter-btn" data-filter="workshop">Workshops</button>
+                    <button class="filter-btn" data-filter="hackathon">Hackathons</button>
+                    <button class="filter-btn" data-filter="meetup">Meetups</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Grid -->
+        <section class="section pt-0">
+            <div class="container">
+                <!-- Loading State -->
+                <div id="gallery-loading" class="center-text py-12">
+                    <div class="spinner spinner-lg"></div>
+                    <p class="text-muted mt-4">Loading photos...</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="gallery-empty" class="center-text py-12" style="display: none;">
+                    <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="var(--text-muted)"
+                        stroke-width="1" style="margin: 0 auto;">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                    <h3 class="mt-4">No photos yet</h3>
+                    <p class="text-muted">Photos from our events will appear here!</p>
+                </div>
+
+                <!-- Gallery Grid Container -->
+                <div class="gallery-grid" id="gallery-grid"></div>
+
+                <!-- Load More -->
+                <div id="load-more-container" class="center-text mt-8" style="display: none;">
+                    <button class="btn btn-secondary" id="load-more-btn">Load More</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightbox" style="display: none;">
+        <button class="lightbox-close" aria-label="Close">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        </button>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightbox-img">
+            <p class="lightbox-caption" id="lightbox-caption"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="./gallery.html" class="footer-link">Gallery</a>
+                <a href="./team.html" class="footer-link">Team</a>
+                <a href="https://github.com/sr-coding-club" class="footer-link" target="_blank">GitHub</a>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    <span class="t-muted">// </span>Built by students, for students.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import dataService from './js/core/data.js';
+        import store from './js/core/store.js';
+        import { initHeaderAuth } from './js/components/header-auth.js';
+        import { escapeHtml } from './js/utils/security.js';
+
+        // Initialize theme
+        store.initTheme();
+        document.documentElement.classList.add('js-ready');
+
+        // Initialize auth-aware header navigation
+        initHeaderAuth();
+
+        // Animate elements
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+        }
+
+        // State
+        let currentFilter = 'all';
+        let currentPage = 1;
+        let allPhotos = [];
+        let hasMore = false;
+
+        // DOM Elements
+        const galleryGrid = document.getElementById('gallery-grid');
+        const loadingEl = document.getElementById('gallery-loading');
+        const emptyEl = document.getElementById('gallery-empty');
+        const loadMoreContainer = document.getElementById('load-more-container');
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+
+        // Render gallery item
+        function renderGalleryItem(item, index) {
+            return `
+                <div class="gallery-item card-interactive hover-3d" data-category="${item.category}" data-id="${item.id}" style="--stagger: ${index}">
+                    <div class="gallery-item-inner preserve-3d">
+                        <img src="${escapeHtml(item.url)}" alt="${escapeHtml(item.caption)}" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="gallery-badge">${escapeHtml(item.category)}</span>
+                            <h4>${escapeHtml(item.caption)}</h4>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render gallery
+        function renderGallery(photos, append = false) {
+            if (photos.length === 0 && !append) {
+                galleryGrid.innerHTML = '';
+                emptyEl.style.display = 'block';
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            emptyEl.style.display = 'none';
+
+            const startIndex = append ? allPhotos.length - photos.length : 0;
+            const html = photos.map((p, i) => renderGalleryItem(p, startIndex + i)).join('');
+
+            if (append) {
+                galleryGrid.innerHTML += html;
+            } else {
+                galleryGrid.innerHTML = html;
+            }
+
+            loadMoreContainer.style.display = hasMore ? 'block' : 'none';
+
+            // Add click handlers for lightbox
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    const title = item.querySelector('h4')?.textContent || '';
+                    openLightbox(img.src, title);
+                });
+            });
+        }
+
+        // Filter gallery
+        function filterGallery(filter) {
+            currentFilter = filter;
+            currentPage = 1;
+            loadGallery();
+        }
+
+        // Load gallery from API
+        async function loadGallery(append = false) {
+            try {
+                if (!append) {
+                    loadingEl.style.display = 'block';
+                    galleryGrid.innerHTML = '';
+                }
+
+                const category = currentFilter === 'all' ? undefined : currentFilter;
+                const response = await dataService.getGallery({
+                    category,
+                    page: currentPage,
+                    limit: 12
+                });
+
+                // Handle both formats: {items: [...]} or direct array or {data: [...]}
+                const photos = response.items || response.data || (Array.isArray(response) ? response : []);
+                hasMore = response.pagination?.page < response.pagination?.pages;
+
+                if (append) {
+                    allPhotos = [...allPhotos, ...photos];
+                } else {
+                    allPhotos = photos;
+                }
+
+                loadingEl.style.display = 'none';
+                renderGallery(photos, append);
+            } catch (error) {
+                console.error('Failed to load gallery:', error);
+                loadingEl.style.display = 'none';
+
+                galleryGrid.innerHTML = `
+                    <div class="center-text py-8" style="grid-column: 1 / -1;">
+                        <p class="text-muted">Unable to load gallery. Please check if the server is running.</p>
+                        <button class="btn btn-secondary mt-4" onclick="location.reload()">Retry</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Lightbox functions
+        function openLightbox(src, caption) {
+            lightboxImg.src = src;
+            lightboxCaption.textContent = caption;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterGallery(btn.dataset.filter);
+            });
+        });
+
+        loadMoreBtn?.addEventListener('click', () => {
+            currentPage++;
+            loadGallery(true);
+        });
+
+        document.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
+        lightbox?.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Theme toggle
+        function setupThemeToggle() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+
+            const updateIcon = () => {
+                const isDark = store.getState().theme === 'dark';
+                btn.innerHTML = isDark
+                    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+                    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+            };
+
+            updateIcon();
+            btn.addEventListener('click', () => {
+                store.toggleTheme();
+                updateIcon();
+            });
+        }
+
+        // Initialize
+        initAnimations();
+        setupThemeToggle();
+        loadGallery();
+    </script>
+
+    <style>
+        /* Page header theme-aware */
+        [data-theme="light"] .page-header {
+            text-align: center;
+        }
+
+        [data-theme="light"] .page-header-desc {
+            max-width: 600px;
+            margin-inline: auto;
+        }
+
+        [data-theme="dark"] .page-header {
+            text-align: left;
+        }
+
+        /* Filters theme-aware */
+        .gallery-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-top: var(--space-8);
+        }
+
+        [data-theme="light"] .gallery-filters {
+            justify-content: center;
+        }
+
+        [data-theme="dark"] .gallery-filters {
+            justify-content: flex-start;
+        }
+
+        .filter-btn {
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--text-muted);
+            background: transparent;
+            cursor: pointer;
+            transition: all var(--duration-base) var(--ease-default);
+        }
+
+        [data-theme="light"] .filter-btn {
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-full);
+        }
+
+        [data-theme="light"] .filter-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--primary);
+        }
+
+        [data-theme="light"] .filter-btn.active {
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-color: transparent;
+        }
+
+        [data-theme="dark"] .filter-btn {
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-sm);
+        }
+
+        [data-theme="dark"] .filter-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        [data-theme="dark"] .filter-btn.active {
+            color: var(--bg-body);
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Gallery grid */
+        .gallery-grid {
+            display: grid;
+            gap: var(--space-4);
+        }
+
+        [data-theme="light"] .gallery-grid {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        [data-theme="dark"] .gallery-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+
+        /* Gallery item */
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        [data-theme="light"] .gallery-item {
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-2);
+        }
+
+        [data-theme="dark"] .gallery-item {
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-default);
+        }
+
+        /* Dark theme stagger effect */
+        [data-theme="dark"] .gallery-item:nth-child(3n+2) {
+            transform: translateY(24px);
+        }
+
+        [data-theme="dark"] .gallery-item:nth-child(5n+3) {
+            transform: translateY(-12px);
+        }
+
+        .gallery-item-inner {
+            width: 100%;
+            height: 100%;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--duration-base) var(--ease-default);
+        }
+
+        [data-theme="light"] .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        [data-theme="dark"] .gallery-item:hover img {
+            transform: perspective(500px) rotateY(-3deg) scale(1.02);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 40%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--space-4);
+            opacity: 0;
+            transition: opacity var(--duration-fast) var(--ease-default);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-badge {
+            display: inline-block;
+            padding: var(--space-1) var(--space-2);
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-full);
+            text-transform: capitalize;
+            margin-bottom: var(--space-2);
+            width: fit-content;
+        }
+
+        [data-theme="dark"] .gallery-badge {
+            border-radius: var(--radius-sm);
+        }
+
+        .gallery-overlay h4 {
+            color: white;
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+        }
+
+        /* Lightbox */
+        .lightbox-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8);
+        }
+
+        [data-theme="light"] .lightbox-modal {
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        [data-theme="dark"] .lightbox-modal {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            padding: var(--space-2);
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all var(--duration-fast);
+        }
+
+        .lightbox-close:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        [data-theme="dark"] .lightbox-close:hover {
+            color: var(--primary);
+        }
+
+        .lightbox-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-modal img {
+            max-width: 90vw;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        [data-theme="light"] .lightbox-modal img {
+            border-radius: var(--radius-lg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="dark"] .lightbox-modal img {
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-default);
+        }
+
+        .lightbox-caption {
+            color: white;
+            margin-top: var(--space-4);
+            font-size: var(--text-lg);
+        }
+
+        [data-theme="dark"] .lightbox-caption {
+            color: var(--primary);
+        }
+    </style>
+</body>
+
+</html>

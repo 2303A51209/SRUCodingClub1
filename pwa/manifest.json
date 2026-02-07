@@ -1,0 +1,53 @@
+{
+    "name": "SR University Coding Club",
+    "short_name": "Coding Club",
+    "description": "SR University Coding Club - Learn, Build, Innovate",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#030712",
+    "theme_color": "#7c3aed",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/assets/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/assets/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "education",
+        "productivity"
+    ],
+    "screenshots": [],
+    "shortcuts": [
+        {
+            "name": "Events",
+            "short_name": "Events",
+            "url": "/events.html",
+            "icons": [
+                {
+                    "src": "/assets/icons/events.png",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "Dashboard",
+            "short_name": "Dashboard",
+            "url": "/dashboards/member/index.html",
+            "icons": [
+                {
+                    "src": "/assets/icons/dashboard.png",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ]
+}

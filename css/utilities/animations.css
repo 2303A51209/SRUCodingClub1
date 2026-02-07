@@ -1,0 +1,387 @@
+/* ==========================================================================
+   DUAL-IDENTITY ANIMATION SYSTEM
+   Light: Gravity-based vertical motion
+   Dark: Parallax horizontal + depth motion
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE ANIMATION SETUP
+   ========================================================================== */
+
+/* Elements marked for animation */
+[data-animate] {
+    opacity: 1;
+    transform: none;
+}
+
+/* When JS is ready, hide elements for animation */
+.js-ready [data-animate] {
+    opacity: 0;
+    transform: var(--animate-from);
+    transition: opacity var(--animate-duration) var(--animate-timing),
+        transform var(--animate-duration) var(--animate-timing);
+}
+
+/* Animated (visible) state */
+.js-ready [data-animate].visible {
+    opacity: 1;
+    transform: var(--animate-to);
+}
+
+/* Stagger delays */
+[data-delay="1"] {
+    transition-delay: 100ms;
+}
+
+[data-delay="2"] {
+    transition-delay: 200ms;
+}
+
+[data-delay="3"] {
+    transition-delay: 300ms;
+}
+
+[data-delay="4"] {
+    transition-delay: 400ms;
+}
+
+[data-delay="5"] {
+    transition-delay: 500ms;
+}
+
+[data-delay="6"] {
+    transition-delay: 600ms;
+}
+
+/* ==========================================================================
+   🌞 LIGHT THEME ANIMATIONS — Gravity-Based
+   ========================================================================== */
+
+/* Override animation direction for light theme */
+[data-theme="light"] .js-ready [data-animate] {
+    --animate-from: translateY(50px);
+    --animate-to: translateY(0);
+    --animate-duration: 600ms;
+    --animate-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light: Fade up from bottom */
+[data-theme="light"] .js-ready [data-animate="fade-up"] {
+    --animate-from: translateY(60px);
+}
+
+/* Light: Scale in with gravity */
+[data-theme="light"] .js-ready [data-animate="scale-in"] {
+    --animate-from: translateY(30px) scale(0.95);
+    --animate-to: translateY(0) scale(1);
+}
+
+/* Light: Subtle lift */
+[data-theme="light"] .js-ready [data-animate="lift"] {
+    --animate-from: translateY(20px);
+    --animate-duration: 400ms;
+}
+
+/* Light: Section reveal */
+[data-theme="light"] .js-ready [data-animate="section"] {
+    --animate-from: translateY(80px);
+    --animate-duration: 800ms;
+}
+
+/* ==========================================================================
+   🌑 DARK THEME ANIMATIONS — Parallax + Snap
+   ========================================================================== */
+
+/* Override animation direction for dark theme */
+[data-theme="dark"] .js-ready [data-animate] {
+    --animate-from: translateX(-80px) translateZ(-60px);
+    --animate-to: translateX(0) translateZ(0);
+    --animate-duration: 450ms;
+    --animate-timing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Dark: Slide in from left with depth */
+[data-theme="dark"] .js-ready [data-animate="fade-up"] {
+    --animate-from: translateX(-100px) translateZ(-80px) rotateY(8deg);
+    --animate-to: translateX(0) translateZ(0) rotateY(0);
+}
+
+/* Dark: Scale snap */
+[data-theme="dark"] .js-ready [data-animate="scale-in"] {
+    --animate-from: translateX(-40px) scale(0.9) rotateY(5deg);
+    --animate-to: translateX(0) scale(1) rotateY(0);
+    --animate-duration: 350ms;
+}
+
+/* Dark: Quick snap in */
+[data-theme="dark"] .js-ready [data-animate="lift"] {
+    --animate-from: translateX(-60px) translateZ(-40px);
+    --animate-duration: 300ms;
+}
+
+/* Dark: Section reveal with perspective */
+[data-theme="dark"] .js-ready [data-animate="section"] {
+    --animate-from: translateX(-120px) translateZ(-100px) rotateY(10deg);
+    --animate-duration: 550ms;
+}
+
+/* Dark: Alternate direction (from right) */
+[data-theme="dark"] .js-ready [data-animate="alt"] {
+    --animate-from: translateX(80px) translateZ(-60px) rotateY(-8deg);
+}
+
+/* ==========================================================================
+   HOVER ANIMATIONS
+   ========================================================================== */
+
+/* Light: Lift with shadow growth */
+[data-theme="light"] .hover-lift {
+    transition: transform var(--duration-slow) var(--ease-default),
+        box-shadow var(--duration-slow) var(--ease-default);
+}
+
+[data-theme="light"] .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-3);
+}
+
+/* Dark: Perspective shift with glow */
+[data-theme="dark"] .hover-lift {
+    transition: transform var(--duration-base) var(--ease-snap),
+        box-shadow var(--duration-base) var(--ease-snap);
+}
+
+[data-theme="dark"] .hover-lift:hover {
+    transform: translateX(-4px) translateZ(20px) rotateY(-2deg);
+    box-shadow: var(--glow-primary);
+}
+
+/* ==========================================================================
+   BUTTON ANIMATIONS
+   ========================================================================== */
+
+/* Light: Subtle press and lift */
+[data-theme="light"] .btn {
+    transition: all var(--duration-base) var(--ease-default);
+}
+
+[data-theme="light"] .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2);
+}
+
+[data-theme="light"] .btn:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-1);
+}
+
+/* Dark: Glow pulse and snap */
+[data-theme="dark"] .btn {
+    transition: all var(--duration-fast) var(--ease-snap);
+    position: relative;
+}
+
+[data-theme="dark"] .btn:hover {
+    transform: translateX(-2px) scale(1.02);
+}
+
+[data-theme="dark"] .btn:active {
+    transform: translateX(0) scale(0.98);
+}
+
+/* Dark: Primary button glow effect */
+[data-theme="dark"] .btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-snap);
+    z-index: -1;
+    border-radius: inherit;
+}
+
+[data-theme="dark"] .btn-primary:hover::before {
+    opacity: 0.3;
+}
+
+/* ==========================================================================
+   CARD ANIMATIONS
+   ========================================================================== */
+
+/* Light: Elevation on hover */
+[data-theme="light"] .card-interactive {
+    transition: transform var(--duration-slow) var(--ease-default),
+        box-shadow var(--duration-slow) var(--ease-default);
+}
+
+[data-theme="light"] .card-interactive:hover {
+    transform: translateY(-12px) rotateX(2deg);
+    box-shadow: var(--shadow-4);
+}
+
+/* Dark: Perspective tilt with glow */
+[data-theme="dark"] .card-interactive {
+    transition: all var(--duration-base) var(--ease-snap);
+    transform-origin: center center;
+}
+
+[data-theme="dark"] .card-interactive:hover {
+    transform: perspective(800px) rotateY(-4deg) translateZ(30px);
+    box-shadow: 0 0 0 1px var(--primary),
+        0 0 20px rgba(6, 214, 160, 0.1);
+}
+
+/* ==========================================================================
+   LOADING ANIMATIONS
+   ========================================================================== */
+
+/* Light: Pulsing skeleton */
+[data-theme="light"] .skeleton-loader {
+    background: linear-gradient(90deg,
+            var(--bg-surface-sunken) 0%,
+            var(--bg-surface) 50%,
+            var(--bg-surface-sunken) 100%);
+    background-size: 200% 100%;
+    animation: skeletonLight 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonLight {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Dark: Scanning glow */
+[data-theme="dark"] .skeleton-loader {
+    background: var(--bg-surface);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .skeleton-loader::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(6, 214, 160, 0.1),
+            transparent);
+    animation: skeletonDark 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonDark {
+    0% {
+        left: -50%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+/* ==========================================================================
+   SPINNER
+   ========================================================================== */
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-default);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+[data-theme="light"] .spinner {
+    border-top-color: var(--primary);
+}
+
+[data-theme="dark"] .spinner {
+    border-color: var(--border-subtle);
+    border-top-color: var(--primary);
+    border-right-color: var(--accent);
+}
+
+.spinner-lg {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+.spinner-xl {
+    width: 56px;
+    height: 56px;
+    border-width: 4px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   PAGE TRANSITIONS
+   ========================================================================== */
+
+/* Light: Fade up */
+[data-theme="light"] .page-transition-enter {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+[data-theme="light"] .page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 400ms var(--ease-default);
+}
+
+/* Dark: Slide + depth */
+[data-theme="dark"] .page-transition-enter {
+    opacity: 0;
+    transform: translateX(-30px) translateZ(-50px);
+}
+
+[data-theme="dark"] .page-transition-enter-active {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+    transition: all 350ms var(--ease-snap);
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    [data-animate] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .hover-lift:hover,
+    .card-interactive:hover,
+    .btn:hover {
+        transform: none !important;
+    }
+}

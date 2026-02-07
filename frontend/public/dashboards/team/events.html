@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Team Events - SR University Coding Club">
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="../../css/main.css">
+    <title>Events | Team Dashboard</title>
+</head>
+
+<body>
+    <div class="page-loader" id="page-loader">
+        <div class="loader-logo">
+            <div class="spinner spinner-xl"></div>
+        </div>
+        <p class="loader-text">Loading events...</p>
+    </div>
+
+    <div class="dashboard" id="dashboard" style="display: none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="logo">
+                    <div class="logo-icon">>_</div>
+                    <span>srucc</span>
+                </a>
+                <span class="badge"
+                    style="background: var(--primary); color: white; font-size: 10px; padding: 2px 6px;">TEAM</span>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Overview</p>
+                    <a href="/dashboards/team/index.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        </svg>
+                        Dashboard
+                    </a>
+                </div>
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Manage</p>
+                    <a href="/dashboards/team/events.html" class="sidebar-link active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" />
+                        </svg>
+                        Events
+                    </a>
+                    <a href="/dashboards/team/gallery.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                        </svg>
+                        Gallery
+                    </a>
+                    <a href="/dashboards/team/announcements.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 17H2a3 3 0 003-3V9a7 7 0 0114 0v5a3 3 0 003 3zm-8.27 4a2 2 0 01-3.46 0" />
+                        </svg>
+                        Announcements
+                    </a>
+                    <a href="/dashboards/team/attendance.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        Attendance
+                    </a>
+                </div>
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Personal</p>
+                    <a href="/dashboards/team/profile.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Profile
+                    </a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn btn-ghost w-full" id="logout-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">Events</h1>
+                    <p class="dashboard-subtitle">Manage your assigned events</p>
+                </div>
+                <button class="btn btn-primary" id="create-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Create Event
+                </button>
+            </header>
+
+            <section class="card">
+                <div class="card-body">
+                    <div id="events-container" class="events-grid">
+                        <div class="loading-placeholder">Loading...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Event Modal -->
+    <div class="modal-overlay" id="modal" style="display: none;">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3 id="modal-title">Create Event</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <form id="form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="title">Title *</label>
+                        <input type="text" id="title" class="form-input" required placeholder="Event title">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" class="form-input" rows="3"
+                            placeholder="About this event..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date *</label>
+                            <input type="datetime-local" id="date" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" class="form-input" placeholder="Venue">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="capacity">Capacity</label>
+                            <input type="number" id="capacity" class="form-input" placeholder="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" class="form-input">
+                                <option value="upcoming">Upcoming</option>
+                                <option value="ongoing">Ongoing</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" id="modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script type="module">
+        import auth from '../../js/core/auth.js';
+        import routeGuard from '../../js/guards/routeGuard.js';
+        import store from '../../js/core/store.js';
+
+        store.initTheme();
+
+        let events = [];
+        let editingId = null;
+
+        async function init() {
+            const allowed = await routeGuard.check({ roles: ['admin', 'team'] });
+            if (!allowed) return;
+
+            document.getElementById('page-loader').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'grid';
+
+            setupEventListeners();
+            await loadEvents();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('create-btn').addEventListener('click', () => openModal());
+            document.getElementById('modal-close').addEventListener('click', closeModal);
+            document.getElementById('modal-cancel').addEventListener('click', closeModal);
+            document.getElementById('form').addEventListener('submit', handleSubmit);
+            document.getElementById('logout-btn').addEventListener('click', () => auth.logout());
+        }
+
+        async function loadEvents() {
+            const token = localStorage.getItem('sb_access_token');
+            try {
+                const response = await fetch('/api/v1/events?limit=50', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!response.ok) throw new Error('Failed');
+                const result = await response.json();
+                events = result.data || [];
+                renderEvents();
+            } catch (error) {
+                console.error(error);
+                showToast('Failed to load events', 'error');
+            }
+        }
+
+        function renderEvents() {
+            const container = document.getElementById('events-container');
+            if (!events.length) {
+                container.innerHTML = `<div class="empty-state"><p>No events yet</p><button class="btn btn-primary mt-4" onclick="document.getElementById('create-btn').click()">Create First Event</button></div>`;
+                return;
+            }
+            container.innerHTML = events.map(event => {
+                const date = new Date(event.date);
+                return `
+                    <article class="event-card">
+                        <div class="event-card-header">
+                            <div class="event-date-badge">
+                                <span class="day">${date.getDate()}</span>
+                                <span class="month">${date.toLocaleString('default', { month: 'short' })}</span>
+                            </div>
+                            <span class="status-badge status-${event.status || 'upcoming'}">${event.status || 'upcoming'}</span>
+                        </div>
+                        <h3 class="event-card-title">${event.title}</h3>
+                        <p class="event-card-desc">${event.description || 'No description'}</p>
+                        <div class="event-card-meta">
+                            <span>${event.location || 'TBA'}</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn btn-ghost btn-sm" onclick="editEvent('${event.id}')">Edit</button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        function openModal(event = null) {
+            editingId = event?.id || null;
+            document.getElementById('modal-title').textContent = event ? 'Edit Event' : 'Create Event';
+            if (event) {
+                document.getElementById('title').value = event.title || '';
+                document.getElementById('description').value = event.description || '';
+                document.getElementById('date').value = event.date ? event.date.slice(0, 16) : '';
+                document.getElementById('location').value = event.location || '';
+                document.getElementById('capacity').value = event.capacity || '';
+                document.getElementById('status').value = event.status || 'upcoming';
+            } else {
+                document.getElementById('form').reset();
+            }
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            editingId = null;
+        }
+
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const token = localStorage.getItem('sb_access_token');
+            const data = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                date: new Date(document.getElementById('date').value).toISOString(),
+                location: document.getElementById('location').value || null,
+                capacity: parseInt(document.getElementById('capacity').value) || null,
+                status: document.getElementById('status').value,
+            };
+            try {
+                const url = editingId ? `/api/v1/events/${editingId}` : '/api/v1/events';
+                const response = await fetch(url, {
+                    method: editingId ? 'PATCH' : 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) throw new Error('Failed');
+                showToast(editingId ? 'Event updated' : 'Event created', 'success');
+                closeModal();
+                await loadEvents();
+            } catch (error) {
+                showToast('Failed to save event', 'error');
+            }
+        }
+
+        window.editEvent = function (id) {
+            const event = events.find(e => e.id === id);
+            if (event) openModal(event);
+        };
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        init();
+    </script>
+
+    <style>
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .event-card {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            transition: all var(--transition-fast);
+        }
+
+        .event-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .event-card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+        }
+
+        .event-date-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--space-2) var(--space-3);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--radius-lg);
+            color: white;
+        }
+
+        .event-date-badge .day {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            line-height: 1;
+        }
+
+        .event-date-badge .month {
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+        }
+
+        .status-badge {
+            font-size: var(--text-xs);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+            text-transform: capitalize;
+        }
+
+        .status-upcoming {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .status-ongoing {
+            background: rgba(139, 92, 246, 0.2);
+            color: #8b5cf6;
+        }
+
+        .status-completed {
+            background: rgba(107, 114, 128, 0.2);
+            color: #6b7280;
+        }
+
+        .event-card-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-2);
+        }
+
+        .event-card-desc {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            margin-bottom: var(--space-3);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .event-card-meta {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+            margin-bottom: var(--space-3);
+        }
+
+        .event-card-actions {
+            display: flex;
+            gap: var(--space-2);
+            border-top: 1px solid var(--glass-border);
+            padding-top: var(--space-3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--space-12);
+            grid-column: 1 / -1;
+        }
+
+        .loading-placeholder {
+            text-align: center;
+            padding: var(--space-8);
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .modal-lg {
+            max-width: 550px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: var(--space-6);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-3);
+            padding: var(--space-4) var(--space-6);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            margin-bottom: var(--space-2);
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-3);
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+            font-size: var(--text-sm);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            z-index: 1100;
+        }
+
+        .toast {
+            padding: var(--space-3) var(--space-4);
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-sm);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s;
+            margin-top: var(--space-2);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast-success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .toast-error {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .mt-4 {
+            margin-top: var(--space-4);
+        }
+    </style>
+</body>
+
+</html>

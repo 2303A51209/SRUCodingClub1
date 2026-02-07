@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Event Details - SR University Coding Club">
+
+    <meta name="theme-color" content="#7c3aed">
+    <link rel="stylesheet" href="./css/main.css">
+
+    <title>Event Details | SR University Coding Club</title>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="bg-gradient-orbs" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">>_</div>
+                <span>srucc</span>
+            </a>
+
+            <nav class="nav-main" role="navigation" aria-label="Main navigation">
+                <a href="./projects.html" class="nav-link">Projects</a>
+                <a href="./learn.html" class="nav-link">Learn</a>
+                <a href="./events.html" class="nav-link active">Events</a>
+                <a href="./gallery.html" class="nav-link">Gallery</a>
+                <a href="./team.html" class="nav-link">Team</a>
+                <a href="./community.html" class="nav-link">Community</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                </button>
+                <!-- Auth Slot -->
+                <div id="auth-actions" class="auth-actions"></div>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <!-- Loading -->
+        <div id="page-loader" class="center-text py-20">
+            <div class="spinner spinner-xl"></div>
+            <p class="text-muted mt-4">Loading event details...</p>
+        </div>
+
+        <!-- Event Content -->
+        <div id="event-content" style="display: none;">
+            <!-- Hero -->
+            <section class="section py-12">
+                <div class="container">
+                    <div class="event-hero">
+                        <div class="event-hero-content">
+                            <span class="badge badge-primary mb-4" id="event-type">Hackathon</span>
+                            <h1 class="page-title mb-2" id="event-title">Event Title</h1>
+                            <p class="text-xl text-secondary mb-6" id="event-tagline">Code, Build, Ship.</p>
+
+                            <div class="event-meta-grid mb-8">
+                                <div class="meta-item">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                        <line x1="16" y1="2" x2="16" y2="6" />
+                                        <line x1="8" y1="2" x2="8" y2="6" />
+                                        <line x1="3" y1="10" x2="21" y2="10" />
+                                    </svg>
+                                    <span id="event-date">Oct 25, 2026</span>
+                                </div>
+                                <div class="meta-item">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                        <circle cx="12" cy="10" r="3" />
+                                    </svg>
+                                    <span id="event-location">Online</span>
+                                </div>
+                                <div class="meta-item">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+                                    </svg>
+                                    <span id="event-capacity">Unlimited</span>
+                                </div>
+                            </div>
+
+                            <a href="#" id="register-btn" class="btn btn-primary btn-lg">Register Now</a>
+                        </div>
+                        <div class="event-hero-image" id="event-image-container">
+                            <!-- Image injected here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Tabs -->
+            <div class="tabs-container sticky-tabs">
+                <div class="container">
+                    <nav class="tabs-nav">
+                        <button class="tab-btn active" data-tab="about">About</button>
+                        <button class="tab-btn" data-tab="schedule">Schedule</button>
+                        <button class="tab-btn" data-tab="rules">Rules</button>
+                        <button class="tab-btn" data-tab="prizes">Prizes</button>
+                        <button class="tab-btn" data-tab="faq">FAQ</button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <section class="section">
+                <div class="container">
+                    <div class="content-wrapper">
+                        <!-- About -->
+                        <div class="tab-content active" id="tab-about">
+                            <div class="prose" id="event-description"></div>
+
+                            <div class="mt-8" id="sponsors-section">
+                                <h3>Sponsors</h3>
+                                <div class="sponsors-grid" id="sponsors-grid"></div>
+                            </div>
+                        </div>
+
+                        <!-- Schedule -->
+                        <div class="tab-content" id="tab-schedule">
+                            <div class="timeline" id="schedule-timeline">
+                                <p class="text-muted">Schedule to be announced.</p>
+                            </div>
+                        </div>
+
+                        <!-- Rules -->
+                        <div class="tab-content" id="tab-rules">
+                            <ul class="list-check" id="rules-list">
+                                <li class="text-muted">No rules specified.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Prizes -->
+                        <div class="tab-content" id="tab-prizes">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="prizes-grid">
+                                <p class="text-muted">Prizes to be announced.</p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ -->
+                        <div class="tab-content" id="tab-faq">
+                            <div class="accordion" id="faq-accordion">
+                                <p class="text-muted">No FAQs yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="./gallery.html" class="footer-link">Gallery</a>
+                <a href="./team.html" class="footer-link">Team</a>
+                <a href="https://github.com/sr-coding-club" class="footer-link" target="_blank">GitHub</a>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    <span class="t-muted">// </span>Built by students, for students.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import dataService from './js/core/data.js';
+        import store from './js/core/store.js';
+        import { escapeHtml } from './js/utils/security.js';
+        import './js/components/header-auth.js';
+
+        store.initTheme();
+
+        const params = new URLSearchParams(window.location.search);
+        const eventId = params.get('id');
+
+        if (!eventId) {
+            window.location.href = './events.html';
+        }
+
+        const dom = {
+            loader: document.getElementById('page-loader'),
+            content: document.getElementById('event-content'),
+            title: document.getElementById('event-title'),
+            tagline: document.getElementById('event-tagline'),
+            date: document.getElementById('event-date'),
+            location: document.getElementById('event-location'),
+            capacity: document.getElementById('event-capacity'),
+            type: document.getElementById('event-type'),
+            desc: document.getElementById('event-description'),
+            registerBtn: document.getElementById('register-btn'),
+            schedule: document.getElementById('schedule-timeline'),
+            rules: document.getElementById('rules-list'),
+            prizes: document.getElementById('prizes-grid'),
+            faq: document.getElementById('faq-accordion'),
+            sponsors: document.getElementById('sponsors-grid'),
+        };
+
+        async function loadEvent() {
+            try {
+                const event = await dataService.getEvent(eventId);
+
+                if (!event) throw new Error('Event not found');
+
+                renderEvent(event);
+                dom.loader.style.display = 'none';
+                dom.content.style.display = 'block';
+            } catch (error) {
+                console.error(error);
+                dom.loader.innerHTML = `<p class="text-error">Failed to load event. <a href="./events.html">Go back</a></p>`;
+            }
+        }
+
+        function renderEvent(event) {
+            document.title = `${event.title} | SRCC Events`;
+
+            // Hero
+            dom.title.textContent = event.title;
+            dom.tagline.textContent = event.tagline || 'Join us for this exciting event.';
+            dom.date.textContent = new Date(event.start_date || event.date).toLocaleDateString(undefined, {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+            dom.location.textContent = event.location || 'TBA';
+            dom.capacity.textContent = event.max_participants ? `${event.max_participants} Spots` : 'Unlimited Spots';
+            dom.type.textContent = (event.event_type || 'Event').toUpperCase();
+
+            // Image
+            if (event.image_url) {
+                dom.content.querySelector('#event-image-container').innerHTML =
+                    `<img src="${escapeHtml(event.image_url)}" alt="${escapeHtml(event.title)}" class="event-image">`;
+            } else {
+                dom.content.querySelector('#event-image-container').innerHTML = ''; // Clear or default
+            }
+
+            // Register Button
+            dom.registerBtn.href = `./register.html?id=${event.id}`;
+            if (event.status === 'completed' || event.status === 'past') {
+                dom.registerBtn.textContent = 'Event Ended';
+                dom.registerBtn.classList.add('btn-disabled');
+                dom.registerBtn.href = '#';
+            }
+
+            // Description (Rich text handled as HTML? Assuming simple text or markdown for now, using innerHTML with sanitation ideally, but simple for now)
+            // If description_rich exists, use it? Or description JSON?
+            // User requested "About the event".
+            dom.desc.textContent = event.description || '';
+            // If using JSONB description_rich, we'd need a renderer. For now falling back to text.
+
+            // Tabs Logic
+            setupTabs();
+
+            // Rules
+            if (event.rules && Array.isArray(event.rules)) {
+                dom.rules.innerHTML = event.rules.map(r => `<li>${escapeHtml(r)}</li>`).join('');
+            }
+
+            // Schedule, Prizes, FAQ would strictly follow similar rendering if Data exists
+            // Since our seed data didn't populate rich fields, these will show defaults.
+        }
+
+        function setupTabs() {
+            const btns = document.querySelectorAll('.tab-btn');
+            const tabs = document.querySelectorAll('.tab-content');
+
+            btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btns.forEach(b => b.classList.remove('active'));
+                    tabs.forEach(t => t.classList.remove('active'));
+
+                    btn.classList.add('active');
+                    document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+                });
+            });
+        }
+
+        // Initialize
+        loadEvent();
+        setupThemeToggle(); // Reuse existing
+
+        function setupThemeToggle() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            // ... same theme logic
+            btn.addEventListener('click', () => store.toggleTheme());
+        }
+    </script>
+
+    <style>
+        .event-hero {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-8);
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .event-hero {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+        }
+
+        .event-meta-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-6);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--text-secondary);
+        }
+
+        /* Tabs */
+        .sticky-tabs {
+            position: sticky;
+            top: 0;
+            background: var(--bg-body);
+            border-bottom: 1px solid var(--border-default);
+            z-index: 10;
+            padding-top: var(--space-4);
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: var(--space-6);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: var(--space-4) 0;
+            color: var(--text-muted);
+            font-weight: var(--font-medium);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* List Check */
+        .list-check {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: var(--space-2);
+        }
+
+        .list-check li {
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .list-check li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+    </style>
+</body>
+
+</html>

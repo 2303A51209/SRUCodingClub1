@@ -1,0 +1,425 @@
+/* ==========================================================================
+   PROJECT CARDS COMPONENT
+   GitHub-style repository cards with tech stacks and metrics
+   ========================================================================== */
+
+/* === Project Card === */
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    transition: all var(--duration-fast) var(--ease-default);
+}
+
+[data-theme="dark"] .project-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+}
+
+[data-theme="dark"] .project-card:hover {
+    border-color: var(--primary);
+    background: rgba(6, 214, 160, 0.02);
+}
+
+[data-theme="light"] .project-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-1);
+}
+
+[data-theme="light"] .project-card:hover {
+    box-shadow: var(--shadow-2);
+    border-color: var(--border-strong);
+}
+
+/* === Project Header === */
+.project-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+}
+
+.project-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--text-muted);
+}
+
+[data-theme="dark"] .project-icon {
+    background: rgba(6, 214, 160, 0.1);
+    border-radius: var(--radius-sm);
+    color: var(--primary);
+}
+
+[data-theme="light"] .project-icon {
+    background: var(--bg-surface-sunken);
+    border-radius: var(--radius-md);
+}
+
+.project-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.project-title-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.project-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.project-name:hover {
+    text-decoration: underline;
+}
+
+[data-theme="dark"] .project-name:hover {
+    color: var(--primary);
+}
+
+[data-theme="light"] .project-name:hover {
+    color: #0969da;
+}
+
+.project-visibility {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-full);
+    text-transform: capitalize;
+}
+
+[data-theme="dark"] .project-visibility {
+    border: 1px solid var(--border-default);
+    color: var(--text-muted);
+}
+
+[data-theme="light"] .project-visibility {
+    border: 1px solid var(--border-default);
+    color: var(--text-muted);
+}
+
+/* === Project Description === */
+.project-description {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* === Tech Stack === */
+.project-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.tech-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+}
+
+[data-theme="dark"] .tech-badge {
+    background: rgba(139, 148, 158, 0.1);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .tech-badge {
+    background: var(--bg-surface-sunken);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+}
+
+.tech-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+/* Language colors */
+.tech-dot--javascript {
+    background: #f1e05a;
+}
+
+.tech-dot--typescript {
+    background: #3178c6;
+}
+
+.tech-dot--python {
+    background: #3572a5;
+}
+
+.tech-dot--rust {
+    background: #dea584;
+}
+
+.tech-dot--go {
+    background: #00add8;
+}
+
+.tech-dot--java {
+    background: #b07219;
+}
+
+.tech-dot--html {
+    background: #e34c26;
+}
+
+.tech-dot--css {
+    background: #563d7c;
+}
+
+.tech-dot--react {
+    background: #61dafb;
+}
+
+.tech-dot--vue {
+    background: #41b883;
+}
+
+.tech-dot--node {
+    background: #339933;
+}
+
+.tech-dot--postgres {
+    background: #336791;
+}
+
+/* === Project Metrics === */
+.project-metrics {
+    display: flex;
+    gap: var(--space-4);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin-top: auto;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.project-metric {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.project-metric svg {
+    width: 14px;
+    height: 14px;
+}
+
+.project-metric:hover {
+    color: var(--text-secondary);
+}
+
+/* === Project Actions === */
+.project-actions {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+
+/* === Featured Project (Large Card) === */
+.project-card--featured {
+    grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+    .project-card--featured {
+        grid-column: span 1;
+    }
+}
+
+.project-card--featured .project-description {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+}
+
+/* === Code Snippet in Project Card === */
+.project-code-preview {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    padding: var(--space-3);
+    overflow-x: auto;
+    margin-top: var(--space-2);
+}
+
+[data-theme="dark"] .project-code-preview {
+    background: #161b22;
+    border-radius: var(--radius-sm);
+    border: 1px solid #30363d;
+}
+
+[data-theme="light"] .project-code-preview {
+    background: #f6f8fa;
+    border-radius: var(--radius-md);
+    border: 1px solid #d0d7de;
+}
+
+/* === Projects Grid === */
+.projects-grid {
+    display: grid;
+    gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* === Filter Tags === */
+.project-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+}
+
+.filter-tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    padding: var(--space-2) var(--space-4);
+    background: transparent;
+    border: 1px solid var(--border-default);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-default);
+}
+
+[data-theme="dark"] .filter-tag {
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .filter-tag {
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+}
+
+.filter-tag:hover,
+.filter-tag.active {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+[data-theme="dark"] .filter-tag.active {
+    background: rgba(6, 214, 160, 0.1);
+}
+
+[data-theme="light"] .filter-tag.active {
+    background: rgba(9, 105, 218, 0.05);
+}
+
+/* === Contribution Graph (GitHub-style) === */
+.contribution-graph {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+}
+
+.contribution-row {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.contribution-day-label {
+    width: 24px;
+    color: var(--text-muted);
+    text-align: right;
+    padding-right: var(--space-2);
+}
+
+.contribution-cell {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+}
+
+[data-theme="dark"] .contribution-cell {
+    background: #161b22;
+}
+
+[data-theme="light"] .contribution-cell {
+    background: #ebedf0;
+}
+
+/* Contribution levels */
+[data-theme="dark"] .contribution-cell[data-level="1"] {
+    background: #0e4429;
+}
+
+[data-theme="dark"] .contribution-cell[data-level="2"] {
+    background: #006d32;
+}
+
+[data-theme="dark"] .contribution-cell[data-level="3"] {
+    background: #26a641;
+}
+
+[data-theme="dark"] .contribution-cell[data-level="4"] {
+    background: #39d353;
+}
+
+[data-theme="light"] .contribution-cell[data-level="1"] {
+    background: #9be9a8;
+}
+
+[data-theme="light"] .contribution-cell[data-level="2"] {
+    background: #40c463;
+}
+
+[data-theme="light"] .contribution-cell[data-level="3"] {
+    background: #30a14e;
+}
+
+[data-theme="light"] .contribution-cell[data-level="4"] {
+    background: #216e39;
+}
+
+/* === Empty State === */
+.projects-empty {
+    text-align: center;
+    padding: var(--space-12);
+    color: var(--text-muted);
+}
+
+.projects-empty-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto var(--space-4);
+    opacity: 0.5;
+}

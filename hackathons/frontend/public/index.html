@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="SR Coding Club Hackathons - Join exciting coding competitions and showcase your skills">
+    <title>Hackathons | SR Coding Club</title>
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <!-- Background Effects (Theme-aware) -->
+    <div class="bg-gradient-orbs"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="/" class="header__logo">
+            <span class="header__logo-icon">🚀</span>
+            <span>SRCC Hackathons</span>
+        </a>
+        <nav class="header__nav">
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-toggle__light">🌙</span>
+                <span class="theme-toggle__dark">☀️</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="page-section">
+            <div class="container">
+                <!-- Section Header -->
+                <div class="section-header">
+                    <h1 class="section-header__title">
+                        <span class="text-gradient">Hackathons</span>
+                    </h1>
+                    <p class="section-header__subtitle">
+                        Compete, collaborate, and create innovative solutions with fellow developers
+                    </p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="filter-tabs mb-8" id="filter-tabs">
+                    <button class="filter-tab filter-tab--active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="upcoming">Upcoming</button>
+                    <button class="filter-tab" data-filter="live">Live</button>
+                    <button class="filter-tab" data-filter="completed">Completed</button>
+                </div>
+
+                <!-- Hackathon Grid -->
+                <div class="hackathon-grid" id="hackathon-grid">
+                    <!-- Cards loaded dynamically -->
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state hidden" id="empty-state">
+                    <div class="empty-state__icon">🔍</div>
+                    <h3>No hackathons found</h3>
+                    <p class="text-muted">Check back later for upcoming events!</p>
+                </div>
+
+                <!-- Loading Skeletons -->
+                <div class="hackathon-grid" id="loading-skeletons">
+                    <div class="hackathon-card skeleton skeleton-card"></div>
+                    <div class="hackathon-card skeleton skeleton-card"></div>
+                    <div class="hackathon-card skeleton skeleton-card"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 SR University Coding Club. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/config.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/loader.js"></script>
+    <script src="/js/public/index.js"></script>
+
+    <style>
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: var(--space-2);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: var(--space-2) var(--space-4);
+            font-family: var(--font-display);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            background: transparent;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--duration-fast);
+        }
+
+        .filter-tab:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-tab--active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--text-inverse);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-16) var(--space-4);
+        }
+
+        .empty-state__icon {
+            font-size: var(--text-5xl);
+            margin-bottom: var(--space-4);
+        }
+    </style>
+</body>
+
+</html>

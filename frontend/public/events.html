@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Events - SR University Coding Club. Workshops, hackathons, and tech talks.">
+
+    <meta name="theme-color" content="#7c3aed">
+    <link rel="stylesheet" href="./css/main.css">
+
+    <title>Events | SR University Coding Club</title>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="bg-gradient-orbs" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">>_</div>
+                <span>srucc</span>
+            </a>
+
+            <nav class="nav-main" role="navigation" aria-label="Main navigation">
+                <a href="./projects.html" class="nav-link">Projects</a>
+                <a href="./learn.html" class="nav-link">Learn</a>
+                <a href="./events.html" class="nav-link active">Events</a>
+                <a href="./gallery.html" class="nav-link">Gallery</a>
+                <a href="./team.html" class="nav-link">Team</a>
+                <a href="./community.html" class="nav-link">Community</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                </button>
+                <!-- Guest buttons (shown when logged out) -->
+                <div id="guest-nav" class="auth-nav">
+                    <a href="./login.html" class="btn btn-ghost btn-sm">Sign in</a>
+                    <a href="./join.html" class="btn btn-primary btn-sm">Join</a>
+                </div>
+                <!-- User menu (shown when logged in) -->
+                <div id="user-nav" class="user-menu" style="display: none;">
+                    <button class="user-menu-trigger" aria-expanded="false" aria-haspopup="true" aria-label="User menu">
+                        <span class="user-initials" id="user-initials">?</span>
+                        <img class="user-avatar" id="user-avatar" src="" alt="" style="display: none;">
+                    </button>
+                    <div class="user-menu-dropdown" role="menu">
+                        <a href="#" id="profile-link" class="user-menu-item" role="menuitem">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            Profile
+                        </a>
+                        <a href="#" id="dashboard-link" class="user-menu-item" role="menuitem">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                            Dashboard
+                        </a>
+                        <hr class="user-menu-divider">
+                        <button id="logout-btn" class="user-menu-item danger" role="menuitem">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                                <polyline points="16,17 21,12 16,7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg>
+                            Sign out
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <!-- Page Header -->
+        <section class="section page-header-section">
+            <div class="container">
+                <div class="page-header" data-animate>
+                    <h1 class="page-title">
+                        <span class="page-title-prefix">~/</span>events
+                    </h1>
+                    <p class="page-description">
+                        Hackathons, workshops, and build sessions. Ship code, win prizes, learn fast.
+                    </p>
+                </div>
+
+                <!-- Filters -->
+                <div class="events-filters" data-animate data-delay="1">
+                    <button class="filter-btn active" data-filter="all">All Events</button>
+                    <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+                    <button class="filter-btn" data-filter="workshop">Workshops</button>
+                    <button class="filter-btn" data-filter="hackathon">Hackathons</button>
+                    <button class="filter-btn" data-filter="talk">Tech Talks</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Grid -->
+        <section class="section pt-0">
+            <div class="container">
+                <!-- Loading State -->
+                <div id="events-loading" class="center-text py-12">
+                    <div class="spinner spinner-lg"></div>
+                    <p class="text-muted mt-4">Loading events...</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="events-empty" class="center-text py-12" style="display: none;">
+                    <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="var(--text-muted)"
+                        stroke-width="1" style="margin: 0 auto;">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    <h3 class="mt-4">No events found</h3>
+                    <p class="text-muted">Check back later for upcoming events!</p>
+                </div>
+
+                <!-- Events Grid Container -->
+                <div class="events-grid" id="events-grid"></div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section">
+            <div class="container">
+                <div class="card cta-card p-8" data-animate>
+                    <h2 class="mb-4">Want to Host an Event?</h2>
+                    <p class="text-secondary mb-6 cta-desc">
+                        Have an idea for a workshop, talk, or hackathon? We'd love to hear from you!
+                    </p>
+                    <a href="./join.html" class="btn btn-primary">Propose an Event</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="./gallery.html" class="footer-link">Gallery</a>
+                <a href="./team.html" class="footer-link">Team</a>
+                <a href="https://github.com/sr-coding-club" class="footer-link" target="_blank">GitHub</a>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    <span class="t-muted">// </span>Built by students, for students.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import dataService from './js/core/data.js';
+        import store from './js/core/store.js';
+        import { initHeaderAuth } from './js/components/header-auth.js';
+        import { escapeHtml } from './js/utils/security.js';
+
+        // Initialize theme
+        store.initTheme();
+        document.documentElement.classList.add('js-ready');
+
+        // Initialize auth-aware header navigation
+        initHeaderAuth();
+
+        // Animate elements
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+        }
+
+        // State
+        let currentFilter = 'all';
+        let allEvents = [];
+
+        // DOM Elements
+        const eventsGrid = document.getElementById('events-grid');
+        const loadingEl = document.getElementById('events-loading');
+        const emptyEl = document.getElementById('events-empty');
+
+        // Format date
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = date.toLocaleString('en', { month: 'short' });
+            return { day, month };
+        }
+
+        // Format time
+        function formatTime(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleTimeString('en', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+
+        // Get badge class based on type
+        function getBadgeClass(type) {
+            const classes = {
+                workshop: 'badge-primary',
+                hackathon: 'badge-warning',
+                talk: 'badge-info',
+                meetup: 'badge-success',
+                other: ''
+            };
+            return classes[type] || '';
+        }
+
+        // Render event card
+        function renderEventCard(event, index) {
+            const { day, month } = formatDate(event.start_date);
+            const time = formatTime(event.start_date);
+            const isUpcoming = new Date(event.start_date) > new Date();
+            const registrations = event.registrations?.[0]?.count || 0;
+            const maxParticipants = event.max_participants || '∞';
+
+            return `
+                <article class="card card-interactive event-card hover-3d" 
+                         data-category="${event.event_type}" 
+                         data-status="${isUpcoming ? 'upcoming' : 'past'}"
+                         data-id="${event.id}"
+                         style="--stagger: ${index}">
+                    <div class="event-card-inner">
+                        <div class="event-date-block">
+                            <span class="day">${day}</span>
+                            <span class="month">${month}</span>
+                        </div>
+                        <div class="event-info">
+                            <div class="event-meta cluster-sm mb-2">
+                                <span class="badge ${getBadgeClass(event.event_type)}">${escapeHtml(event.event_type)}</span>
+                                <span class="badge ${isUpcoming ? 'badge-success' : 'badge-muted'}">${isUpcoming ? 'Upcoming' : 'Completed'}</span>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">${escapeHtml(event.title)}</h3>
+                            <p class="text-sm text-secondary mb-4">${escapeHtml(event.description?.substring(0, 100) || '')}${event.description?.length > 100 ? '...' : ''}</p>
+                            <div class="event-details cluster-sm text-xs text-muted">
+                                <span class="flex items-center gap-1">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    ${time}
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                    </svg>
+                                    ${registrations}/${maxParticipants}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn ${isUpcoming ? 'btn-primary' : 'btn-secondary'} btn-sm w-full">
+                            ${isUpcoming ? 'Register Now' : 'View Details'}
+                        </a>
+                    </div>
+                </article>
+            `;
+        }
+
+        // Render events
+        function renderEvents(events) {
+            if (events.length === 0) {
+                eventsGrid.innerHTML = '';
+                emptyEl.style.display = 'block';
+                return;
+            }
+
+            emptyEl.style.display = 'none';
+            eventsGrid.innerHTML = events.map(renderEventCard).join('');
+        }
+
+        // Filter events
+        function filterEvents(filter) {
+            currentFilter = filter;
+            let filtered = allEvents;
+
+            if (filter === 'upcoming') {
+                filtered = allEvents.filter(e => new Date(e.start_date) > new Date());
+            } else if (filter !== 'all') {
+                filtered = allEvents.filter(e => e.event_type === filter);
+            }
+
+            renderEvents(filtered);
+        }
+
+        // Load events from API
+        async function loadEvents() {
+            try {
+                loadingEl.style.display = 'block';
+                eventsGrid.innerHTML = '';
+
+                const response = await dataService.getEvents({ limit: 50 });
+                console.log('DEBUG: events response', response);
+
+                // Handle both formats: {data: [...]} or direct array
+                // If response is the array (from data.js unwrapping), use it.
+                // If response is an object with data property, use that.
+                allEvents = (Array.isArray(response) ? response : response.data) || [];
+
+                // On-screen Debug for Success
+                loadingEl.style.display = 'none';
+                renderEvents(allEvents);
+            } catch (error) {
+                console.error('Failed to load events:', error);
+                loadingEl.style.display = 'none';
+
+                loadingEl.style.display = 'none';
+
+                eventsGrid.innerHTML = `
+                    <div class="center-text py-8" style="grid-column: 1 / -1;">
+                        <p class="text-muted">Unable to load events. Please check if the server is running.</p>
+                        <button class="btn btn-secondary mt-4" onclick="location.reload()">Retry</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Setup filters
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterEvents(btn.dataset.filter);
+            });
+        });
+
+        // Theme toggle
+        function setupThemeToggle() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+
+            const updateIcon = () => {
+                const isDark = store.getState().theme === 'dark';
+                btn.innerHTML = isDark
+                    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+                    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+            };
+
+            updateIcon();
+            btn.addEventListener('click', () => {
+                store.toggleTheme();
+                updateIcon();
+            });
+        }
+
+        // Initialize
+        initAnimations();
+        setupThemeToggle();
+        loadEvents();
+    </script>
+
+    <style>
+        /* Page header theme-aware */
+        [data-theme="light"] .page-header {
+            text-align: center;
+        }
+
+        [data-theme="light"] .page-header-desc {
+            max-width: 600px;
+            margin-inline: auto;
+        }
+
+        [data-theme="dark"] .page-header {
+            text-align: left;
+        }
+
+        /* Filters theme-aware */
+        .events-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-top: var(--space-8);
+        }
+
+        [data-theme="light"] .events-filters {
+            justify-content: center;
+        }
+
+        [data-theme="dark"] .events-filters {
+            justify-content: flex-start;
+        }
+
+        .filter-btn {
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--text-muted);
+            background: transparent;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--duration-base) var(--ease-default);
+        }
+
+        [data-theme="light"] .filter-btn {
+            border: 1px solid var(--border-default);
+        }
+
+        [data-theme="light"] .filter-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--primary);
+        }
+
+        [data-theme="light"] .filter-btn.active {
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-color: transparent;
+        }
+
+        [data-theme="dark"] .filter-btn {
+            border: 1px solid var(--border-default);
+        }
+
+        [data-theme="dark"] .filter-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        [data-theme="dark"] .filter-btn.active {
+            color: var(--bg-body);
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Events grid theme-aware */
+        .events-grid {
+            display: grid;
+            gap: var(--space-6);
+        }
+
+        [data-theme="light"] .events-grid {
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        }
+
+        [data-theme="dark"] .events-grid {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        [data-theme="dark"] .events-grid .event-card:nth-child(2n) {
+            transform: translateY(16px);
+        }
+
+        /* Event card layout */
+        .event-card-inner {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        .event-date-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+            padding: var(--space-3);
+            border-radius: var(--radius-lg);
+            flex-shrink: 0;
+        }
+
+        [data-theme="light"] .event-date-block {
+            background: var(--primary-subtle);
+        }
+
+        [data-theme="dark"] .event-date-block {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .event-date-block .day {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            line-height: 1;
+        }
+
+        [data-theme="light"] .event-date-block .day {
+            color: var(--primary);
+        }
+
+        [data-theme="dark"] .event-date-block .day {
+            color: white;
+        }
+
+        .event-date-block .month {
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        [data-theme="light"] .event-date-block .month {
+            color: var(--primary);
+        }
+
+        [data-theme="dark"] .event-date-block .month {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        /* CTA card */
+        [data-theme="light"] .cta-card {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+        }
+
+        [data-theme="light"] .cta-desc {
+            max-width: 500px;
+            margin-inline: auto;
+        }
+
+        [data-theme="dark"] .cta-card {
+            text-align: left;
+            border-left: 3px solid var(--primary);
+            background: linear-gradient(135deg, rgba(6, 214, 160, 0.03) 0%, transparent 50%);
+        }
+
+        /* Badge variants */
+        .badge-muted {
+            background: var(--bg-surface-elevated);
+            color: var(--text-muted);
+        }
+
+        .badge-info {
+            background: rgba(6, 182, 212, 0.2);
+            color: var(--accent);
+        }
+
+        [data-theme="dark"] .badge-info {
+            color: var(--accent-cyan);
+        }
+    </style>
+</body>
+
+</html>

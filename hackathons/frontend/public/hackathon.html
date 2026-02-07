@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View hackathon details and register your team">
+    <title>Hackathon Details | SR Coding Club</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <!-- Background Effects -->
+    <div class="bg-gradient-orbs"></div>
+
+    <header class="header">
+        <a href="/" class="header__logo">
+            <span class="header__logo-icon">🚀</span>
+            <span>SRCC Hackathons</span>
+        </a>
+        <nav class="header__nav">
+            <a href="/" class="btn btn-ghost">← All Hackathons</a>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-toggle__light">🌙</span>
+                <span class="theme-toggle__dark">☀️</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="page-section">
+            <div class="container">
+                <!-- Loading State -->
+                <div id="loading" class="hackathon-detail">
+                    <div class="skeleton skeleton-title mb-4"></div>
+                    <div class="skeleton skeleton-text" style="width: 40%"></div>
+                    <div class="skeleton" style="height: 300px; margin-top: var(--space-8)"></div>
+                </div>
+
+                <!-- Hackathon Detail -->
+                <article id="hackathon-detail" class="hackathon-detail hidden">
+                    <!-- Content loaded dynamically -->
+                </article>
+
+                <!-- Error State -->
+                <div id="error-state" class="empty-state hidden">
+                    <div class="empty-state__icon">😕</div>
+                    <h3>Hackathon not found</h3>
+                    <p class="text-muted">This hackathon may have been removed or doesn't exist.</p>
+                    <a href="/" class="btn btn-primary mt-4">View All Hackathons</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 SR University Coding Club. All rights reserved.</p>
+    </footer>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/loader.js"></script>
+    <script src="/js/public/hackathon.js"></script>
+
+    <style>
+        .hackathon-detail__header {
+            margin-bottom: var(--space-8);
+        }
+
+        .hackathon-detail__type {
+            display: inline-block;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .hackathon-detail__title {
+            font-size: var(--text-4xl);
+            margin-bottom: var(--space-4);
+        }
+
+        .hackathon-detail__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+
+        .hackathon-detail__meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+
+        .hackathon-detail__stats {
+            display: flex;
+            gap: var(--space-6);
+            padding: var(--space-6);
+            background: var(--bg-surface-sunken);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-8);
+        }
+
+        .hackathon-detail__stat {
+            text-align: center;
+        }
+
+        .hackathon-detail__stat-value {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+        }
+
+        .hackathon-detail__stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+        }
+
+        .hackathon-detail__content {
+            display: grid;
+            gap: var(--space-8);
+        }
+
+        @media (min-width: 768px) {
+            .hackathon-detail__content {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .hackathon-detail__section {
+            margin-bottom: var(--space-6);
+        }
+
+        .hackathon-detail__section h3 {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-3);
+            color: var(--text-primary);
+        }
+
+        .hackathon-detail__section p,
+        .hackathon-detail__section ul {
+            color: var(--text-secondary);
+            white-space: pre-line;
+        }
+
+        .hackathon-detail__sidebar {
+            position: sticky;
+            top: calc(var(--header-height) + var(--space-8));
+        }
+
+        .hackathon-detail__register-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+        }
+
+        [data-theme="dark"] .hackathon-detail__register-card {
+            box-shadow: var(--glow-subtle);
+        }
+
+        .hackathon-detail__register-card h3 {
+            margin-bottom: var(--space-4);
+        }
+
+        .judges-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .judge-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            background: var(--bg-surface-sunken);
+            border-radius: var(--radius-md);
+        }
+
+        .judge-item__avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-subtle);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-bold);
+            color: var(--primary);
+        }
+
+        .judge-item__name {
+            font-weight: var(--font-medium);
+        }
+
+        .judge-item__expertise {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--space-16);
+        }
+
+        .empty-state__icon {
+            font-size: var(--text-5xl);
+            margin-bottom: var(--space-4);
+        }
+    </style>
+</body>
+
+</html>

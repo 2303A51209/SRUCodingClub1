@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gallery Management - SR University Coding Club">
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="../../css/main.css">
+    <title>Gallery Management | Admin Dashboard</title>
+</head>
+
+<body>
+    <div class="page-loader" id="page-loader">
+        <div class="loader-logo">
+            <div class="spinner spinner-xl"></div>
+        </div>
+        <p class="loader-text">Loading gallery...</p>
+    </div>
+
+    <div class="dashboard" id="dashboard" style="display: none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="logo">
+                    <div class="logo-icon">>_</div>
+                    <span>srucc</span>
+                </a>
+                <span class="badge"
+                    style="background: var(--error); color: white; font-size: 10px; padding: 2px 6px;">ADMIN</span>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Overview</p>
+                    <a href="/dashboards/admin/index.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        </svg>
+                        Dashboard
+                    </a>
+                </div>
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Manage</p>
+                    <a href="/dashboards/admin/users.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg>
+                        Users
+                    </a>
+                    <a href="/dashboards/admin/events.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" />
+                        </svg>
+                        Events
+                    </a>
+                    <a href="/dashboards/admin/gallery.html" class="sidebar-link active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                        Gallery
+                    </a>
+                    <a href="/dashboards/admin/announcements.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 17H2a3 3 0 003-3V9a7 7 0 0114 0v5a3 3 0 003 3zm-8.27 4a2 2 0 01-3.46 0" />
+                        </svg>
+                        Announcements
+                    </a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn btn-ghost w-full" id="logout-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">Gallery Management</h1>
+                    <p class="dashboard-subtitle">Manage club photos</p>
+                </div>
+                <button class="btn btn-primary" id="add-image-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Add Image
+                </button>
+            </header>
+
+            <section class="card mb-6">
+                <div class="card-body">
+                    <div class="filters-row">
+                        <select id="category-filter" class="filter-select">
+                            <option value="">All Categories</option>
+                            <option value="events">Events</option>
+                            <option value="workshops">Workshops</option>
+                            <option value="team">Team</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <span class="filter-stats">Total: <span id="total-count">0</span> images</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-body">
+                    <div id="gallery-grid" class="gallery-grid">
+                        <div class="loading-placeholder">Loading images...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="image-modal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Add Image</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <form id="image-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="image-url">Image URL *</label>
+                        <input type="url" id="image-url" class="form-input" required
+                            placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="image-caption">Caption</label>
+                        <input type="text" id="image-caption" class="form-input" placeholder="Photo description">
+                    </div>
+                    <div class="form-group">
+                        <label for="image-category">Category</label>
+                        <select id="image-category" class="form-input">
+                            <option value="events">Events</option>
+                            <option value="workshops">Workshops</option>
+                            <option value="team">Team</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="image-preview" id="image-preview"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" id="modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal-overlay" id="delete-modal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Delete Image</h3>
+                <button class="modal-close" id="delete-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this image?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" id="delete-cancel">Cancel</button>
+                <button class="btn btn-danger" id="delete-confirm">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script type="module">
+        import auth from '../../js/core/auth.js';
+        import routeGuard from '../../js/guards/routeGuard.js';
+        import store from '../../js/core/store.js';
+
+        store.initTheme();
+
+        let images = [];
+        let editingId = null;
+        let deletingId = null;
+
+        async function init() {
+            const allowed = await routeGuard.check({ roles: ['admin'] });
+            if (!allowed) return;
+
+            document.getElementById('page-loader').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'grid';
+
+            setupEventListeners();
+            await loadImages();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('add-image-btn').addEventListener('click', () => openModal());
+            document.getElementById('modal-close').addEventListener('click', closeModal);
+            document.getElementById('modal-cancel').addEventListener('click', closeModal);
+            document.getElementById('image-form').addEventListener('submit', handleSubmit);
+            document.getElementById('category-filter').addEventListener('change', loadImages);
+
+            document.getElementById('delete-close').addEventListener('click', closeDeleteModal);
+            document.getElementById('delete-cancel').addEventListener('click', closeDeleteModal);
+            document.getElementById('delete-confirm').addEventListener('click', confirmDelete);
+
+            document.getElementById('logout-btn').addEventListener('click', () => auth.logout());
+
+            document.getElementById('image-url').addEventListener('input', (e) => {
+                const preview = document.getElementById('image-preview');
+                if (e.target.value) {
+                    preview.innerHTML = `<img src="${e.target.value}" alt="Preview" onerror="this.parentElement.innerHTML='Invalid URL'">`;
+                } else {
+                    preview.innerHTML = '';
+                }
+            });
+        }
+
+        async function loadImages() {
+            const token = localStorage.getItem('sb_access_token');
+            const category = document.getElementById('category-filter').value;
+
+            try {
+                const params = new URLSearchParams({ limit: 50 });
+                if (category) params.append('category', category);
+
+                const response = await fetch(`/api/v1/gallery?${params}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error('Failed to load');
+
+                const result = await response.json();
+                images = result.data || [];
+
+                document.getElementById('total-count').textContent = images.length;
+                renderGallery();
+
+            } catch (error) {
+                console.error(error);
+                showToast('Failed to load images', 'error');
+            }
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+
+            if (!images.length) {
+                grid.innerHTML = `<div class="empty-state"><p>No images yet</p><button class="btn btn-primary mt-4" onclick="document.getElementById('add-image-btn').click()">Add First Image</button></div>`;
+                return;
+            }
+
+            grid.innerHTML = images.map(img => `
+                <div class="gallery-item" data-id="${img.id}">
+                    <img src="${img.url}" alt="${img.caption || ''}" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">${img.caption || 'No caption'}</span>
+                        <span class="gallery-category">${img.category || 'other'}</span>
+                        <div class="gallery-actions">
+                            <button class="btn btn-ghost btn-sm" onclick="editImage('${img.id}')">Edit</button>
+                            <button class="btn btn-ghost btn-sm text-error" onclick="deleteImage('${img.id}')">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(image = null) {
+            editingId = image?.id || null;
+            document.getElementById('modal-title').textContent = image ? 'Edit Image' : 'Add Image';
+
+            if (image) {
+                document.getElementById('image-url').value = image.url || '';
+                document.getElementById('image-caption').value = image.caption || '';
+                document.getElementById('image-category').value = image.category || 'other';
+                document.getElementById('image-preview').innerHTML = `<img src="${image.url}" alt="Preview">`;
+            } else {
+                document.getElementById('image-form').reset();
+                document.getElementById('image-preview').innerHTML = '';
+            }
+
+            document.getElementById('image-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('image-modal').style.display = 'none';
+            editingId = null;
+        }
+
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const token = localStorage.getItem('sb_access_token');
+
+            const data = {
+                url: document.getElementById('image-url').value,
+                caption: document.getElementById('image-caption').value || null,
+                category: document.getElementById('image-category').value,
+            };
+
+            try {
+                const url = editingId ? `/api/v1/gallery/${editingId}` : '/api/v1/gallery';
+                const response = await fetch(url, {
+                    method: editingId ? 'PATCH' : 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) throw new Error('Failed to save');
+
+                showToast(editingId ? 'Image updated' : 'Image added', 'success');
+                closeModal();
+                await loadImages();
+
+            } catch (error) {
+                console.error(error);
+                showToast('Failed to save image', 'error');
+            }
+        }
+
+        window.editImage = function (id) {
+            const image = images.find(i => i.id === id);
+            if (image) openModal(image);
+        };
+
+        window.deleteImage = function (id) {
+            deletingId = id;
+            document.getElementById('delete-modal').style.display = 'flex';
+        };
+
+        function closeDeleteModal() {
+            document.getElementById('delete-modal').style.display = 'none';
+            deletingId = null;
+        }
+
+        async function confirmDelete() {
+            const token = localStorage.getItem('sb_access_token');
+            try {
+                const response = await fetch(`/api/v1/gallery/${deletingId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error('Failed');
+
+                showToast('Image deleted', 'success');
+                closeDeleteModal();
+                await loadImages();
+
+            } catch (error) {
+                showToast('Failed to delete', 'error');
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        init();
+    </script>
+
+    <style>
+        .filters-row {
+            display: flex;
+            gap: var(--space-4);
+            align-items: center;
+        }
+
+        .filter-select {
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2) var(--space-3);
+            color: var(--text-primary);
+        }
+
+        .filter-stats {
+            margin-left: auto;
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--space-4);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: white;
+            font-weight: var(--font-medium);
+            font-size: var(--text-sm);
+        }
+
+        .gallery-category {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--text-xs);
+            margin-top: var(--space-1);
+        }
+
+        .gallery-actions {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-2);
+        }
+
+        .image-preview {
+            margin-top: var(--space-4);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            max-height: 200px;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: var(--space-6);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-3);
+            padding: var(--space-4) var(--space-6);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            margin-bottom: var(--space-2);
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-3);
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+            font-size: var(--text-sm);
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .text-error {
+            color: var(--error);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--space-12);
+            grid-column: 1 / -1;
+        }
+
+        .loading-placeholder {
+            text-align: center;
+            padding: var(--space-8);
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            z-index: 1100;
+        }
+
+        .toast {
+            padding: var(--space-3) var(--space-4);
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-sm);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s;
+            margin-top: var(--space-2);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast-success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .toast-error {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .mb-6 {
+            margin-bottom: var(--space-6);
+        }
+
+        .mt-4 {
+            margin-top: var(--space-4);
+        }
+    </style>
+</body>
+
+</html>

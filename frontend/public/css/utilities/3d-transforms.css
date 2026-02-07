@@ -1,0 +1,309 @@
+/* ==========================================================================
+   3D TRANSFORM UTILITIES
+   True CSS 3D - No libraries required
+   ========================================================================== */
+
+/* === Perspective Containers === */
+.perspective-container {
+    perspective: var(--perspective);
+    perspective-origin: 50% 50%;
+}
+
+.perspective-shallow {
+    perspective: 800px;
+}
+
+.perspective-deep {
+    perspective: 1500px;
+}
+
+/* === Transform Styles === */
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.flat {
+    transform-style: flat;
+}
+
+/* === Depth Layers (translateZ) === */
+.depth-0 {
+    transform: translateZ(0);
+}
+
+.depth-1 {
+    transform: translateZ(10px);
+}
+
+.depth-2 {
+    transform: translateZ(20px);
+}
+
+.depth-3 {
+    transform: translateZ(40px);
+}
+
+.depth-4 {
+    transform: translateZ(60px);
+}
+
+.depth-back-1 {
+    transform: translateZ(-10px);
+}
+
+.depth-back-2 {
+    transform: translateZ(-20px);
+}
+
+.depth-back-3 {
+    transform: translateZ(-40px);
+}
+
+/* === Rotation Utilities === */
+.rotate-x-1 {
+    transform: rotateX(2deg);
+}
+
+.rotate-x-2 {
+    transform: rotateX(5deg);
+}
+
+.rotate-x-3 {
+    transform: rotateX(10deg);
+}
+
+.rotate-x-neg-1 {
+    transform: rotateX(-2deg);
+}
+
+.rotate-x-neg-2 {
+    transform: rotateX(-5deg);
+}
+
+.rotate-y-1 {
+    transform: rotateY(2deg);
+}
+
+.rotate-y-2 {
+    transform: rotateY(5deg);
+}
+
+.rotate-y-3 {
+    transform: rotateY(10deg);
+}
+
+.rotate-y-neg-1 {
+    transform: rotateY(-2deg);
+}
+
+.rotate-y-neg-2 {
+    transform: rotateY(-5deg);
+}
+
+/* === Combined 3D Transforms === */
+.tilt-left {
+    transform: perspective(1000px) rotateY(-3deg) translateZ(10px);
+}
+
+.tilt-right {
+    transform: perspective(1000px) rotateY(3deg) translateZ(10px);
+}
+
+.tilt-up {
+    transform: perspective(1000px) rotateX(3deg) translateZ(10px);
+}
+
+.tilt-down {
+    transform: perspective(1000px) rotateX(-3deg) translateZ(10px);
+}
+
+/* ==========================================================================
+   THEME-SPECIFIC 3D BEHAVIORS
+   ========================================================================== */
+
+/* === LIGHT THEME: Physical Elevation === */
+[data-theme="light"] .hover-3d {
+    transition: transform var(--duration-slow) var(--ease-default),
+        box-shadow var(--duration-slow) var(--ease-default);
+    transform-origin: center bottom;
+}
+
+[data-theme="light"] .hover-3d:hover {
+    transform: translateY(-8px) rotateX(2deg) scale(1.01);
+}
+
+/* Light theme card depth */
+[data-theme="light"] .card-3d {
+    transform: translateZ(0);
+    transition: all var(--duration-slow) var(--ease-default);
+}
+
+[data-theme="light"] .card-3d:hover {
+    transform: translateY(-12px) rotateX(3deg);
+    box-shadow: var(--shadow-4);
+}
+
+/* === DARK THEME: Perspective Shifts === */
+[data-theme="dark"] .hover-3d {
+    transition: transform var(--duration-base) var(--ease-snap),
+        box-shadow var(--duration-base) var(--ease-snap);
+    transform-origin: center center;
+}
+
+[data-theme="dark"] .hover-3d:hover {
+    transform: perspective(800px) rotateY(-4deg) translateZ(30px) scale(1.03);
+}
+
+/* Dark theme card depth */
+[data-theme="dark"] .card-3d {
+    transform: perspective(1000px) translateZ(0) rotateY(0);
+    transition: all var(--duration-base) var(--ease-snap);
+}
+
+[data-theme="dark"] .card-3d:hover {
+    transform: perspective(1000px) rotateY(-5deg) translateZ(50px);
+    box-shadow: var(--glow-primary);
+}
+
+/* ==========================================================================
+   PARALLAX DEPTH SYSTEM
+   ========================================================================== */
+
+.parallax-container {
+    perspective: var(--perspective);
+    overflow: hidden;
+}
+
+/* Light: Subtle vertical parallax */
+[data-theme="light"] .parallax-layer-back {
+    transform: translateZ(-50px) scale(1.05);
+}
+
+[data-theme="light"] .parallax-layer-mid {
+    transform: translateZ(0);
+}
+
+[data-theme="light"] .parallax-layer-front {
+    transform: translateZ(30px) scale(0.97);
+}
+
+/* Dark: Aggressive depth parallax */
+[data-theme="dark"] .parallax-layer-back {
+    transform: translateZ(-100px) scale(1.1) rotateY(2deg);
+}
+
+[data-theme="dark"] .parallax-layer-mid {
+    transform: translateZ(0) rotateY(-1deg);
+}
+
+[data-theme="dark"] .parallax-layer-front {
+    transform: translateZ(60px) scale(0.95) rotateY(-3deg);
+}
+
+/* ==========================================================================
+   FLOATING ELEMENTS
+   ========================================================================== */
+
+.float-subtle {
+    animation: floatSubtle 6s ease-in-out infinite;
+}
+
+.float-medium {
+    animation: floatMedium 5s ease-in-out infinite;
+}
+
+.float-aggressive {
+    animation: floatAggressive 4s ease-in-out infinite;
+}
+
+@keyframes floatSubtle {
+
+    0%,
+    100% {
+        transform: translateY(0) rotateX(0);
+    }
+
+    50% {
+        transform: translateY(-10px) rotateX(1deg);
+    }
+}
+
+@keyframes floatMedium {
+
+    0%,
+    100% {
+        transform: translateY(0) rotateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px) rotateY(2deg);
+    }
+}
+
+@keyframes floatAggressive {
+
+    0%,
+    100% {
+        transform: translateY(0) translateZ(0) rotateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px) translateZ(20px) rotateY(-3deg);
+    }
+}
+
+/* Dark theme: more aggressive floating */
+[data-theme="dark"] .float-subtle {
+    animation: floatDarkSubtle 5s ease-in-out infinite;
+}
+
+@keyframes floatDarkSubtle {
+
+    0%,
+    100% {
+        transform: translateX(0) translateZ(0);
+    }
+
+    50% {
+        transform: translateX(-10px) translateZ(20px) rotateY(-2deg);
+    }
+}
+
+/* ==========================================================================
+   GPU ACCELERATION
+   ========================================================================== */
+
+.gpu-accelerate {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Remove will-change after interaction for performance */
+.gpu-accelerate:not(:hover) {
+    will-change: auto;
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hover-3d,
+    .card-3d,
+    .parallax-layer-back,
+    .parallax-layer-mid,
+    .parallax-layer-front,
+    .float-subtle,
+    .float-medium,
+    .float-aggressive {
+        animation: none !important;
+        transition: opacity 0.3s ease !important;
+    }
+
+    .hover-3d:hover,
+    .card-3d:hover {
+        transform: none !important;
+    }
+}

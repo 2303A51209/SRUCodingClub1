@@ -1,0 +1,351 @@
+/* ==========================================================================
+   TERMINAL COMPONENT (From Evolved SRCC Design)
+   Dark: Authentic terminal aesthetic
+   Light: IDE/documentation panel aesthetic
+   ========================================================================== */
+
+/* === Terminal Container === */
+.terminal {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    overflow: hidden;
+    position: relative;
+}
+
+[data-theme="dark"] .terminal {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: var(--radius-sm);
+    box-shadow:
+        0 0 0 1px rgba(6, 214, 160, 0.1),
+        0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .terminal {
+    background: #fafbfc;
+    border: 1px solid #d0d7de;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-2);
+}
+
+/* === Terminal Header (Title Bar) === */
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid;
+    user-select: none;
+}
+
+[data-theme="dark"] .terminal-header {
+    background: #161b22;
+    border-color: #30363d;
+}
+
+[data-theme="light"] .terminal-header {
+    background: #f6f8fa;
+    border-color: #d0d7de;
+}
+
+/* Traffic lights */
+.terminal-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.terminal-control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal-control--close {
+    background: #ff5f57;
+}
+
+.terminal-control--minimize {
+    background: #febc2e;
+}
+
+.terminal-control--maximize {
+    background: #28c840;
+}
+
+[data-theme="light"] .terminal-control--close {
+    background: #ff6b6b;
+}
+
+[data-theme="light"] .terminal-control--minimize {
+    background: #ffd43b;
+}
+
+[data-theme="light"] .terminal-control--maximize {
+    background: #51cf66;
+}
+
+.terminal-title {
+    flex: 1;
+    text-align: center;
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    font-weight: var(--font-medium);
+}
+
+/* === Terminal Body === */
+.terminal-body {
+    padding: var(--space-4) var(--space-5);
+    min-height: 200px;
+}
+
+/* === Terminal Lines === */
+.terminal-line {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+    opacity: 0;
+    transform: translateY(4px);
+    animation: terminalLineIn 0.3s ease forwards;
+}
+
+.terminal-line:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.terminal-line:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.terminal-line:nth-child(3) {
+    animation-delay: 0.7s;
+}
+
+.terminal-line:nth-child(4) {
+    animation-delay: 1.0s;
+}
+
+.terminal-line:nth-child(5) {
+    animation-delay: 1.3s;
+}
+
+@keyframes terminalLineIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === Prompt === */
+.terminal-prompt {
+    user-select: none;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .terminal-prompt {
+    color: #06d6a0;
+}
+
+[data-theme="light"] .terminal-prompt {
+    color: #0969da;
+}
+
+/* === Command Text === */
+.terminal-command {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .terminal-command {
+    color: #e6edf3;
+}
+
+[data-theme="light"] .terminal-command {
+    color: #1f2328;
+}
+
+/* === Output Text === */
+.terminal-output {
+    padding-left: calc(var(--space-2) + 1ch);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .terminal-output {
+    color: #8b949e;
+}
+
+[data-theme="light"] .terminal-output {
+    color: #57606a;
+}
+
+/* === Blinking Cursor === */
+.terminal-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.2em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: cursorBlink 1s step-end infinite;
+}
+
+[data-theme="dark"] .terminal-cursor {
+    background: #06d6a0;
+}
+
+[data-theme="light"] .terminal-cursor {
+    background: #0969da;
+}
+
+@keyframes cursorBlink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* === Syntax Colors === */
+.t-keyword {
+    color: #ff7b72;
+}
+
+.t-string {
+    color: #a5d6ff;
+}
+
+.t-comment {
+    color: #8b949e;
+    font-style: italic;
+}
+
+.t-function {
+    color: #d2a8ff;
+}
+
+.t-number {
+    color: #79c0ff;
+}
+
+.t-success {
+    color: #3fb950;
+}
+
+.t-warning {
+    color: #d29922;
+}
+
+.t-error {
+    color: #f85149;
+}
+
+.t-cyan {
+    color: #06d6a0;
+}
+
+.t-muted {
+    color: #6e7681;
+}
+
+[data-theme="light"] .t-keyword {
+    color: #cf222e;
+}
+
+[data-theme="light"] .t-string {
+    color: #0a3069;
+}
+
+[data-theme="light"] .t-comment {
+    color: #6e7781;
+}
+
+[data-theme="light"] .t-function {
+    color: #8250df;
+}
+
+[data-theme="light"] .t-number {
+    color: #0550ae;
+}
+
+[data-theme="light"] .t-success {
+    color: #1a7f37;
+}
+
+[data-theme="light"] .t-warning {
+    color: #9a6700;
+}
+
+[data-theme="light"] .t-error {
+    color: #cf222e;
+}
+
+[data-theme="light"] .t-cyan {
+    color: #0969da;
+}
+
+[data-theme="light"] .t-muted {
+    color: #6e7781;
+}
+
+/* === Activity Indicator === */
+.terminal-activity {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid;
+}
+
+[data-theme="dark"] .terminal-activity {
+    background: rgba(6, 214, 160, 0.05);
+    border-color: #30363d;
+}
+
+[data-theme="light"] .terminal-activity {
+    background: rgba(9, 105, 218, 0.05);
+    border-color: #d0d7de;
+}
+
+.terminal-activity-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+[data-theme="dark"] .terminal-activity-dot {
+    background: #06d6a0;
+    box-shadow: 0 0 8px rgba(6, 214, 160, 0.5);
+}
+
+[data-theme="light"] .terminal-activity-dot {
+    background: #1a7f37;
+    box-shadow: 0 0 8px rgba(26, 127, 55, 0.3);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+    .terminal-line {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .terminal-cursor {
+        animation: none;
+    }
+
+    .terminal-activity-dot {
+        animation: none;
+    }
+}

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Dashboard | Hackathons Platform</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border-default);
+            padding: var(--space-6);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .admin-sidebar__header {
+            padding-bottom: var(--space-6);
+            border-bottom: 1px solid var(--border-default);
+            margin-bottom: var(--space-6);
+        }
+
+        .admin-sidebar__logo {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .admin-nav__item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            transition: all var(--duration-fast);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .admin-nav__item:hover {
+            background: var(--bg-surface-sunken);
+            color: var(--text-primary);
+        }
+
+        .admin-nav__item--active {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .admin-main {
+            padding: var(--space-8);
+            overflow-x: auto;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .admin-header__title {
+            font-size: var(--text-3xl);
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+        }
+
+        [data-theme="dark"] .stat-card {
+            box-shadow: var(--glow-subtle);
+        }
+
+        .stat-card__value {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+        }
+
+        .stat-card__label {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            margin-top: var(--space-1);
+        }
+
+        .admin-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .admin-section__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .admin-section__title {
+            font-size: var(--text-xl);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .user-menu__name {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 1024px) {
+            .admin-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <header class="admin-sidebar__header">
+                <div class="admin-sidebar__logo">
+                    <span>⚙️</span>
+                    <span>Admin Panel</span>
+                </div>
+            </header>
+
+            <nav class="admin-nav">
+                <button class="admin-nav__item admin-nav__item--active" data-section="overview">
+                    <span>📊</span> Overview
+                </button>
+                <button class="admin-nav__item" data-section="hackathons">
+                    <span>🚀</span> Hackathons
+                </button>
+                <button class="admin-nav__item" data-section="teams">
+                    <span>👥</span> Teams
+                </button>
+                <button class="admin-nav__item" data-section="judges">
+                    <span>⚖️</span> Judges
+                </button>
+                <button class="admin-nav__item" data-section="submissions">
+                    <span>📁</span> Submissions
+                </button>
+                <button class="admin-nav__item" data-section="emails">
+                    <span>✉️</span> Emails
+                </button>
+                <button class="admin-nav__item" data-section="export">
+                    <span>📤</span> Export
+                </button>
+            </nav>
+
+            <div style="margin-top: auto; padding-top: var(--space-6); border-top: 1px solid var(--border-default);">
+                <button id="logout-btn" class="admin-nav__item" style="color: var(--error);">
+                    <span>🚪</span> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1 class="admin-header__title" id="section-title">Dashboard Overview</h1>
+                <div class="user-menu">
+                    <span class="user-menu__name" id="user-name">Loading...</span>
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-toggle__light">🌙</span>
+                        <span class="theme-toggle__dark">☀️</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="overview-section">
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <div class="stat-card__value" id="stat-hackathons">-</div>
+                        <div class="stat-card__label">Total Hackathons</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value" id="stat-teams">-</div>
+                        <div class="stat-card__label">Registered Teams</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value" id="stat-participants">-</div>
+                        <div class="stat-card__label">Participants</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value" id="stat-submissions">-</div>
+                        <div class="stat-card__label">Submissions</div>
+                    </div>
+                </div>
+
+                <div class="admin-section">
+                    <div class="admin-section__header">
+                        <h2 class="admin-section__title">Recent Hackathons</h2>
+                        <button class="btn btn--primary btn--sm" onclick="showSection('hackathons')">View All</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="recent-hackathons-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Teams</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hackathons Section -->
+            <section id="hackathons-section" class="hidden">
+                <div class="admin-section__header mb-6">
+                    <h2 class="admin-section__title">All Hackathons</h2>
+                    <button class="btn btn--primary" id="create-hackathon-btn">+ Create Hackathon</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="hackathons-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Start Date</th>
+                                <th>Teams</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Teams Section -->
+            <section id="teams-section" class="hidden">
+                <div class="admin-section__header mb-6">
+                    <h2 class="admin-section__title">Teams</h2>
+                    <select id="teams-hackathon-filter" class="form-select" style="width: auto;">
+                        <option value="">Select Hackathon</option>
+                    </select>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="teams-table">
+                        <thead>
+                            <tr>
+                                <th>Team Name</th>
+                                <th>Leader</th>
+                                <th>Members</th>
+                                <th>Registered</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">Select a hackathon to view teams</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Judges Section -->
+            <section id="judges-section" class="hidden">
+                <div class="admin-section__header mb-6">
+                    <h2 class="admin-section__title">Judges</h2>
+                    <button class="btn btn--primary" id="add-judge-btn">+ Add Judge</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="judges-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Expertise</th>
+                                <th>Hackathon</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Submissions Section -->
+            <section id="submissions-section" class="hidden">
+                <div class="admin-section__header mb-6">
+                    <h2 class="admin-section__title">Submissions</h2>
+                    <select id="submissions-hackathon-filter" class="form-select" style="width: auto;">
+                        <option value="">Select Hackathon</option>
+                    </select>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="submissions-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Team</th>
+                                <th>Submitted</th>
+                                <th>Avg Score</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">Select a hackathon to view submissions
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Emails Section -->
+            <section id="emails-section" class="hidden">
+                <div class="admin-section__header mb-6">
+                    <h2 class="admin-section__title">Email Notifications</h2>
+                    <button class="btn btn--primary" id="send-email-btn">Send Email</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="email-logs-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Template</th>
+                                <th>Recipients</th>
+                                <th>Sent At</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Export Section -->
+            <section id="export-section" class="hidden">
+                <div class="admin-section__header mb-6">
+                    <h2 class="admin-section__title">Data Export</h2>
+                </div>
+                <div class="form-card" style="max-width: 500px;">
+                    <div class="form-group">
+                        <label class="form-label">Select Hackathon</label>
+                        <select id="export-hackathon" class="form-select">
+                            <option value="">Choose hackathon...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Export Format</label>
+                        <div class="flex gap-4">
+                            <label class="form-check">
+                                <input type="radio" name="export-format" value="csv" checked>
+                                <span>CSV</span>
+                            </label>
+                            <label class="form-check">
+                                <input type="radio" name="export-format" value="json">
+                                <span>JSON</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn--primary" id="export-btn">Download Export</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/admin/dashboard.js"></script>
+</body>
+
+</html>

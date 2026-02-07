@@ -1,0 +1,325 @@
+/* ==========================================================================
+   LOADER COMPONENTS (Aligned with Evolved SRCC Design)
+   Matches css/components/loaders.css from main project
+   ========================================================================== */
+
+/* ==========================================================================
+   SPINNER (Primary Loader)
+   ========================================================================== */
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--border-default);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.spinner-sm {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+}
+
+.spinner-lg {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+}
+
+.spinner-xl {
+    width: 64px;
+    height: 64px;
+    border-width: 5px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   PAGE LOADER (Full Screen)
+   ========================================================================== */
+
+.page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    background: var(--bg-body);
+    transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.page-loader--hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.page-loader .loader-logo {
+    width: 64px;
+    height: 64px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.page-loader .loader-text {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+}
+
+/* ==========================================================================
+   SKELETON LOADER (Content Placeholders)
+   ========================================================================== */
+
+.skeleton {
+    background: linear-gradient(90deg,
+            var(--bg-surface-elevated) 0%,
+            var(--bg-surface) 50%,
+            var(--bg-surface-elevated) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+[data-theme="light"] .skeleton {
+    border-radius: var(--radius-md);
+}
+
+[data-theme="dark"] .skeleton {
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-text {
+    height: 1em;
+    margin-bottom: var(--space-2);
+}
+
+.skeleton-text:last-child {
+    width: 60%;
+}
+
+.skeleton-title {
+    height: 1.5em;
+    width: 70%;
+    margin-bottom: var(--space-3);
+}
+
+.skeleton-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+}
+
+.skeleton-card {
+    height: 280px;
+}
+
+[data-theme="light"] .skeleton-card {
+    border-radius: var(--radius-xl);
+}
+
+[data-theme="dark"] .skeleton-card {
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-button {
+    height: 40px;
+    width: 120px;
+}
+
+[data-theme="light"] .skeleton-button {
+    border-radius: var(--radius-lg);
+}
+
+[data-theme="dark"] .skeleton-button {
+    border-radius: var(--radius-sm);
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ==========================================================================
+   DOTS LOADER (Inline Loading)
+   ========================================================================== */
+
+.dots-loader {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.dots-loader span {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: dots-bounce 1.4s ease-in-out infinite both;
+}
+
+.dots-loader span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.dots-loader span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+.dots-loader span:nth-child(3) {
+    animation-delay: 0s;
+}
+
+@keyframes dots-bounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* ==========================================================================
+   PROGRESS BAR
+   ========================================================================== */
+
+.progress-bar {
+    height: 8px;
+    background: var(--bg-surface-elevated);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: var(--radius-full);
+    transition: width var(--duration-slow);
+}
+
+/* ==========================================================================
+   INLINE LOADER (Button/Action Loading)
+   ========================================================================== */
+
+.inline-loader {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.inline-loader__dots {
+    display: flex;
+    gap: 4px;
+}
+
+.inline-loader__dot {
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: dot-pulse 1s ease-in-out infinite;
+}
+
+.inline-loader__dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.inline-loader__dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dot-pulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ==========================================================================
+   CONTENT LOADER (Card Placeholder)
+   ========================================================================== */
+
+.content-loader {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+}
+
+[data-theme="light"] .content-loader {
+    border-radius: var(--radius-xl);
+}
+
+[data-theme="dark"] .content-loader {
+    border-radius: var(--radius-sm);
+}
+
+.content-loader-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.content-loader-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .spinner,
+    .dots-loader span,
+    .inline-loader__dot,
+    .page-loader .loader-logo {
+        animation: none;
+    }
+
+    .skeleton {
+        animation: none;
+        background: var(--bg-surface-elevated);
+    }
+}

@@ -1,0 +1,212 @@
+/* ==========================================================================
+   BASE TYPOGRAPHY
+   ========================================================================== */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-tracking);
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: var(--text-4xl);
+}
+
+h2 {
+    font-size: var(--text-3xl);
+}
+
+h3 {
+    font-size: var(--text-2xl);
+}
+
+h4 {
+    font-size: var(--text-xl);
+}
+
+h5 {
+    font-size: var(--text-lg);
+}
+
+h6 {
+    font-size: var(--text-base);
+}
+
+/* Body text */
+p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Links */
+a {
+    color: var(--primary);
+    transition: color var(--duration-fast) var(--ease-default);
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
+/* Strong / Bold */
+strong,
+b {
+    font-weight: var(--font-semibold);
+}
+
+/* Emphasis / Italic */
+em,
+i {
+    font-style: italic;
+}
+
+/* Code / Monospace */
+code,
+kbd,
+samp,
+pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+}
+
+code {
+    padding: 0.2em 0.4em;
+    background: var(--bg-surface-sunken);
+    border-radius: var(--radius-sm);
+}
+
+[data-theme="dark"] code {
+    background: var(--bg-surface-elevated);
+    color: var(--primary);
+}
+
+pre {
+    padding: var(--space-4);
+    background: var(--bg-surface-sunken);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+}
+
+[data-theme="dark"] pre {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+}
+
+pre code {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
+/* Small text */
+small {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+/* Blockquote */
+blockquote {
+    padding-left: var(--space-4);
+    border-left: 3px solid var(--primary);
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] blockquote {
+    border-left-color: var(--primary);
+    background: linear-gradient(90deg, rgba(6, 214, 160, 0.05) 0%, transparent 100%);
+    padding: var(--space-4);
+}
+
+/* Lists with content */
+.prose ul,
+.prose ol {
+    padding-left: var(--space-6);
+}
+
+.prose ul {
+    list-style-type: disc;
+}
+
+.prose ol {
+    list-style-type: decimal;
+}
+
+.prose li {
+    margin-bottom: var(--space-2);
+    color: var(--text-secondary);
+}
+
+/* Horizontal rule */
+hr {
+    border: none;
+    height: 1px;
+    background: var(--border-default);
+    margin: var(--space-8) 0;
+}
+
+/* Mark / Highlight */
+mark {
+    background: rgba(245, 158, 11, 0.3);
+    padding: 0.1em 0.3em;
+    border-radius: var(--radius-sm);
+}
+
+[data-theme="dark"] mark {
+    background: rgba(6, 214, 160, 0.2);
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   THEME-SPECIFIC TYPOGRAPHY
+   ========================================================================== */
+
+/* Light theme: More refined, traditional */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3 {
+    font-weight: var(--font-bold);
+    letter-spacing: -0.02em;
+}
+
+/* Dark theme: Bolder, more impactful */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3 {
+    font-weight: var(--font-extrabold);
+    letter-spacing: -0.03em;
+}
+
+/* Dark theme accent text */
+[data-theme="dark"] .text-accent-glow {
+    color: var(--primary);
+    text-shadow: 0 0 30px rgba(6, 214, 160, 0.3);
+}
+
+/* Dark theme: Monospace accents for code club feel */
+[data-theme="dark"] .mono-accent {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--primary);
+}
+
+/* Hero title sizing per theme */
+[data-theme="light"] .hero-title {
+    font-size: clamp(var(--text-3xl), 8vw, var(--text-5xl));
+}
+
+[data-theme="dark"] .hero-title {
+    font-size: clamp(var(--text-4xl), 10vw, var(--text-6xl));
+    text-shadow: 0 0 60px rgba(6, 214, 160, 0.1);
+}

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Team Dashboard - SR University Coding Club">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    <title>Team Dashboard | SR University Coding Club</title>
+</head>
+
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="page-loader">
+        <div class="loader-logo">
+            <div class="spinner spinner-xl"></div>
+        </div>
+        <p class="loader-text">Loading team dashboard...</p>
+    </div>
+
+    <div class="dashboard" id="dashboard" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo">
+                    <div class="logo-icon">CC</div>
+                    <span>Coding Club</span>
+                </a>
+                <span class="badge"
+                    style="background: var(--primary); color: white; font-size: 10px; padding: 2px 6px;">TEAM</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Overview</p>
+                    <a href="/dashboards/team/index.html" class="sidebar-link active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        Dashboard
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Manage</p>
+                    <a href="/dashboards/team/events.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                        Events
+                    </a>
+                    <a href="/dashboards/team/gallery.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                        Gallery
+                    </a>
+                    <a href="/dashboards/team/announcements.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 17H2a3 3 0 003-3V9a7 7 0 0114 0v5a3 3 0 003 3zm-8.27 4a2 2 0 01-3.46 0" />
+                        </svg>
+                        Announcements
+                    </a>
+                    <a href="/dashboards/team/attendance.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                            <circle cx="8.5" cy="7" r="4" />
+                            <line x1="20" y1="8" x2="20" y2="14" />
+                            <line x1="23" y1="11" x2="17" y2="11" />
+                        </svg>
+                        Attendance
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Personal</p>
+                    <a href="/dashboards/team/profile.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Profile
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-ghost w-full" id="logout-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">Team Dashboard</h1>
+                    <p class="dashboard-subtitle">Manage events and community activities</p>
+                </div>
+                <div class="nav-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5" />
+                            <path
+                                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                        </svg>
+                    </button>
+                    <div class="user-menu">
+                        <button class="user-menu-trigger">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=team" alt="Team"
+                                class="user-avatar">
+                        </button>
+                        <div class="user-menu-dropdown">
+                            <a href="/dashboards/team/profile.html" class="user-menu-item">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                Profile
+                            </a>
+                            <a href="#" class="user-menu-item danger" data-logout>
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                                    <polyline points="16 17 21 12 16 7" />
+                                    <line x1="21" y1="12" x2="9" y2="12" />
+                                </svg>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <article class="card card-stat">
+                    <div class="stat-icon" style="background: rgba(139, 92, 246, 0.2); color: var(--primary);">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="stat-value">5</span>
+                        <span class="stat-label">My Events</span>
+                    </div>
+                </article>
+
+                <article class="card card-stat">
+                    <div class="stat-icon" style="background: rgba(6, 182, 212, 0.2); color: var(--accent);">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="stat-value">243</span>
+                        <span class="stat-label">Registrations</span>
+                    </div>
+                </article>
+
+                <article class="card card-stat">
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--success);">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="stat-value">42</span>
+                        <span class="stat-label">Photos Uploaded</span>
+                    </div>
+                </article>
+
+                <article class="card card-stat">
+                    <div class="stat-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--warning);">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 17H2a3 3 0 003-3V9a7 7 0 0114 0v5a3 3 0 003 3zm-8.27 4a2 2 0 01-3.46 0" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">Announcements</span>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+                <!-- My Upcoming Events -->
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">My Upcoming Events</h2>
+                        <a href="/dashboards/team/events.html" class="btn btn-ghost btn-sm">View All</a>
+                    </div>
+                    <div class="card-body stack">
+                        <article class="event-row">
+                            <div class="event-date-badge">
+                                <span class="day">25</span>
+                                <span class="month">Jan</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium">React Workshop</h3>
+                                <p class="text-xs text-muted">You're the organizer • 45 registered</p>
+                            </div>
+                            <button class="btn btn-primary btn-sm">Manage</button>
+                        </article>
+
+                        <article class="event-row">
+                            <div class="event-date-badge"
+                                style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+                                <span class="day">01</span>
+                                <span class="month">Feb</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium">CodeSprint 2026</h3>
+                                <p class="text-xs text-muted">You're a coordinator • 120 registered</p>
+                            </div>
+                            <button class="btn btn-primary btn-sm">Manage</button>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Tasks -->
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Pending Tasks</h2>
+                    </div>
+                    <div class="card-body stack">
+                        <div class="task-item">
+                            <label class="task-checkbox">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <div>
+                                <p class="font-medium">Review workshop materials</p>
+                                <p class="text-xs text-muted">Due: Jan 24</p>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <label class="task-checkbox">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <div>
+                                <p class="font-medium">Confirm venue booking</p>
+                                <p class="text-xs text-muted">Due: Jan 23</p>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <label class="task-checkbox">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <div>
+                                <p class="font-medium">Send reminder emails</p>
+                                <p class="text-xs text-muted">Due: Jan 24</p>
+                            </div>
+                        </div>
+
+                        <div class="task-item completed">
+                            <label class="task-checkbox">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div>
+                                <p class="font-medium">Create event poster</p>
+                                <p class="text-xs text-muted">Completed</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Quick Actions -->
+            <section class="mt-8">
+                <h2 class="text-lg font-semibold mb-4">Quick Actions</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="/dashboards/team/events.html?action=new" class="quick-action-card">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="12" y1="10" x2="12" y2="16" />
+                            <line x1="9" y1="13" x2="15" y2="13" />
+                        </svg>
+                        <span>Create Event</span>
+                    </a>
+
+                    <a href="/dashboards/team/gallery.html?action=upload" class="quick-action-card">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        <span>Upload Photos</span>
+                    </a>
+
+                    <a href="/dashboards/team/announcements.html?action=new" class="quick-action-card">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 17H2a3 3 0 003-3V9a7 7 0 0114 0v5a3 3 0 003 3zm-8.27 4a2 2 0 01-3.46 0" />
+                        </svg>
+                        <span>Post Announcement</span>
+                    </a>
+
+                    <a href="/dashboards/team/attendance.html" class="quick-action-card">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span>Take Attendance</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module">
+        import auth from '/js/core/auth.js';
+        import routeGuard from '/js/guards/routeGuard.js';
+        import store from '/js/core/store.js';
+        import { $ } from '/js/utils/dom.js';
+
+        store.initTheme();
+
+        async function init() {
+            const allowed = await routeGuard.check({ roles: ['admin', 'team'] });
+
+            if (!allowed) return;
+
+            $('#page-loader').style.display = 'none';
+            $('#dashboard').style.display = 'grid';
+
+            setupThemeToggle();
+            setupLogout();
+            setupUserMenu();
+        }
+
+        function setupThemeToggle() {
+            const btn = $('.theme-toggle');
+            if (!btn) return;
+
+            const updateIcon = () => {
+                const isDark = store.getState().theme === 'dark';
+                btn.innerHTML = isDark
+                    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+                    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+            };
+
+            updateIcon();
+            btn.addEventListener('click', () => {
+                store.toggleTheme();
+                updateIcon();
+            });
+        }
+
+        function setupLogout() {
+            document.querySelectorAll('#logout-btn, [data-logout]').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    await auth.logout();
+                });
+            });
+        }
+
+        function setupUserMenu() {
+            const menu = $('.user-menu');
+            if (!menu) return;
+
+            const trigger = menu.querySelector('.user-menu-trigger');
+            trigger?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menu.classList.toggle('open');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.user-menu')) {
+                    menu.classList.remove('open');
+                }
+            });
+        }
+
+        init();
+    </script>
+
+    <style>
+        .card-stat {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-lg);
+            flex-shrink: 0;
+        }
+
+        .event-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-3);
+            background: var(--bg-surface-elevated);
+            border-radius: var(--radius-lg);
+        }
+
+        .event-date-badge {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--radius-lg);
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .event-date-badge .day {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            line-height: 1;
+        }
+
+        .event-date-badge .month {
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            background: var(--bg-surface-elevated);
+            border-radius: var(--radius-lg);
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+        }
+
+        .task-item.completed p.font-medium {
+            text-decoration: line-through;
+        }
+
+        .task-checkbox {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .task-checkbox input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .task-checkbox .checkmark {
+            position: absolute;
+            inset: 0;
+            border: 2px solid var(--border-default);
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+        }
+
+        .task-checkbox input:checked+.checkmark {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .task-checkbox input:checked+.checkmark::after {
+            content: '✓';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .quick-action-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-6);
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .quick-action-card:hover {
+            background: var(--bg-surface-elevated);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .quick-action-card span {
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+        }
+
+        .font-medium {
+            font-weight: var(--font-medium);
+        }
+
+        .font-semibold {
+            font-weight: var(--font-semibold);
+        }
+
+        .flex-1 {
+            flex: 1;
+        }
+    </style>
+</body>
+
+</html>

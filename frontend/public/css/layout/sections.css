@@ -1,0 +1,399 @@
+/* ==========================================================================
+   DUAL-IDENTITY LAYOUT SYSTEM
+   Light: Structured Grid / Dark: Broken Grid
+   ========================================================================== */
+
+/* ==========================================================================
+   CONTAINER SYSTEM
+   ========================================================================== */
+
+.container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+}
+
+/* Light: Narrower, centered content */
+[data-theme="light"] .container {
+    max-width: var(--container-max);
+    padding-inline: var(--space-6);
+}
+
+/* Dark: Wider, edge-to-edge potential */
+[data-theme="dark"] .container {
+    max-width: var(--container-max);
+    padding-inline: var(--space-4);
+}
+
+/* Full-width container */
+.container-full {
+    max-width: 100%;
+    padding-inline: var(--space-4);
+}
+
+/* Narrow container for text content */
+.container-narrow {
+    max-width: 720px;
+}
+
+/* ==========================================================================
+   GRID SYSTEM
+   ========================================================================== */
+
+.grid {
+    display: grid;
+    gap: var(--grid-gap);
+}
+
+/* === Light Theme: Symmetrical Grid === */
+[data-theme="light"] .grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+[data-theme="light"] .grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+[data-theme="light"] .grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* === Dark Theme: Asymmetrical Grid === */
+[data-theme="dark"] .grid-cols-2 {
+    grid-template-columns: 1.15fr 0.85fr;
+}
+
+[data-theme="dark"] .grid-cols-3 {
+    grid-template-columns: 1.2fr 1fr 0.8fr;
+}
+
+[data-theme="dark"] .grid-cols-4 {
+    grid-template-columns: 1.1fr 0.9fr 1.1fr 0.9fr;
+}
+
+/* Auto-fit grids (responsive) */
+.grid-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* === Special Layouts === */
+
+/* Light: Standard 2-column split */
+[data-theme="light"] .grid-split {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+}
+
+/* Dark: Dramatic 60/40 split */
+[data-theme="dark"] .grid-split {
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: var(--space-8);
+    align-items: start;
+}
+
+/* Reverse split for alternating sections */
+[data-theme="dark"] .grid-split-reverse {
+    grid-template-columns: 0.6fr 1.4fr;
+}
+
+/* ==========================================================================
+   SECTION LAYOUTS
+   ========================================================================== */
+
+.section {
+    padding: var(--section-padding);
+    position: relative;
+}
+
+.section-lg {
+    padding-block: var(--space-24);
+}
+
+.section-sm {
+    padding-block: var(--space-12);
+}
+
+/* === Light Theme Sections: Clean Boundaries === */
+[data-theme="light"] .section {
+    text-align: var(--content-align);
+}
+
+[data-theme="light"] .section-bordered {
+    border-top: 1px solid var(--border-default);
+    border-bottom: 1px solid var(--border-default);
+}
+
+/* === Dark Theme Sections: Dynamic Edges === */
+[data-theme="dark"] .section {
+    text-align: left;
+}
+
+/* Diagonal section divider for dark theme */
+[data-theme="dark"] .section-diagonal {
+    position: relative;
+    margin-top: -4rem;
+    padding-top: 8rem;
+}
+
+[data-theme="dark"] .section-diagonal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom right, var(--bg-body) 49.9%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Offset section for dark theme */
+[data-theme="dark"] .section-offset {
+    margin-left: var(--space-8);
+    border-left: 2px solid var(--primary);
+    padding-left: var(--space-8);
+}
+
+/* ==========================================================================
+   HERO LAYOUTS
+   ========================================================================== */
+
+.hero {
+    min-height: calc(100vh - var(--header-height));
+    display: grid;
+    align-items: center;
+    perspective: var(--perspective);
+}
+
+/* === Light Hero: Centered, Contained === */
+[data-theme="light"] .hero {
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-16) var(--space-6);
+}
+
+[data-theme="light"] .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+[data-theme="light"] .hero-title {
+    font-size: var(--text-5xl);
+    line-height: 1.1;
+    letter-spacing: var(--heading-tracking);
+}
+
+[data-theme="light"] .hero-actions {
+    justify-content: center;
+    gap: var(--space-4);
+}
+
+/* === Dark Hero: Split, Dynamic === */
+[data-theme="dark"] .hero {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-12);
+    text-align: left;
+    padding: var(--space-12) var(--space-6);
+}
+
+[data-theme="dark"] .hero-content {
+    max-width: 100%;
+    margin: 0;
+}
+
+[data-theme="dark"] .hero-title {
+    font-size: var(--text-6xl);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+[data-theme="dark"] .hero-visual {
+    position: relative;
+    transform: translateX(40px) rotateY(-8deg);
+    perspective: 1000px;
+}
+
+[data-theme="dark"] .hero-actions {
+    justify-content: flex-start;
+    gap: var(--space-4);
+}
+
+/* ==========================================================================
+   STATS LAYOUTS
+   ========================================================================== */
+
+.stats-row {
+    display: grid;
+    gap: var(--space-6);
+}
+
+/* Light: Even 4-column row */
+[data-theme="light"] .stats-row {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+[data-theme="light"] .card-stat {
+    text-align: center;
+    padding: var(--space-8);
+}
+
+/* Dark: Staggered asymmetric layout */
+[data-theme="dark"] .stats-row {
+    grid-template-columns: 1.2fr 0.8fr 1fr 1fr;
+    gap: var(--space-4);
+}
+
+[data-theme="dark"] .card-stat {
+    text-align: left;
+    padding: var(--space-6);
+}
+
+[data-theme="dark"] .card-stat:nth-child(2) {
+    transform: translateY(20px);
+}
+
+[data-theme="dark"] .card-stat:nth-child(4) {
+    transform: translateY(-10px);
+}
+
+/* ==========================================================================
+   CARD GRID LAYOUTS
+   ========================================================================== */
+
+.card-grid {
+    display: grid;
+    gap: var(--space-6);
+}
+
+/* Light: Uniform grid */
+[data-theme="light"] .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* Dark: Masonry-like stagger */
+[data-theme="dark"] .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+[data-theme="dark"] .card-grid>*:nth-child(2n) {
+    transform: translateY(16px);
+}
+
+[data-theme="dark"] .card-grid>*:nth-child(3n) {
+    transform: translateY(-8px);
+}
+
+/* ==========================================================================
+   FEATURE LAYOUTS
+   ========================================================================== */
+
+.features-grid {
+    display: grid;
+    gap: var(--space-8);
+}
+
+/* Light: 3 equal columns */
+[data-theme="light"] .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+[data-theme="light"] .feature-card {
+    text-align: center;
+}
+
+/* Dark: Zigzag alternating layout */
+[data-theme="dark"] .features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+}
+
+[data-theme="dark"] .feature-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    text-align: left;
+    align-items: center;
+}
+
+[data-theme="dark"] .feature-card:nth-child(even) {
+    direction: rtl;
+}
+
+[data-theme="dark"] .feature-card:nth-child(even)>* {
+    direction: ltr;
+}
+
+/* ==========================================================================
+   RESPONSIVE OVERRIDES
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    [data-theme="dark"] .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    [data-theme="dark"] .hero-visual {
+        display: none;
+    }
+
+    [data-theme="dark"] .hero-actions {
+        justify-content: center;
+    }
+
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    [data-theme="dark"] .card-stat:nth-child(2),
+    [data-theme="dark"] .card-stat:nth-child(4) {
+        transform: none;
+    }
+
+    [data-theme="dark"] .features-grid .feature-card {
+        grid-template-columns: 1fr;
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(even) {
+        direction: ltr;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-row {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .grid-cols-2,
+    .grid-cols-3,
+    .grid-cols-4 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .grid-split,
+    .grid-split-reverse {
+        grid-template-columns: 1fr !important;
+    }
+
+    [data-theme="dark"] .section-offset {
+        margin-left: 0;
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .hero {
+        min-height: auto;
+        padding-block: var(--space-16);
+    }
+
+    [data-theme="light"] .hero-title,
+    [data-theme="dark"] .hero-title {
+        font-size: var(--text-4xl);
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-row {
+        grid-template-columns: 1fr !important;
+    }
+}

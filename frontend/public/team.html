@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meet Our Team - SR University Coding Club. Core team and mentors.">
+
+    <meta name="theme-color" content="#7c3aed">
+    <link rel="stylesheet" href="./css/main.css">
+
+    <title>Team | SR University Coding Club</title>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="bg-gradient-orbs" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">>_</div>
+                <span>srucc</span>
+            </a>
+
+            <nav class="nav-main" role="navigation" aria-label="Main navigation">
+                <a href="./projects.html" class="nav-link">Projects</a>
+                <a href="./learn.html" class="nav-link">Learn</a>
+                <a href="./events.html" class="nav-link">Events</a>
+                <a href="./gallery.html" class="nav-link">Gallery</a>
+                <a href="./team.html" class="nav-link active">Team</a>
+                <a href="./community.html" class="nav-link">Community</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                </button>
+                <!-- Guest buttons (shown when logged out) -->
+                <div id="guest-nav" class="auth-nav">
+                    <a href="./login.html" class="btn btn-ghost btn-sm">Sign in</a>
+                    <a href="./join.html" class="btn btn-primary btn-sm">Join</a>
+                </div>
+                <!-- User menu (shown when logged in) -->
+                <div id="user-nav" class="user-menu" style="display: none;">
+                    <button class="user-menu-trigger" aria-expanded="false" aria-haspopup="true" aria-label="User menu">
+                        <span class="user-initials" id="user-initials">?</span>
+                        <img class="user-avatar" id="user-avatar" src="" alt="" style="display: none;">
+                    </button>
+                    <div class="user-menu-dropdown" role="menu">
+                        <a href="#" id="profile-link" class="user-menu-item" role="menuitem">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            Profile
+                        </a>
+                        <a href="#" id="dashboard-link" class="user-menu-item" role="menuitem">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                            Dashboard
+                        </a>
+                        <hr class="user-menu-divider">
+                        <button id="logout-btn" class="user-menu-item danger" role="menuitem">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                                <polyline points="16,17 21,12 16,7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg>
+                            Sign out
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <!-- Page Header -->
+        <section class="section page-header-section">
+            <div class="container">
+                <div class="page-header" data-animate>
+                    <h1 class="page-title">
+                        <span class="page-title-prefix">~/</span>team
+                    </h1>
+                    <p class="page-description">
+                        The folks who keep the code compiling and the community running.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Team -->
+        <section class="section pt-0">
+            <div class="container">
+                <h2 class="text-2xl mb-8 center-text" data-animate>Core Team</h2>
+
+                <div id="team-loading" class="center-text py-12">
+                    <div class="spinner spinner-lg"></div>
+                    <p class="text-muted mt-4">Loading team...</p>
+                </div>
+                <div id="team-error" class="center-text py-12" style="display: none;">
+                    <p class="text-error">Failed to load team members.</p>
+                </div>
+                <!-- Core Team Grid -->
+                <div id="core-team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- Mentors -->
+        <section id="mentors-section" class="section" style="display: none;">
+            <div class="container">
+                <h2 class="text-2xl mb-8 center-text" data-animate>Faculty Mentors</h2>
+                <div id="mentors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- Join CTA -->
+        <section class="section">
+            <div class="container">
+                <div class="card p-8 center-text"
+                    style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);"
+                    data-animate>
+                    <h2 class="mb-4">Want to Join the Team?</h2>
+                    <p class="text-secondary mb-6" style="max-width: 500px; margin-inline: auto;">
+                        We're always looking for passionate individuals to help lead and grow our community.
+                    </p>
+                    <a href="./join.html" class="btn btn-primary">Apply Now</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="./gallery.html" class="footer-link">Gallery</a>
+                <a href="./team.html" class="footer-link">Team</a>
+                <a href="https://github.com/sr-coding-club" class="footer-link" target="_blank">GitHub</a>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    <span class="t-muted">// </span>Built by students, for students.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import store from './js/core/store.js';
+        import dataService from './js/core/data.js';
+        import { initHeaderAuth } from './js/components/header-auth.js';
+        import { escapeHtml } from './js/utils/security.js';
+
+        // Initialize theme
+        store.initTheme();
+        document.documentElement.classList.add('js-ready');
+
+        // Initialize auth-aware header navigation
+        initHeaderAuth();
+
+        // Animate elements
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const animate = () => document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+        animate(); // Initial animate
+
+        // Theme toggle
+        const btn = document.getElementById('theme-toggle');
+        if (btn) {
+            const updateIcon = () => {
+                const isDark = store.getState().theme === 'dark';
+                btn.innerHTML = isDark
+                    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+                    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+            };
+
+            updateIcon();
+            btn.addEventListener('click', () => {
+                store.toggleTheme();
+                updateIcon();
+            });
+        }
+
+        // --- Team Logic ---
+
+        const coreGrid = document.getElementById('core-team-grid');
+        const mentorsSection = document.getElementById('mentors-section');
+        const mentorsGrid = document.getElementById('mentors-grid');
+        const loadingEl = document.getElementById('team-loading');
+        const errorEl = document.getElementById('team-error');
+
+        function renderSocialLinks(member) {
+            let links = '';
+            if (member.github_url) {
+                links += `
+                    <a href="${escapeHtml(member.github_url)}" class="team-social-link" aria-label="GitHub" target="_blank">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                        </svg>
+                    </a>`;
+            }
+            if (member.linkedin_url) {
+                links += `
+                     <a href="${escapeHtml(member.linkedin_url)}" class="team-social-link" aria-label="LinkedIn" target="_blank">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>`;
+            }
+            return links;
+        }
+
+        function createMemberCard(member, index) {
+            const avatar = member.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${member.full_name}`;
+            const title = member.title || (member.role === 'admin' ? 'Co-Lead' : 'Team Member');
+
+            return `
+                <article class="team-card" data-animate style="--delay: ${index * 0.1}s">
+                    <div class="team-avatar">
+                        <img src="${escapeHtml(avatar)}" alt="${escapeHtml(member.full_name)}" loading="lazy">
+                    </div>
+                    <h3 class="team-name">${escapeHtml(member.full_name)}</h3>
+                    <p class="team-role">${escapeHtml(title)}</p>
+                    <p class="team-bio">${escapeHtml(member.bio || '')}</p>
+                    <div class="team-social">
+                        ${renderSocialLinks(member)}
+                    </div>
+                </article>
+            `;
+        }
+
+        // Simplified mentor card logic usually differs in UI, but we'll use similar for now
+        function createMentorCard(member, index) {
+            const avatar = member.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${member.full_name}`;
+            const title = member.title || 'Faculty Advisor';
+
+            return `
+                 <article class="card hover-lift" data-animate style="--delay: ${index * 0.1}s">
+                    <div class="flex gap-4">
+                        <div class="team-avatar-sm">
+                            <img src="${escapeHtml(avatar)}" alt="${escapeHtml(member.full_name)}" loading="lazy">
+                        </div>
+                        <div>
+                            <h3 class="text-base font-semibold">${escapeHtml(member.full_name)}</h3>
+                            <p class="text-sm text-accent">${escapeHtml(title)}</p>
+                            <p class="text-xs text-muted mt-2">${escapeHtml(member.bio || '')}</p>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        async function loadTeam() {
+            try {
+                loadingEl.style.display = 'block';
+                const team = await dataService.getTeamMembers();
+
+                // Filter Mentors (Title contains Prof or Dr) vs Core Team
+                // Also can use role, but we'll use title heuristics as planned
+                const mentors = team.filter(m => /Prof|Dr\./i.test(m.title || ''));
+                const core = team.filter(m => !mentors.includes(m));
+
+                loadingEl.style.display = 'none';
+
+                if (team.length === 0) {
+                    coreGrid.innerHTML = '<p class="text-muted col-span-full center-text">No team members found.</p>';
+                    return;
+                }
+
+                // Render Core
+                if (core.length > 0) {
+                    coreGrid.innerHTML = core.map(createMemberCard).join('');
+                } else {
+                    coreGrid.innerHTML = '<p class="text-muted col-span-full center-text">No core team members listed.</p>';
+                }
+
+                // Render Mentors
+                if (mentors.length > 0) {
+                    mentorsSection.style.display = 'block';
+                    mentorsGrid.innerHTML = mentors.map(createMentorCard).join('');
+                }
+
+                // Trigger animations for new elements
+                animate();
+
+            } catch (error) {
+                console.error('Failed to load team:', error);
+                loadingEl.style.display = 'none';
+                errorEl.style.display = 'block';
+            }
+        }
+
+        loadTeam();
+    </script>
+
+    <style>
+        /* Page header with theme support */
+        [data-theme="light"] .page-header {
+            text-align: center;
+        }
+
+        [data-theme="dark"] .page-header {
+            text-align: left;
+        }
+
+        /* Team grid theme-aware */
+        [data-theme="dark"] .team-grid>*:nth-child(2n) {
+            transform: translateY(20px);
+        }
+
+        /* CTA card theme-aware */
+        [data-theme="light"] .cta-join {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+            text-align: center;
+        }
+
+        [data-theme="dark"] .cta-join {
+            background: var(--bg-surface);
+            border-left: 3px solid var(--primary);
+            text-align: left;
+        }
+    </style>
+</body>
+
+</html>

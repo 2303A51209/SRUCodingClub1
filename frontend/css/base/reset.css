@@ -1,0 +1,118 @@
+/* ======================================
+   CSS Reset (Modern Normalization)
+   ====================================== */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Prevent font size inflation */
+html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    scroll-behavior: smooth;
+}
+
+/* Core body defaults */
+body {
+    min-height: 100vh;
+    line-height: var(--leading-normal, 1.5);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Remove list styles on ul, ol with a list role */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+/* Set core anchor defaults */
+a {
+    text-decoration-skip-ink: auto;
+    color: inherit;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+/* Remove default button styles */
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Remove textarea resize and set as block */
+textarea {
+    resize: vertical;
+}
+
+/* Balance headlines */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+/* Improve text wrapping for paragraphs */
+p {
+    text-wrap: pretty;
+}
+
+/* Avoid orphans on long text */
+article>*+* {
+    margin-block-start: 1em;
+}
+
+/* Make sure hidden attribute works */
+[hidden] {
+    display: none !important;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

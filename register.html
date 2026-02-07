@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | SR University Coding Club</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div class="bg-gradient-orbs" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="header-inner">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">>_</div>
+                <span>srucc</span>
+            </a>
+            <h2 class="text-sm font-semibold ml-4 border-l pl-4 border-glass">Event Registration</h2>
+            <div class="nav-actions">
+                <div id="auth-actions"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-12 max-w-3xl">
+        <!-- Event Summary Card -->
+        <div id="event-summary-card" class="card mb-8 p-6 flex items-center justify-between">
+            <div>
+                <h1 class="text-xl font-bold mb-1" id="event-title">Loading...</h1>
+                <p class="text-secondary text-sm" id="event-date">...</p>
+            </div>
+            <a href="#" id="back-link" class="btn btn-ghost btn-sm">Cancel</a>
+        </div>
+
+        <!-- Registration Card -->
+        <div class="card p-0 overflow-hidden">
+            <!-- Stepper Header -->
+            <div class="stepper-header">
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Profile</span>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Team</span>
+                </div>
+                <!-- Track step removed for V1 simplicity unless config exists -->
+                <!-- <div class="step" data-step="3">...</div> -->
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Confirm</span>
+                </div>
+            </div>
+
+            <!-- Form Body -->
+            <div class="p-8">
+                <form id="reg-form">
+
+                    <!-- STEP 1: Personal Info -->
+                    <div class="step-content active" id="step-1">
+                        <h2 class="text-lg font-semibold mb-6">Confirm Your Details</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="block text-sm mb-1">Full Name</label>
+                                <input type="text" name="full_name" class="input w-full" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="block text-sm mb-1">Email</label>
+                                <input type="email" name="email" class="input w-full" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="block text-sm mb-1">Mobile Number</label>
+                                <input type="tel" name="phone" id="in-phone" class="input w-full"
+                                    placeholder="+91 98765 43210" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="block text-sm mb-1">College / Org</label>
+                                <input type="text" name="college" class="input w-full" value="SR University" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label class="block text-sm mb-1">Skills (comma separated)</label>
+                            <input type="text" name="skills" id="in-skills" class="input w-full"
+                                placeholder="React, Python, Node.js...">
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label class="block text-sm mb-1">GitHub / Portfolio URL</label>
+                            <input type="url" name="portfolio" id="in-portfolio" class="input w-full"
+                                placeholder="https://github.com/username">
+                        </div>
+
+                        <div class="flex justify-end mt-8">
+                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next: Team
+                                Setup</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Team Selection -->
+                    <div class="step-content" id="step-2">
+                        <h2 class="text-lg font-semibold mb-6">Participation Mode</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            <label class="card hover-outline cursor-pointer p-4 border border-transparent has-radio">
+                                <input type="radio" name="participation_type" value="solo" checked class="mb-2">
+                                <div class="font-bold">Solo</div>
+                                <p class="text-xs text-secondary mt-1">Participate individually.</p>
+                            </label>
+
+                            <label class="card hover-outline cursor-pointer p-4 border border-transparent has-radio"
+                                id="opt-join">
+                                <input type="radio" name="participation_type" value="join_team" class="mb-2">
+                                <div class="font-bold">Join Team</div>
+                                <p class="text-xs text-secondary mt-1">Enter a code to join existing team.</p>
+                            </label>
+
+                            <label class="card hover-outline cursor-pointer p-4 border border-transparent has-radio"
+                                id="opt-create">
+                                <input type="radio" name="participation_type" value="create_team" class="mb-2">
+                                <div class="font-bold">Create Team</div>
+                                <p class="text-xs text-secondary mt-1">Start a new team & invite others.</p>
+                            </label>
+                        </div>
+
+                        <!-- Dynamic Team Fields -->
+                        <div id="team-fields-create" style="display: none;" class="mb-6 p-4 bg-surface rounded-lg">
+                            <div class="form-group">
+                                <label class="block text-sm mb-1">Team Name</label>
+                                <input type="text" name="team_name" class="input w-full" placeholder="e.g. Code Ninjas">
+                            </div>
+                        </div>
+
+                        <div id="team-fields-join" style="display: none;" class="mb-6 p-4 bg-surface rounded-lg">
+                            <div class="form-group">
+                                <label class="block text-sm mb-1">Team Code</label>
+                                <input type="text" name="team_code" class="input w-full font-mono"
+                                    placeholder="XYZ-123">
+                            </div>
+                        </div>
+
+                        <!-- Error Display -->
+                        <div id="team-error" class="text-error text-sm mb-4" style="display: none;"></div>
+
+                        <div class="flex justify-between mt-8">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Back</button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next: Confirm</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Confirm -->
+                    <div class="step-content" id="step-3">
+                        <h2 class="text-lg font-semibold mb-6">Declaration</h2>
+
+                        <div class="bg-surface p-4 rounded-lg mb-6">
+                            <p class="text-sm text-secondary">
+                                I hereby declare that the information provided is true. I agree to abide by the rules
+                                and code of conduct of the event. I understand that any violation may lead to
+                                disqualification.
+                            </p>
+                        </div>
+
+                        <label class="flex items-start gap-3 cursor-pointer mb-8">
+                            <input type="checkbox" required id="consent-check" class="mt-1">
+                            <span class="text-sm">I agree to the Terms & Conditions and Code of Conduct.</span>
+                        </label>
+
+                        <div class="flex justify-between">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Back</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit">
+                                <span class="btn-text">Submit Registration</span>
+                                <div class="spinner spinner-sm" style="display:none"></div>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-card center-text">
+            <div
+                class="w-16 h-16 bg-success/20 text-success rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+            </div>
+            <h2 class="text-xl font-bold mb-2">Registration Successful!</h2>
+            <p class="text-secondary mb-6">You have successfully registered. Updates will be sent to your email.</p>
+
+            <div id="success-team-info" class="bg-surface p-4 rounded-lg mb-6 hidden">
+                <p class="text-sm text-muted mb-1">Your Team Code</p>
+                <div class="text-2xl font-mono font-bold select-all" id="display-team-code">CODE123</div>
+                <p class="text-xs text-muted mt-2">Share this code with your teammates.</p>
+            </div>
+
+            <a href="./index.html" class="btn btn-primary w-full">Back to Home</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import dataService from './js/core/data.js';
+        import store from './js/core/store.js';
+        import auth from './js/core/auth.js';
+        import routeGuard from './js/guards/routeGuard.js';
+        import './js/components/header-auth.js';
+
+        store.initTheme();
+
+        const params = new URLSearchParams(window.location.search);
+        const eventId = params.get('id');
+
+        let currentStep = 1;
+        let eventConfig = {};
+
+        const dom = {
+            form: document.getElementById('reg-form'),
+            steps: document.querySelectorAll('.step'),
+            contents: document.querySelectorAll('.step-content'),
+            inputs: {
+                name: document.querySelector('[name="full_name"]'),
+                email: document.querySelector('[name="email"]'),
+                phone: document.querySelector('[name="phone"]'),
+                skills: document.querySelector('[name="skills"]'),
+                portfolio: document.querySelector('[name="portfolio"]'),
+                type: document.querySelectorAll('[name="participation_type"]'),
+                teamName: document.querySelector('[name="team_name"]'),
+                teamCode: document.querySelector('[name="team_code"]'),
+            },
+            teamFields: {
+                create: document.getElementById('team-fields-create'),
+                join: document.getElementById('team-fields-join')
+            },
+            modal: document.getElementById('success-modal'),
+            teamInfo: document.getElementById('success-team-info')
+        };
+
+        // Initialize
+        async function init() {
+            // Guard
+            const user = await routeGuard.check({ auth: true });
+            if (!user) return; // Redirects
+
+            if (!eventId) {
+                alert('No event specified');
+                window.location.href = '/events.html';
+                return;
+            }
+
+            // Fill User Data
+            dom.inputs.name.value = user.full_name || '';
+            dom.inputs.email.value = user.email || '';
+            dom.inputs.phone.value = user.phone || '';
+
+            // Load Event
+            try {
+                const event = await dataService.getEvent(eventId);
+                document.getElementById('event-title').textContent = event.title;
+                document.getElementById('event-date').textContent = new Date(event.start_date).toDateString();
+                document.getElementById('back-link').href = `./event-details.html?id=${event.id}`;
+
+                eventConfig = event.registration_config || {};
+
+                // Config Logic
+                if (eventConfig.allow_solo === false) {
+                    document.querySelector('[value="solo"]').parentElement.style.display = 'none';
+                    // Select next available
+                    if (eventConfig.allow_teams !== false) {
+                        document.querySelector('[value="create_team"]').click();
+                    }
+                }
+                if (eventConfig.allow_teams === false) {
+                    document.querySelector('[value="create_team"]').parentElement.style.display = 'none';
+                    document.querySelector('[value="join_team"]').parentElement.style.display = 'none';
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert('Event not found');
+            }
+        }
+
+        // Stepper Logic
+        window.nextStep = (step) => {
+            // Validate current step
+            if (step > currentStep) {
+                if (!validateStep(currentStep)) return;
+            }
+
+            showStep(step);
+        };
+
+        window.prevStep = (step) => showStep(step);
+
+        function showStep(step) {
+            currentStep = step;
+            dom.steps.forEach(el => {
+                const s = parseInt(el.dataset.step);
+                el.classList.toggle('active', s === step);
+                el.classList.toggle('completed', s < step);
+            });
+            dom.contents.forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${step}`).classList.add('active');
+        }
+
+        function validateStep(step) {
+            if (step === 1) {
+                const phone = dom.inputs.phone.value;
+                if (!phone) {
+                    alert('Phone number is required');
+                    return false;
+                }
+                return true;
+            }
+            if (step === 2) {
+                const type = document.querySelector('[name="participation_type"]:checked').value;
+                if (type === 'create_team' && !dom.inputs.teamName.value) {
+                    alert('Team Name is required');
+                    return false;
+                }
+                if (type === 'join_team' && !dom.inputs.teamCode.value) {
+                    alert('Team Code is required');
+                    return false;
+                }
+                // TODO: Validate team name uniqueness via API? (Optional enhancement)
+                return true;
+            }
+            return true;
+        }
+
+        // Team Toggle Logic
+        dom.inputs.type.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const val = e.target.value;
+                dom.teamFields.create.style.display = val === 'create_team' ? 'block' : 'none';
+                dom.teamFields.join.style.display = val === 'join_team' ? 'block' : 'none';
+            });
+        });
+
+        // Submit
+        dom.form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!document.getElementById('consent-check').checked) return;
+
+            const btn = document.getElementById('btn-submit');
+            const spinner = btn.querySelector('.spinner');
+            const txt = btn.querySelector('.btn-text');
+
+            try {
+                btn.disabled = true;
+                txt.style.display = 'none';
+                spinner.style.display = 'block';
+
+                const formData = {
+                    event_id: eventId,
+                    type: document.querySelector('[name="participation_type"]:checked').value,
+                    team_name: dom.inputs.teamName.value,
+                    team_code: dom.inputs.teamCode.value,
+                    submission_data: {
+                        phone: dom.inputs.phone.value,
+                        skills: dom.inputs.skills?.value,
+                        portfolio: dom.inputs.portfolio?.value,
+                    }
+                };
+
+                const res = await dataService.submitRegistration(formData);
+
+                // Success
+                dom.modal.classList.add('active');
+                if (res.team_code) {
+                    dom.teamInfo.classList.remove('hidden');
+                    document.getElementById('display-team-code').textContent = res.team_code;
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert(err.message || 'Registration failed');
+                btn.disabled = false;
+                txt.style.display = 'block';
+                spinner.style.display = 'none';
+            }
+        });
+
+        init();
+    </script>
+
+    <style>
+        .stepper-header {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-6);
+            background: var(--bg-surface-elevated);
+            border-bottom: 1px solid var(--border-default);
+            position: relative;
+        }
+
+        .stepper-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            right: 40px;
+            height: 2px;
+            background: var(--border-default);
+            z-index: 0;
+            transform: translateY(-50%);
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            position: relative;
+            z-index: 1;
+            width: 80px;
+        }
+
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-surface);
+            border: 2px solid var(--border-default);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+
+        .step.active .step-circle {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
+        }
+
+        .step.completed .step-circle {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+            color: var(--text-muted);
+        }
+
+        .step.active .step-label {
+            color: var(--text-primary);
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .has-radio input:checked+div {
+            color: var(--primary);
+        }
+
+        .has-radio:has(input:checked) {
+            border-color: var(--primary);
+            background: rgba(124, 58, 237, 0.05);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            padding: var(--space-8);
+            border-radius: var(--radius-xl);
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid var(--glass-border);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</body>
+
+</html>

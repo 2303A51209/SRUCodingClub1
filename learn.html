@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SR University Coding Club - Learning paths, tutorials, and peer mentorship.">
+
+    <meta name="theme-color" content="#0d1117">
+    <link rel="stylesheet" href="./css/main.css">
+
+    <title>Learn | SR University Coding Club</title>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="bg-gradient-orbs" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">>_</div>
+                <span>srucc</span>
+            </a>
+
+            <nav class="nav-main" role="navigation" aria-label="Main navigation">
+                <a href="./projects.html" class="nav-link">Projects</a>
+                <a href="./learn.html" class="nav-link active" style="display:none !important;">Learn</a>
+                <!-- TEMPORARILY DISABLED -->
+                <a href="./events.html" class="nav-link">Events</a>
+                <a href="./gallery.html" class="nav-link">Gallery</a>
+                <a href="./team.html" class="nav-link">Team</a>
+                <a href="./community.html" class="nav-link">Community</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                </button>
+                <!-- Auth Slot -->
+                <div id="auth-actions" class="auth-actions"></div>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+
+        <!-- Page Header -->
+        <section class="section page-header-section">
+            <div class="container">
+                <div class="page-header" data-animate>
+                    <h1 class="page-title">
+                        <span class="page-title-prefix">~/</span>learn
+                    </h1>
+                    <p class="page-description">
+                        Pick a path. Write code. Get feedback. Level up.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Paths -->
+        <section class="section pt-0">
+            <div class="container">
+                <div class="section-header" data-animate>
+                    <h2 class="section-title">Learning Paths</h2>
+                    <p class="section-subtitle">Structured tracks to go from beginner to builder</p>
+                </div>
+
+                <div class="paths-grid" data-animate data-delay="1">
+
+                    <!-- Frontend Path -->
+                    <article class="path-card">
+                        <div class="path-header">
+                            <div class="path-icon">⚛️</div>
+                            <div>
+                                <h3 class="path-title">Frontend</h3>
+                                <p class="path-meta">
+                                    <span>12 modules</span>
+                                    <span>•</span>
+                                    <span>47 learners</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <div class="progress-label">
+                                <span>HTML → CSS → JS → React</span>
+                                <span>65%</span>
+                            </div>
+                        </div>
+                        <div class="path-skills">
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">TypeScript</span>
+                        </div>
+                        <div class="path-stats">
+                            <div class="path-stat">
+                                <span class="path-stat-value">156</span>
+                                <span class="path-stat-label">hours</span>
+                            </div>
+                            <div class="path-stat">
+                                <span class="path-stat-value">24</span>
+                                <span class="path-stat-label">projects</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Backend Path -->
+                    <article class="path-card">
+                        <div class="path-header">
+                            <div class="path-icon">🖥️</div>
+                            <div>
+                                <h3 class="path-title">Backend</h3>
+                                <p class="path-meta">
+                                    <span>10 modules</span>
+                                    <span>•</span>
+                                    <span>32 learners</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div>
+                            </div>
+                            <div class="progress-label">
+                                <span>Node.js → Express → SQL → APIs</span>
+                                <span>40%</span>
+                            </div>
+                        </div>
+                        <div class="path-skills">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Express</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">REST</span>
+                        </div>
+                        <div class="path-stats">
+                            <div class="path-stat">
+                                <span class="path-stat-value">120</span>
+                                <span class="path-stat-label">hours</span>
+                            </div>
+                            <div class="path-stat">
+                                <span class="path-stat-value">18</span>
+                                <span class="path-stat-label">projects</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- AI/ML Path -->
+                    <article class="path-card">
+                        <div class="path-header">
+                            <div class="path-icon">🤖</div>
+                            <div>
+                                <h3 class="path-title">AI / ML</h3>
+                                <p class="path-meta">
+                                    <span>8 modules</span>
+                                    <span>•</span>
+                                    <span>28 learners</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 25%"></div>
+                            </div>
+                            <div class="progress-label">
+                                <span>Python → NumPy → ML → LLMs</span>
+                                <span>25%</span>
+                            </div>
+                        </div>
+                        <div class="path-skills">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">LangChain</span>
+                            <span class="skill-tag">RAG</span>
+                        </div>
+                        <div class="path-stats">
+                            <div class="path-stat">
+                                <span class="path-stat-value">180</span>
+                                <span class="path-stat-label">hours</span>
+                            </div>
+                            <div class="path-stat">
+                                <span class="path-stat-value">12</span>
+                                <span class="path-stat-label">projects</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- DevOps Path -->
+                    <article class="path-card">
+                        <div class="path-header">
+                            <div class="path-icon">🚀</div>
+                            <div>
+                                <h3 class="path-title">DevOps</h3>
+                                <p class="path-meta">
+                                    <span>6 modules</span>
+                                    <span>•</span>
+                                    <span>15 learners</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 50%"></div>
+                            </div>
+                            <div class="progress-label">
+                                <span>Git → Docker → CI/CD → Cloud</span>
+                                <span>50%</span>
+                            </div>
+                        </div>
+                        <div class="path-skills">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">GitHub Actions</span>
+                            <span class="skill-tag">AWS</span>
+                        </div>
+                        <div class="path-stats">
+                            <div class="path-stat">
+                                <span class="path-stat-value">80</span>
+                                <span class="path-stat-label">hours</span>
+                            </div>
+                            <div class="path-stat">
+                                <span class="path-stat-value">8</span>
+                                <span class="path-stat-label">projects</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- DSA Path -->
+                    <article class="path-card">
+                        <div class="path-header">
+                            <div class="path-icon">🧮</div>
+                            <div>
+                                <h3 class="path-title">DSA</h3>
+                                <p class="path-meta">
+                                    <span>15 modules</span>
+                                    <span>•</span>
+                                    <span>62 learners</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 30%"></div>
+                            </div>
+                            <div class="progress-label">
+                                <span>Arrays → Trees → Graphs → DP</span>
+                                <span>30%</span>
+                            </div>
+                        </div>
+                        <div class="path-skills">
+                            <span class="skill-tag">Arrays</span>
+                            <span class="skill-tag">Trees</span>
+                            <span class="skill-tag">Graphs</span>
+                            <span class="skill-tag">DP</span>
+                        </div>
+                        <div class="path-stats">
+                            <div class="path-stat">
+                                <span class="path-stat-value">200</span>
+                                <span class="path-stat-label">problems</span>
+                            </div>
+                            <div class="path-stat">
+                                <span class="path-stat-value">4</span>
+                                <span class="path-stat-label">contests</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Open Source Path -->
+                    <article class="path-card">
+                        <div class="path-header">
+                            <div class="path-icon">🌐</div>
+                            <div>
+                                <h3 class="path-title">Open Source</h3>
+                                <p class="path-meta">
+                                    <span>5 modules</span>
+                                    <span>•</span>
+                                    <span>21 learners</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                            <div class="progress-label">
+                                <span>Git → PRs → Reviews → Maintain</span>
+                                <span>80%</span>
+                            </div>
+                        </div>
+                        <div class="path-skills">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">Code Review</span>
+                            <span class="skill-tag">Docs</span>
+                        </div>
+                        <div class="path-stats">
+                            <div class="path-stat">
+                                <span class="path-stat-value">40</span>
+                                <span class="path-stat-label">hours</span>
+                            </div>
+                            <div class="path-stat">
+                                <span class="path-stat-value">5+</span>
+                                <span class="path-stat-label">PRs merged</span>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Resources -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header" data-animate>
+                    <h2 class="section-title">Recent Resources</h2>
+                    <p class="section-subtitle">Tutorials, guides, and references from the community</p>
+                </div>
+
+                <div class="resources-grid" data-animate data-delay="1">
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">📝</div>
+                        <div class="resource-content">
+                            <h3 class="resource-title">Building REST APIs with Express</h3>
+                            <div class="resource-meta">
+                                <span class="resource-type">tutorial</span>
+                                <span>by @alex</span>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">📹</div>
+                        <div class="resource-content">
+                            <h3 class="resource-title">React Hooks Deep Dive</h3>
+                            <div class="resource-meta">
+                                <span class="resource-type">video</span>
+                                <span>by @sarah</span>
+                                <span>5 days ago</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">📄</div>
+                        <div class="resource-content">
+                            <h3 class="resource-title">Git Workflow Cheatsheet</h3>
+                            <div class="resource-meta">
+                                <span class="resource-type">cheatsheet</span>
+                                <span>by @mike</span>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">🔧</div>
+                        <div class="resource-content">
+                            <h3 class="resource-title">Setting up PostgreSQL locally</h3>
+                            <div class="resource-meta">
+                                <span class="resource-type">guide</span>
+                                <span>by @priya</span>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Find a Mentor -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header" data-animate>
+                    <h2 class="section-title">Find a Buddy</h2>
+                    <p class="section-subtitle">Pair up for code reviews, mock interviews, or just to ship together</p>
+                </div>
+
+                <div class="mentors-grid" data-animate data-delay="1">
+                    <article class="mentor-card">
+                        <div class="mentor-avatar">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=alex" alt="Alex">
+                        </div>
+                        <div class="mentor-info">
+                            <div class="mentor-name">Alex Chen</div>
+                            <div class="mentor-role">3rd Year • Full Stack</div>
+                            <div class="mentor-skills">
+                                <span class="mentor-skill">React</span>
+                                <span class="mentor-skill">Node</span>
+                            </div>
+                        </div>
+                        <span class="status-badge status-badge--online">
+                            <span class="status-dot"></span>
+                            online
+                        </span>
+                    </article>
+
+                    <article class="mentor-card">
+                        <div class="mentor-avatar">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=priya" alt="Priya">
+                        </div>
+                        <div class="mentor-info">
+                            <div class="mentor-name">Priya Sharma</div>
+                            <div class="mentor-role">4th Year • ML/AI</div>
+                            <div class="mentor-skills">
+                                <span class="mentor-skill">Python</span>
+                                <span class="mentor-skill">PyTorch</span>
+                            </div>
+                        </div>
+                        <span class="status-badge status-badge--online">
+                            <span class="status-dot"></span>
+                            online
+                        </span>
+                    </article>
+
+                    <article class="mentor-card">
+                        <div class="mentor-avatar">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=mike" alt="Mike">
+                        </div>
+                        <div class="mentor-info">
+                            <div class="mentor-name">Mike Johnson</div>
+                            <div class="mentor-role">2nd Year • DevOps</div>
+                            <div class="mentor-skills">
+                                <span class="mentor-skill">Docker</span>
+                                <span class="mentor-skill">AWS</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="mentor-card">
+                        <div class="mentor-avatar">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=sarah" alt="Sarah">
+                        </div>
+                        <div class="mentor-info">
+                            <div class="mentor-name">Sarah Kim</div>
+                            <div class="mentor-role">3rd Year • Frontend</div>
+                            <div class="mentor-skills">
+                                <span class="mentor-skill">TypeScript</span>
+                                <span class="mentor-skill">CSS</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="section-cta" data-animate>
+                    <a href="./community.html" class="btn btn-secondary">
+                        View all buddies
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="./gallery.html" class="footer-link">Gallery</a>
+                <a href="./team.html" class="footer-link">Team</a>
+                <a href="https://github.com/sr-coding-club" class="footer-link" target="_blank">GitHub</a>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    <span class="t-muted">// </span>Built by students, for students.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import './js/components/header-auth.js';
+        import store from './js/core/store.js';
+
+        // Initialize theme
+        store.initTheme();
+        document.documentElement.classList.add('js-ready');
+
+        // Animate elements
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        const themeBtn = document.getElementById('theme-toggle');
+        if (themeBtn) {
+            const updateIcon = () => {
+                const isDark = store.getState().theme === 'dark';
+                themeBtn.innerHTML = isDark
+                    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+                    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+            };
+            updateIcon();
+            themeBtn.addEventListener('click', () => {
+                store.toggleTheme();
+                updateIcon();
+            });
+        }
+    </script>
+
+    <style>
+        /* === Page Header === */
+        .page-header-section {
+            padding-top: var(--space-16);
+            padding-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-family: var(--font-mono);
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-3);
+        }
+
+        [data-theme="dark"] .page-title-prefix {
+            color: var(--primary);
+        }
+
+        [data-theme="light"] .page-title-prefix {
+            color: var(--text-muted);
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            max-width: 500px;
+        }
+
+        /* === Section Header === */
+        .section-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-family: var(--font-mono);
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-2);
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+        }
+
+        .section-cta {
+            margin-top: var(--space-8);
+            text-align: center;
+        }
+
+        /* === Mentors Grid === */
+        .mentors-grid {
+            display: grid;
+            gap: var(--space-4);
+        }
+
+        @media (min-width: 640px) {
+            .mentors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .mentors-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* === Logo fix === */
+        [data-theme="dark"] .logo-icon {
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        [data-theme="light"] .logo-icon {
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            background: var(--text-primary);
+            color: var(--bg-body);
+            border: none;
+        }
+
+        .logo span {
+            font-family: var(--font-mono);
+            font-weight: var(--font-semibold);
+        }
+    </style>
+</body>
+
+</html>

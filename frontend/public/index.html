@@ -1,0 +1,2352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SR University Coding Club - Where developers build, learn, and ship together.">
+
+  <meta name="theme-color" content="#0d1117">
+  <link rel="manifest" href="./pwa/manifest.json">
+
+  <link rel="stylesheet" href="./css/main.css">
+
+  <title>SR University Coding Club</title>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="bg-gradient-orbs" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="./index.html" class="logo">
+        <div class="logo-icon">&gt;_</div>
+        <span>srucc</span>
+      </a>
+
+      <nav class="nav-main" role="navigation" aria-label="Main navigation">
+        <a href="./projects.html" class="nav-link">Projects</a>
+        <a href="./learn.html" class="nav-link">Learn</a>
+        <a href="./events.html" class="nav-link">Events</a>
+        <a href="./gallery.html" class="nav-link">Gallery</a>
+        <a href="./team.html" class="nav-link">Team</a>
+        <a href="./community.html" class="nav-link">Community</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+        </button>
+        <!-- Guest buttons (shown when logged out) -->
+        <div id="guest-nav" class="auth-nav">
+          <a href="./login.html" class="btn btn-ghost btn-sm">Sign in</a>
+          <a href="./join.html" class="btn btn-primary btn-sm">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+              <path
+                d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8z" />
+            </svg>
+            Join
+          </a>
+        </div>
+        <!-- User menu (shown when logged in) -->
+        <div id="user-nav" class="user-menu" style="display: none;">
+          <button class="user-menu-trigger" aria-expanded="false" aria-haspopup="true" aria-label="User menu">
+            <span class="user-initials" id="user-initials">?</span>
+            <img class="user-avatar" id="user-avatar" src="" alt="" style="display: none;">
+          </button>
+          <div class="user-menu-dropdown" role="menu">
+            <a href="#" id="profile-link" class="user-menu-item" role="menuitem">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              Profile
+            </a>
+            <a href="#" id="dashboard-link" class="user-menu-item" role="menuitem">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+              Dashboard
+            </a>
+            <hr class="user-menu-divider">
+            <button id="logout-btn" class="user-menu-item danger" role="menuitem">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                <polyline points="16,17 21,12 16,7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" class="main-content">
+
+    <!-- Hero Section -->
+    <section class="hero-dev section">
+      <div class="container">
+        <div class="hero-dev-grid">
+
+          <!-- Left: Headline & Subtext -->
+          <div class="hero-dev-content" data-animate>
+            <h1 class="hero-dev-title">
+              <span class="hero-dev-prefix" aria-hidden="true">$</span>
+              <span class="hero-dev-text">build<span class="hero-dev-cursor" aria-hidden="true"></span></span>
+            </h1>
+            <p class="hero-dev-tagline">
+              We're students who code, ship, and learn together.<br>
+              No fluff. Just projects, PRs, and progress.
+            </p>
+            <div class="hero-dev-stats">
+              <div class="hero-stat-item">
+                <span class="hero-stat-value" id="stat-commits">2,847</span>
+                <span class="hero-stat-label">commits</span>
+              </div>
+              <div class="hero-stat-item">
+                <span class="hero-stat-value" id="stat-projects">23</span>
+                <span class="hero-stat-label">active repos</span>
+              </div>
+              <div class="hero-stat-item">
+                <span class="hero-stat-value" id="stat-members">156</span>
+                <span class="hero-stat-label">contributors</span>
+              </div>
+            </div>
+            <div class="hero-dev-actions">
+              <a href="./projects.html" class="btn btn-primary">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                  <path
+                    d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8z" />
+                </svg>
+                View Projects
+              </a>
+              <a href="./learn.html" class="btn btn-secondary">
+                Start Learning
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Terminal -->
+          <div class="hero-dev-terminal" data-animate data-delay="1">
+            <div class="terminal" role="img" aria-label="Terminal showing recent club activity">
+              <div class="terminal-header">
+                <div class="terminal-controls">
+                  <span class="terminal-control terminal-control--close"></span>
+                  <span class="terminal-control terminal-control--minimize"></span>
+                  <span class="terminal-control terminal-control--maximize"></span>
+                </div>
+                <span class="terminal-title">srcc — activity</span>
+              </div>
+              <div class="terminal-body" id="terminal-body">
+                <div class="terminal-line">
+                  <span class="terminal-prompt">$</span>
+                  <span class="terminal-command">git log --oneline -5</span>
+                </div>
+                <div class="terminal-line terminal-output">
+                  <span class="terminal-git-log">
+                    <span class="terminal-git-hash">a3f2c91</span>
+                    <span class="terminal-git-message">feat: add dark mode to dashboard</span>
+                  </span>
+                </div>
+                <div class="terminal-line terminal-output">
+                  <span class="terminal-git-log">
+                    <span class="terminal-git-hash">e8b1d04</span>
+                    <span class="terminal-git-message">fix: resolve auth token refresh</span>
+                  </span>
+                </div>
+                <div class="terminal-line terminal-output">
+                  <span class="terminal-git-log">
+                    <span class="terminal-git-hash">7c4a5f2</span>
+                    <span class="terminal-git-message">docs: update API documentation</span>
+                  </span>
+                </div>
+                <div class="terminal-line terminal-output">
+                  <span class="terminal-git-log">
+                    <span class="terminal-git-hash">1b9e3c7</span>
+                    <span class="terminal-git-message">refactor: optimize event queries</span>
+                  </span>
+                </div>
+                <div class="terminal-line terminal-output">
+                  <span class="terminal-git-log">
+                    <span class="terminal-git-hash">f5d2a8e</span>
+                    <span class="terminal-git-message">test: add registration unit tests</span>
+                  </span>
+                </div>
+                <div class="terminal-line">
+                  <span class="terminal-prompt">$</span>
+                  <span class="terminal-cursor"></span>
+                </div>
+              </div>
+              <div class="terminal-activity">
+                <span class="terminal-activity-dot"></span>
+                <span id="activity-text">12 members pushed code today</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Links / What We Do -->
+    <section class="section quick-links-section">
+      <div class="container">
+        <div class="quick-links-grid">
+          <a href="./projects.html" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg viewBox="0 0 16 16" width="24" height="24" fill="currentColor">
+                <path
+                  d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8z" />
+              </svg>
+            </div>
+            <div class="quick-link-content">
+              <h3>Projects</h3>
+              <p>Real code, real repos. Fork something and start shipping.</p>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+
+          <a href="./learn.html" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg viewBox="0 0 16 16" width="24" height="24" fill="currentColor">
+                <path
+                  d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0114.25 15h-9a.75.75 0 010-1.5h9a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 0110 4.25V1.5H5.75a.25.25 0 00-.25.25v2.5a.75.75 0 01-1.5 0v-2.5zm7.5-.188V4.25c0 .138.112.25.25.25h2.688a.252.252 0 00-.011-.013L11.513 1.562a.267.267 0 00-.013-.011z" />
+                <path
+                  d="M0 8.25A1.75 1.75 0 011.75 6.5h5a1.75 1.75 0 011.75 1.75v5.5A1.75 1.75 0 016.75 15.5h-5A1.75 1.75 0 010 13.75v-5.5zm1.75-.25a.25.25 0 00-.25.25v5.5c0 .138.112.25.25.25h5a.25.25 0 00.25-.25v-5.5a.25.25 0 00-.25-.25h-5z" />
+              </svg>
+            </div>
+            <div class="quick-link-content">
+              <h3>Learn</h3>
+              <p>Tutorials, learning paths, and peer code reviews.</p>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+
+          <a href="./events.html" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg viewBox="0 0 16 16" width="24" height="24" fill="currentColor">
+                <path
+                  d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-11V3.75a.25.25 0 01.25-.25h2zm-2.25 4v6.75c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V7.5h-11z" />
+              </svg>
+            </div>
+            <div class="quick-link-content">
+              <h3>Events</h3>
+              <p>Hackathons, workshops, and build sessions.</p>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+
+          <a href="./community.html" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg viewBox="0 0 16 16" width="24" height="24" fill="currentColor">
+                <path
+                  d="M2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a3.001 3.001 0 012.22 5.018 5.01 5.01 0 012.56 3.012.749.749 0 01-.885.954.752.752 0 01-.549-.514 3.507 3.507 0 00-2.522-2.372.75.75 0 01-.574-.73v-.352a.75.75 0 01.416-.672A1.5 1.5 0 0011 5.5.75.75 0 0111 4zm-5.5-.5a2 2 0 100 4 2 2 0 000-4z" />
+              </svg>
+            </div>
+            <div class="quick-link-content">
+              <h3>Community</h3>
+              <p>Discord, pair programming, and code buddies.</p>
+            </div>
+            <span class="quick-link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: What We're Building -->
+    <section class="section what-building-section" data-animate>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-prefix">#</span> what we're building
+          </h2>
+        </div>
+        <div class="content-block">
+          <p class="content-lead">
+            We don't just learn to code — we <strong>ship real products</strong>. Every semester, club members
+            collaborate on projects that solve actual problems for our campus community.
+          </p>
+          <p class="content-text">
+            From web applications to mobile apps, Discord bots to CLI tools, our projects span multiple tech stacks and
+            skill levels. Whether you're a first-year exploring your first programming language or a senior building
+            your portfolio, there's always something to contribute to.
+          </p>
+          <p class="content-text">
+            Current active projects include our <strong>club website</strong> (the one you're looking at!), an
+            <strong>attendance tracking system</strong> for events, and a <strong>CodeBuddy Discord bot</strong> that
+            helps members find pair programming partners. All projects are open source and contributions are welcome.
+          </p>
+          <div class="content-stats">
+            <div class="content-stat">
+              <span class="content-stat-value">23</span>
+              <span class="content-stat-label">active repos</span>
+            </div>
+            <div class="content-stat">
+              <span class="content-stat-value">2.8k</span>
+              <span class="content-stat-label">total commits</span>
+            </div>
+            <div class="content-stat">
+              <span class="content-stat-value">50+</span>
+              <span class="content-stat-label">contributors</span>
+            </div>
+          </div>
+        </div>
+        <div class="section-cta">
+          <a href="./projects.html" class="btn btn-secondary">Explore all projects →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Build Feed -->
+    <section class="section build-feed-section" data-animate>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-prefix">$</span> build feed
+          </h2>
+          <p class="section-subtitle">Latest activity from the community</p>
+        </div>
+        <div class="build-feed">
+          <div class="feed-item">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=alex" alt="" class="feed-avatar">
+            <div class="feed-content">
+              <span class="feed-action"><strong>@alex</strong> pushed 3 commits to <code>campus-events</code></span>
+              <span class="feed-time">2 min ago</span>
+            </div>
+          </div>
+          <div class="feed-item">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=priya" alt="" class="feed-avatar">
+            <div class="feed-content">
+              <span class="feed-action"><strong>@priya</strong> opened PR #47 "fix: auth token refresh"</span>
+              <span class="feed-time">8 min ago</span>
+            </div>
+          </div>
+          <div class="feed-item">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=mike" alt="" class="feed-avatar">
+            <div class="feed-content">
+              <span class="feed-action"><strong>@mike</strong> merged PR #45 into main</span>
+              <span class="feed-time">15 min ago</span>
+            </div>
+          </div>
+          <div class="feed-item">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=sarah" alt="" class="feed-avatar">
+            <div class="feed-content">
+              <span class="feed-action"><strong>@sarah</strong> commented on issue #23</span>
+              <span class="feed-time">23 min ago</span>
+            </div>
+          </div>
+          <div class="feed-item">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=raj" alt="" class="feed-avatar">
+            <div class="feed-content">
+              <span class="feed-action"><strong>@raj</strong> created new repo <code>attendance-api</code></span>
+              <span class="feed-time">1 hour ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: How to Start -->
+    <section class="section how-start-section" data-animate>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-prefix">></span> how to start
+          </h2>
+          <p class="section-subtitle">Get from zero to building in 3 steps</p>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <h3 class="step-title">Join the community</h3>
+            <p class="step-desc">Sign up, join our Discord, and introduce yourself in #introductions.</p>
+            <code class="step-command">$ git clone your-journey</code>
+          </div>
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <h3 class="step-title">Pick a path</h3>
+            <p class="step-desc">Choose a learning track: Frontend, Backend, ML, DevOps, or DSA.</p>
+            <code class="step-command">$ cd /learn/frontend</code>
+          </div>
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <h3 class="step-title">Ship something</h3>
+            <p class="step-desc">Contribute to a project or start your own. We'll help you merge your first PR.</p>
+            <code class="step-command">$ git push origin first-pr</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Core Team -->
+    <section class="section core-team-section" data-animate>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-prefix">@</span> core team
+          </h2>
+          <p class="section-subtitle">The folks keeping the club running</p>
+        </div>
+        <div id="home-team-grid" class="team-grid">
+          <div class="spinner spinner-sm"></div>
+        </div>
+        <div class="section-cta">
+          <a href="./team.html" class="btn btn-ghost btn-sm">Meet the full team →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Start Contributing -->
+    <section class="section contribute-section" data-animate>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-prefix">$</span> start contributing
+          </h2>
+        </div>
+        <div class="content-block">
+          <p class="content-lead">
+            Contributing to SRCC projects is the fastest way to <strong>level up your skills</strong>. We maintain
+            beginner-friendly issues specifically for newcomers.
+          </p>
+          <p class="content-text">
+            Every project has "good first issue" labels for tasks that are perfect for first-time contributors. These
+            might include fixing a small bug, adding a new feature, writing documentation, or improving tests. Senior
+            members are always available to review your code and help you learn.
+          </p>
+          <p class="content-text">
+            The process is simple: pick an issue, fork the repo, make your changes, and submit a pull request. We'll
+            walk you through every step if it's your first time. Most members ship their first contribution within a
+            week of joining.
+          </p>
+          <div class="contribute-steps">
+            <div class="contribute-step">
+              <code>git clone</code>
+              <span>Fork & clone the repo</span>
+            </div>
+            <div class="contribute-step">
+              <code>git branch</code>
+              <span>Create a feature branch</span>
+            </div>
+            <div class="contribute-step">
+              <code>git push</code>
+              <span>Submit your PR</span>
+            </div>
+          </div>
+        </div>
+        <div class="section-cta">
+          <a href="./projects.html" class="btn btn-primary">Find an issue to work on →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Event Timeline -->
+    <section class="section timeline-section" data-animate>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-prefix">📅</span> event timeline
+          </h2>
+          <p class="section-subtitle">What's coming up</p>
+        </div>
+        <div id="home-events-timeline" class="timeline">
+          <div class="spinner spinner-sm"></div>
+        </div>
+        <div class="section-cta">
+          <a href="./events.html" class="btn btn-secondary">View all events →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Join the Club CTA -->
+    <section class="section join-section" data-animate>
+      <div class="container">
+        <div class="join-card">
+          <div class="join-content">
+            <h2 class="join-title">Ready to build?</h2>
+            <p class="join-desc">
+              Join 150+ students who are shipping real projects, learning together, and building their portfolios.
+            </p>
+            <div class="join-actions">
+              <a href="./join.html" class="btn btn-primary btn-lg">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                  <path
+                    d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8z" />
+                </svg>
+                Join the club
+              </a>
+              <a href="https://discord.gg/srcc" class="btn btn-ghost btn-lg" target="_blank">
+                Join Discord
+              </a>
+            </div>
+          </div>
+          <div class="join-visual">
+            <div class="join-stats">
+              <div class="join-stat">
+                <span class="join-stat-value">156</span>
+                <span class="join-stat-label">members</span>
+              </div>
+              <div class="join-stat">
+                <span class="join-stat-value">23</span>
+                <span class="join-stat-label">projects</span>
+              </div>
+              <div class="join-stat">
+                <span class="join-stat-value">2.8k</span>
+                <span class="join-stat-label">commits</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="./gallery.html" class="footer-link">Gallery</a>
+        <a href="./team.html" class="footer-link">Team</a>
+        <a href="https://github.com/sr-coding-club" class="footer-link" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          <span class="t-muted">// </span>Built by students, for students.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import store from './js/core/store.js';
+    import dataService from './js/core/data.js';
+    import { initHeaderAuth } from './js/components/header-auth.js';
+    import { escapeHtml } from './js/utils/security.js';
+
+    // Initialize theme
+    store.initTheme();
+    document.documentElement.classList.add('js-ready');
+
+    // Initialize auth-aware header navigation
+    initHeaderAuth();
+
+    // Animate elements on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    const animate = () => document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+    animate();
+
+
+    // Theme toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      const updateIcon = () => {
+        const isDark = store.getState().theme === 'dark';
+        themeBtn.innerHTML = isDark
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+      };
+      updateIcon();
+      themeBtn.addEventListener('click', () => {
+        store.toggleTheme();
+        updateIcon();
+      });
+    }
+
+    // --- Dynamic Content Logic ---
+
+    async function loadHomeData() {
+      const teamGrid = document.getElementById('home-team-grid');
+      const eventTimeline = document.getElementById('home-events-timeline');
+
+      try {
+        // 1. Fetch Core Team
+        const team = await dataService.getTeamMembers();
+        // Filter admins/leads, take top 4
+        // Heuristic: Admins first, then those with titles containing "Lead", then others
+        const coreTeam = team
+          .filter(m => !m.title || !m.title.includes('Prof')) // Exclude mentors
+          .sort((a, b) => {
+            const roleScore = r => r === 'admin' ? 2 : (r === 'team' ? 1 : 0);
+            return roleScore(b.role) - roleScore(a.role);
+          })
+          .slice(0, 4);
+
+        if (coreTeam.length > 0) {
+          teamGrid.innerHTML = coreTeam.map(member => {
+            const avatar = member.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${member.full_name}`;
+            return `
+                      <article class="team-card">
+                        <img src="${escapeHtml(avatar)}" alt="${escapeHtml(member.full_name)}" class="team-avatar">
+                        <div class="team-info">
+                          <span class="team-name">${escapeHtml(member.full_name)}</span>
+                          <span class="team-role">${escapeHtml(member.title || member.role)}</span>
+                        </div>
+                      </article>
+                    `;
+          }).join('');
+        } else {
+          teamGrid.innerHTML = '<p class="text-muted">No core team members found.</p>';
+        }
+
+        // 2. Fetch Events (Upcoming)
+        // Use 'all' type, 'upcoming' status, limit 3
+        // Assuming getEvents returns { events: [], ... }
+        const eventsData = await dataService.getEvents({ status: 'upcoming', limit: 3 });
+        const events = eventsData.events || [];
+
+        if (events && events.length > 0) {
+          eventTimeline.innerHTML = events.map((event, index) => {
+            const dateObj = new Date(event.date);
+            const day = dateObj.getDate();
+            const month = dateObj.toLocaleString('default', { month: 'short' });
+            const time = dateObj.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' });
+
+            const isFirst = index === 0;
+            const badgeHtml = isFirst ? '<span class="timeline-badge">upcoming</span>' : '';
+            const wrapperClass = isFirst ? 'timeline-item timeline-item--upcoming' : 'timeline-item';
+
+            return `
+                      <div class="${wrapperClass}">
+                        <div class="timeline-date">
+                          <span class="timeline-day">${day}</span>
+                          <span class="timeline-month">${month}</span>
+                        </div>
+                        <div class="timeline-content">
+                          ${badgeHtml}
+                          <h3 class="timeline-title">${escapeHtml(event.title)}</h3>
+                          <p class="timeline-desc">${escapeHtml(event.description || '')}</p>
+                          <span class="timeline-meta">${time} • ${escapeHtml(event.location || 'TBA')}</span>
+                        </div>
+                      </div>
+                    `;
+          }).join('');
+        } else {
+          eventTimeline.innerHTML = '<p class="text-muted" style="padding: 20px;">No upcoming events.</p>';
+        }
+
+      } catch (error) {
+        console.error('Failed to load home data:', error);
+        // Non-blocking errors
+      }
+    }
+
+    loadHomeData();
+
+    // Simulated live activity (Simulated for now)
+    const activities = [
+      '12 members pushed code today',
+      '3 PRs merged in the last hour',
+      '5 new issues opened',
+      '2 repos created this week',
+      '8 code reviews completed',
+      'workshop starting in 2 hours'
+    ];
+
+    let activityIndex = 0;
+    const activityEl = document.getElementById('activity-text');
+
+    if (activityEl) {
+      setInterval(() => {
+        activityIndex = (activityIndex + 1) % activities.length;
+        activityEl.style.opacity = '0';
+        setTimeout(() => {
+          activityEl.textContent = activities[activityIndex];
+          activityEl.style.opacity = '1';
+        }, 200);
+      }, 5000);
+    }
+  </script>
+
+  <style>
+    /* === Hero Developer Section === */
+    .hero-dev {
+      padding: var(--space-16) 0 var(--space-12);
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-dev-grid {
+      display: grid;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-dev-grid {
+        grid-template-columns: 1fr 1.1fr;
+        gap: var(--space-16);
+      }
+    }
+
+    /* === Content Side === */
+    .hero-dev-content {
+      max-width: 560px;
+    }
+
+    [data-theme="light"] .hero-dev-content {
+      text-align: left;
+    }
+
+    .hero-dev-title {
+      font-family: var(--font-mono);
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: var(--font-bold);
+      line-height: 1.1;
+      margin-bottom: var(--space-6);
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-3);
+    }
+
+    [data-theme="dark"] .hero-dev-prefix {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .hero-dev-prefix {
+      color: var(--text-muted);
+    }
+
+    .hero-dev-text {
+      color: var(--text-primary);
+    }
+
+    .hero-dev-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.9em;
+      margin-left: 2px;
+      vertical-align: baseline;
+      animation: cursorBlink 1s step-end infinite;
+    }
+
+    [data-theme="dark"] .hero-dev-cursor {
+      background: var(--primary);
+    }
+
+    [data-theme="light"] .hero-dev-cursor {
+      background: var(--text-primary);
+    }
+
+    .hero-dev-tagline {
+      font-size: var(--text-lg);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-8);
+    }
+
+    /* === Stats Row === */
+    .hero-dev-stats {
+      display: flex;
+      gap: var(--space-8);
+      margin-bottom: var(--space-8);
+      flex-wrap: wrap;
+    }
+
+    .hero-stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-stat-value {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      line-height: 1;
+    }
+
+    [data-theme="dark"] .hero-stat-value {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .hero-stat-value {
+      color: var(--text-primary);
+    }
+
+    .hero-stat-label {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      margin-top: var(--space-1);
+    }
+
+    /* === Actions === */
+    .hero-dev-actions {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    /* === Terminal Side === */
+    .hero-dev-terminal {
+      max-width: 100%;
+    }
+
+    @media (max-width: 1023px) {
+      .hero-dev-terminal {
+        order: -1;
+      }
+    }
+
+    /* === Quick Links Section === */
+    .quick-links-section {
+      padding-top: 0;
+    }
+
+    .quick-links-grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      .quick-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .quick-links-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .quick-link-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      padding: var(--space-5);
+      text-decoration: none;
+      transition: all var(--duration-fast) var(--ease-default);
+      position: relative;
+    }
+
+    [data-theme="dark"] .quick-link-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="dark"] .quick-link-card:hover {
+      border-color: var(--primary);
+      background: rgba(6, 214, 160, 0.03);
+    }
+
+    [data-theme="light"] .quick-link-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+    }
+
+    [data-theme="light"] .quick-link-card:hover {
+      box-shadow: var(--shadow-2);
+      border-color: var(--primary);
+    }
+
+    .quick-link-icon {
+      color: var(--text-muted);
+    }
+
+    [data-theme="dark"] .quick-link-card:hover .quick-link-icon {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .quick-link-card:hover .quick-link-icon {
+      color: var(--primary);
+    }
+
+    .quick-link-content h3 {
+      font-size: var(--text-base);
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .quick-link-content p {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .quick-link-arrow {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .quick-link-card:hover .quick-link-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    [data-theme="dark"] .quick-link-card:hover .quick-link-arrow {
+      color: var(--primary);
+    }
+
+    /* === Logo Update === */
+    [data-theme="dark"] .logo-icon {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .logo-icon {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      background: var(--text-primary);
+      color: var(--bg-body);
+      border: none;
+    }
+
+    .logo span {
+      font-family: var(--font-mono);
+      font-weight: var(--font-semibold);
+      letter-spacing: -0.02em;
+    }
+
+    /* === Footer Update === */
+    .footer-links {
+      display: flex;
+      gap: var(--space-6);
+      justify-content: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .footer-link {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+    }
+
+    .footer-copyright {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+    }
+
+    #activity-text {
+      transition: opacity 0.2s ease;
+    }
+
+    /* === Activity Stream Section === */
+    .activity-stream-section {
+      padding-top: 0;
+      padding-bottom: var(--space-8);
+    }
+
+    .activity-stream {
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .activity-stream {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="light"] .activity-stream {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+    }
+
+    .activity-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .activity-live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .activity-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .activity-feed {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .activity-text {
+      flex: 1;
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    .activity-text strong {
+      color: var(--text-primary);
+    }
+
+    .activity-text code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      padding: 0.1em 0.3em;
+      border-radius: var(--radius-xs);
+    }
+
+    [data-theme="dark"] .activity-text code {
+      background: rgba(6, 214, 160, 0.1);
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .activity-text code {
+      background: var(--bg-muted);
+      color: var(--text-primary);
+    }
+
+    .activity-time {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* === Spotlight Section === */
+    .spotlight-section {
+      padding-top: var(--space-12);
+    }
+
+    .spotlight-header {
+      margin-bottom: var(--space-6);
+    }
+
+    .spotlight-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-lg);
+      font-weight: var(--font-semibold);
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+    }
+
+    [data-theme="dark"] .spotlight-prefix {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .spotlight-prefix {
+      color: var(--text-muted);
+    }
+
+    .spotlight-card {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    @media (min-width: 768px) {
+      .spotlight-card {
+        grid-template-columns: 1fr 280px;
+      }
+    }
+
+    [data-theme="dark"] .spotlight-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: var(--space-6);
+    }
+
+    [data-theme="light"] .spotlight-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-2);
+      padding: var(--space-6);
+    }
+
+    .spotlight-repo-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .spotlight-icon {
+      color: var(--text-muted);
+    }
+
+    .spotlight-repo-name {
+      font-family: var(--font-mono);
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+    }
+
+    .spotlight-visibility {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      padding: 0.15em 0.5em;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-default);
+      color: var(--text-muted);
+    }
+
+    .spotlight-description {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-4);
+      line-height: 1.6;
+    }
+
+    .spotlight-code {
+      margin-bottom: var(--space-4);
+      overflow-x: auto;
+    }
+
+    .spotlight-code pre {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      padding: var(--space-4);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="dark"] .spotlight-code pre {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-default);
+    }
+
+    [data-theme="light"] .spotlight-code pre {
+      background: var(--bg-muted);
+      border: 1px solid var(--border-default);
+    }
+
+    .spotlight-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .spotlight-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    @media (min-width: 768px) {
+      .spotlight-sidebar {
+        border-left: 1px solid var(--border-default);
+        padding-left: var(--space-6);
+      }
+    }
+
+    .spotlight-contributors-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: var(--space-2);
+    }
+
+    .spotlight-avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .spotlight-avatars img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-left: -8px;
+      border: 2px solid var(--bg-surface);
+    }
+
+    .spotlight-avatars img:first-child {
+      margin-left: 0;
+    }
+
+    .spotlight-more {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      margin-left: -8px;
+      border: 2px solid var(--bg-surface);
+      background: var(--bg-muted);
+      color: var(--text-muted);
+    }
+
+    .spotlight-stats {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .spotlight-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spotlight-stat-value {
+      font-family: var(--font-mono);
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+    }
+
+    .spotlight-stat-label {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+
+    .spotlight-cta {
+      align-self: flex-start;
+    }
+
+    /* === Builders Section === */
+    .builders-section {
+      padding-top: var(--space-12);
+    }
+
+    .builders-header {
+      margin-bottom: var(--space-6);
+    }
+
+    .builders-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-lg);
+      font-weight: var(--font-semibold);
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+      margin-bottom: var(--space-1);
+    }
+
+    [data-theme="dark"] .builders-prefix {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .builders-prefix {
+      color: var(--text-muted);
+    }
+
+    .builders-subtitle {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+    }
+
+    .builders-grid {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    @media (min-width: 640px) {
+      .builders-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .builders-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .builder-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      position: relative;
+    }
+
+    [data-theme="dark"] .builder-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="light"] .builder-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+    }
+
+    .builder-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .builder-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .builder-name {
+      display: block;
+      font-weight: var(--font-medium);
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .builder-focus {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+    }
+
+    .builder-stats {
+      flex-shrink: 0;
+    }
+
+    .builder-stat {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+
+    .builder-status {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .builder-status--online {
+      background: #22c55e;
+    }
+
+    .builders-cta {
+      margin-top: var(--space-6);
+      text-align: center;
+    }
+
+    /* === Next Event Section === */
+    .next-event-section {
+      padding-top: var(--space-12);
+      padding-bottom: var(--space-16);
+    }
+
+    .next-event-card {
+      display: grid;
+      gap: var(--space-6);
+      align-items: center;
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .next-event-card {
+        grid-template-columns: 1fr auto;
+      }
+    }
+
+    [data-theme="dark"] .next-event-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: var(--space-6);
+    }
+
+    [data-theme="light"] .next-event-card {
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-2);
+      padding: var(--space-6);
+    }
+
+    .next-event-badge {
+      position: absolute;
+      top: calc(-1 * var(--space-3));
+      left: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+    }
+
+    [data-theme="dark"] .next-event-badge {
+      background: var(--primary);
+      color: var(--bg-body);
+    }
+
+    [data-theme="light"] .next-event-badge {
+      background: var(--text-primary);
+      color: var(--bg-body);
+    }
+
+    .next-event-title {
+      font-size: var(--text-xl);
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .next-event-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      margin-bottom: var(--space-3);
+    }
+
+    .next-event-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .next-event-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .next-event-countdown {
+      text-align: center;
+    }
+
+    .countdown-value {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: var(--text-3xl);
+      font-weight: var(--font-bold);
+      line-height: 1;
+    }
+
+    [data-theme="dark"] .countdown-value {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .countdown-value {
+      color: var(--text-primary);
+    }
+
+    .countdown-label {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* === Section Header (shared) === */
+    .section-header {
+      margin-bottom: var(--space-8);
+    }
+
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-xl);
+      font-weight: var(--font-semibold);
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+
+    [data-theme="dark"] .section-prefix {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .section-prefix {
+      color: var(--text-muted);
+    }
+
+    .section-subtitle {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+    }
+
+    .section-cta {
+      margin-top: var(--space-8);
+      text-align: center;
+    }
+
+    /* === Section 1: What We're Building === */
+    .what-building-section {
+      padding-top: var(--space-12);
+    }
+
+    .projects-showcase {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      .projects-showcase {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .projects-showcase {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .showcase-card {
+      padding: var(--space-4);
+    }
+
+    [data-theme="dark"] .showcase-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="light"] .showcase-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+    }
+
+    .showcase-card--featured {
+      grid-column: 1 / -1;
+    }
+
+    @media (min-width: 1024px) {
+      .showcase-card--featured {
+        grid-column: span 2;
+      }
+    }
+
+    .showcase-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+
+    .showcase-icon {
+      font-size: var(--text-lg);
+    }
+
+    .showcase-name {
+      font-family: var(--font-mono);
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+    }
+
+    .showcase-badge {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      padding: 0.1em 0.4em;
+      border-radius: var(--radius-full);
+      margin-left: auto;
+    }
+
+    [data-theme="dark"] .showcase-badge {
+      background: rgba(6, 214, 160, 0.15);
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .showcase-badge {
+      background: var(--bg-muted);
+      color: var(--text-muted);
+    }
+
+    .showcase-desc {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-3);
+      line-height: 1.5;
+    }
+
+    .showcase-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+      margin-bottom: var(--space-3);
+    }
+
+    .showcase-tech span {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      padding: 0.1em 0.4em;
+      border-radius: var(--radius-xs);
+    }
+
+    [data-theme="dark"] .showcase-tech span {
+      background: var(--bg-muted);
+      color: var(--text-muted);
+    }
+
+    [data-theme="light"] .showcase-tech span {
+      background: var(--bg-muted);
+      color: var(--text-secondary);
+    }
+
+    .showcase-footer {
+      display: flex;
+      gap: var(--space-4);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+
+    /* === Section 2: Build Feed === */
+    .build-feed-section {
+      padding-top: var(--space-12);
+    }
+
+    .build-feed {
+      display: flex;
+      flex-direction: column;
+    }
+
+    [data-theme="dark"] .build-feed {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="light"] .build-feed {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+    }
+
+    .feed-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .feed-item:last-child {
+      border-bottom: none;
+    }
+
+    .feed-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .feed-content {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .feed-action {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    .feed-action strong {
+      color: var(--text-primary);
+    }
+
+    .feed-action code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      padding: 0.1em 0.3em;
+      border-radius: var(--radius-xs);
+    }
+
+    [data-theme="dark"] .feed-action code {
+      background: rgba(6, 214, 160, 0.1);
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .feed-action code {
+      background: var(--bg-muted);
+      color: var(--text-primary);
+    }
+
+    .feed-time {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* === Section 3: How to Start === */
+    .how-start-section {
+      padding-top: var(--space-12);
+    }
+
+    .steps-grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .step-card {
+      padding: var(--space-5);
+    }
+
+    [data-theme="dark"] .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="light"] .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+    }
+
+    .step-number {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      margin-bottom: var(--space-3);
+    }
+
+    [data-theme="dark"] .step-number {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .step-number {
+      color: var(--text-muted);
+    }
+
+    .step-title {
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .step-desc {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-4);
+      line-height: 1.5;
+    }
+
+    .step-command {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="dark"] .step-command {
+      background: var(--bg-elevated);
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .step-command {
+      background: var(--bg-muted);
+      color: var(--text-primary);
+    }
+
+    /* === Section 4: Core Team === */
+    .core-team-section {
+      padding-top: var(--space-12);
+    }
+
+    .team-grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .team-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .team-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+    }
+
+    [data-theme="dark"] .team-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="light"] .team-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+    }
+
+    .team-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .team-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .team-name {
+      font-weight: var(--font-medium);
+      color: var(--text-primary);
+    }
+
+    .team-role {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+    }
+
+    /* === Section 5: Start Contributing === */
+    .contribute-section {
+      padding-top: var(--space-12);
+    }
+
+    .contribute-card {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    @media (min-width: 1024px) {
+      .contribute-card {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+      }
+    }
+
+    .contribute-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-xl);
+      font-weight: var(--font-semibold);
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    [data-theme="dark"] .contribute-prefix {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .contribute-prefix {
+      color: var(--text-muted);
+    }
+
+    .contribute-desc {
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-6);
+      line-height: 1.6;
+    }
+
+    .contribute-issues {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .issue-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      text-decoration: none;
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    [data-theme="dark"] .issue-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="dark"] .issue-item:hover {
+      border-color: var(--primary);
+    }
+
+    [data-theme="light"] .issue-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+    }
+
+    [data-theme="light"] .issue-item:hover {
+      box-shadow: var(--shadow-1);
+    }
+
+    .issue-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      padding: 0.2em 0.5em;
+      border-radius: var(--radius-full);
+      flex-shrink: 0;
+    }
+
+    [data-theme="dark"] .issue-label {
+      background: rgba(6, 214, 160, 0.15);
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .issue-label {
+      background: var(--bg-muted);
+      color: var(--text-secondary);
+    }
+
+    .issue-title {
+      flex: 1;
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .issue-repo {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .contribute-terminal {
+      display: flex;
+      justify-content: center;
+    }
+
+    .terminal--sm {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .terminal--sm .terminal-body {
+      font-size: var(--text-sm);
+    }
+
+    /* === Section 6: Event Timeline === */
+    .timeline-section {
+      padding-top: var(--space-12);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: var(--space-4);
+      padding: var(--space-4);
+    }
+
+    [data-theme="dark"] .timeline-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="light"] .timeline-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+    }
+
+    [data-theme="dark"] .timeline-item--upcoming {
+      border-color: var(--primary);
+    }
+
+    [data-theme="light"] .timeline-item--upcoming {
+      border-color: var(--text-primary);
+    }
+
+    .timeline-date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      flex-shrink: 0;
+    }
+
+    .timeline-day {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      line-height: 1;
+    }
+
+    [data-theme="dark"] .timeline-item--upcoming .timeline-day {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .timeline-item--upcoming .timeline-day {
+      color: var(--text-primary);
+    }
+
+    .timeline-month {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .timeline-content {
+      flex: 1;
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.1em 0.4em;
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-2);
+    }
+
+    [data-theme="dark"] .timeline-badge {
+      background: var(--primary);
+      color: var(--bg-body);
+    }
+
+    [data-theme="light"] .timeline-badge {
+      background: var(--text-primary);
+      color: var(--bg-body);
+    }
+
+    .timeline-title {
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .timeline-desc {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-2);
+      line-height: 1.5;
+    }
+
+    .timeline-meta {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+
+    /* === Section 7: Join the Club === */
+    .join-section {
+      padding-top: var(--space-12);
+      padding-bottom: var(--space-16);
+    }
+
+    .join-card {
+      display: grid;
+      gap: var(--space-8);
+      padding: var(--space-8);
+    }
+
+    @media (min-width: 768px) {
+      .join-card {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+    }
+
+    [data-theme="dark"] .join-card {
+      background: linear-gradient(135deg, rgba(6, 214, 160, 0.05), rgba(6, 214, 160, 0.02));
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="light"] .join-card {
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-2);
+    }
+
+    .join-title {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .join-desc {
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-6);
+      line-height: 1.6;
+      max-width: 500px;
+    }
+
+    .join-actions {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .join-stats {
+      display: flex;
+      gap: var(--space-6);
+    }
+
+    .join-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .join-stat-value {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+
+    [data-theme="dark"] .join-stat-value {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .join-stat-value {
+      color: var(--text-primary);
+    }
+
+    .join-stat-label {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* === Content Block (paragraph sections) === */
+    .content-block {
+      max-width: 800px;
+    }
+
+    .content-lead {
+      font-size: var(--text-lg);
+      color: var(--text-primary);
+      line-height: 1.7;
+      margin-bottom: var(--space-4);
+    }
+
+    .content-lead strong {
+      font-weight: var(--font-semibold);
+    }
+
+    [data-theme="dark"] .content-lead strong {
+      color: var(--primary);
+    }
+
+    .content-text {
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-4);
+    }
+
+    .content-text strong {
+      font-weight: var(--font-medium);
+      color: var(--text-primary);
+    }
+
+    .content-stats {
+      display: flex;
+      gap: var(--space-8);
+      margin-top: var(--space-6);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--border-default);
+    }
+
+    .content-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-stat-value {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+
+    [data-theme="dark"] .content-stat-value {
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .content-stat-value {
+      color: var(--text-primary);
+    }
+
+    .content-stat-label {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* === Contribute Steps === */
+    .contribute-steps {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    .contribute-step {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+    }
+
+    [data-theme="dark"] .contribute-step {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    [data-theme="light"] .contribute-step {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+    }
+
+    .contribute-step code {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      padding: 0.2em 0.5em;
+      border-radius: var(--radius-xs);
+    }
+
+    [data-theme="dark"] .contribute-step code {
+      background: rgba(6, 214, 160, 0.1);
+      color: var(--primary);
+    }
+
+    [data-theme="light"] .contribute-step code {
+      background: var(--bg-muted);
+      color: var(--text-primary);
+    }
+
+    .contribute-step span {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+    }
+
+    /* === Reduced Motion === */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-dev-cursor {
+        animation: none;
+        opacity: 1;
+      }
+
+      .activity-live-dot {
+        animation: none;
+      }
+    }
+  </style>
+  <script type="module" src="./js/pages/home.js"></script>
+</body>
+
+</html>

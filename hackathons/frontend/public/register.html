@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register your team for the hackathon">
+    <title>Register | SR Coding Club Hackathons</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <!-- Background Effects -->
+    <div class="bg-gradient-orbs"></div>
+
+    <header class="header">
+        <a href="/" class="header__logo">
+            <span class="header__logo-icon">🚀</span>
+            <span>SRCC Hackathons</span>
+        </a>
+        <nav class="header__nav">
+            <a href="/" class="btn btn-ghost">← Back</a>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-toggle__light">🌙</span>
+                <span class="theme-toggle__dark">☀️</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="page-section">
+            <div class="container">
+                <!-- Loading -->
+                <div id="loading" class="form-card">
+                    <div class="skeleton skeleton-title mb-4"></div>
+                    <div class="skeleton skeleton-text" style="width: 60%"></div>
+                </div>
+
+                <!-- Registration Form -->
+                <div id="registration-form" class="form-card hidden">
+                    <header class="form-card__header">
+                        <h1 class="form-card__title">Register Your Team</h1>
+                        <p class="form-card__subtitle" id="hackathon-title"></p>
+                    </header>
+
+                    <form id="register-form">
+                        <!-- Team Name -->
+                        <div class="form-group">
+                            <label class="form-label form-label--required" for="team-name">Team Name</label>
+                            <input type="text" id="team-name" name="team_name" class="form-input" required
+                                placeholder="Enter your team name" maxlength="50">
+                        </div>
+
+                        <!-- Team Leader -->
+                        <h4 class="mt-8 mb-4">Team Leader</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label form-label--required" for="leader-name">Name</label>
+                                <input type="text" id="leader-name" name="leader_name" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label form-label--required" for="leader-email">Email</label>
+                                <input type="email" id="leader-email" name="leader_email" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="leader-phone">Phone (Optional)</label>
+                            <input type="tel" id="leader-phone" name="leader_phone" class="form-input">
+                        </div>
+
+                        <!-- Team Members -->
+                        <div class="flex-between mt-8 mb-4">
+                            <h4>Team Members</h4>
+                            <button type="button" id="add-member" class="btn btn-secondary btn-sm">+ Add
+                                Member</button>
+                        </div>
+                        <p class="text-muted text-sm mb-4" id="team-size-info">You can add up to <span
+                                id="max-members">3</span> more members</p>
+
+                        <div class="member-inputs" id="members-container">
+                            <!-- Dynamic member inputs -->
+                        </div>
+
+                        <!-- Rules Acknowledgement -->
+                        <div id="rules-section" class="mt-8 hidden">
+                            <h4 class="mb-4">Rules & Guidelines</h4>
+                            <div id="rules-content" class="text-sm text-muted mb-4"
+                                style="background: var(--bg-surface-sunken); padding: var(--space-4); border-radius: var(--radius-md); max-height: 200px; overflow-y: auto;">
+                            </div>
+                            <label class="form-check">
+                                <input type="checkbox" id="accept-rules" required>
+                                <span>I have read and agree to the hackathon rules</span>
+                            </label>
+                        </div>
+
+                        <!-- Error Message -->
+                        <div id="form-error" class="form-error mt-4 hidden"></div>
+
+                        <!-- Submit -->
+                        <div class="form-actions">
+                            <button type="submit" id="submit-btn" class="btn btn-primary btn-lg">
+                                Register Team
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Success State -->
+                <div id="success-state" class="form-card hidden">
+                    <div class="text-center">
+                        <div style="font-size: 4rem; margin-bottom: var(--space-4);">🎉</div>
+                        <h2 class="mb-4">Registration Successful!</h2>
+                        <p class="text-muted mb-4">Your team <strong id="registered-team-name"></strong> has been
+                            registered.</p>
+                        <p class="text-muted mb-8">Check your email for confirmation and further instructions.</p>
+                        <a href="/" class="btn btn-primary">Back to Hackathons</a>
+                    </div>
+                </div>
+
+                <!-- Closed State -->
+                <div id="closed-state" class="form-card hidden">
+                    <div class="text-center">
+                        <div style="font-size: 4rem; margin-bottom: var(--space-4);">⏰</div>
+                        <h2 class="mb-4">Registration Closed</h2>
+                        <p class="text-muted mb-8">Registration for this hackathon has ended.</p>
+                        <a href="/" class="btn btn-primary">View Other Hackathons</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 SR University Coding Club. All rights reserved.</p>
+    </footer>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/loader.js"></script>
+    <script src="/js/public/register.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Announcements - SR University Coding Club">
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="../../css/main.css">
+    <title>Announcements | Member Dashboard</title>
+</head>
+
+<body>
+    <div class="page-loader" id="page-loader">
+        <div class="loader-logo">
+            <div class="spinner spinner-xl"></div>
+        </div>
+        <p class="loader-text">Loading...</p>
+    </div>
+    <div class="dashboard" id="dashboard" style="display: none;">
+        <aside class="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="logo">
+                    <div class="logo-icon">>_</div><span>srucc</span>
+                </a><span class="badge"
+                    style="background: var(--success); color: white; font-size: 10px; padding: 2px 6px;">MEMBER</span>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Overview</p><a href="/dashboards/member/index.html"
+                        class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        </svg>Dashboard</a>
+                </div>
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Explore</p><a href="/dashboards/member/events.html"
+                        class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" />
+                        </svg>Events</a><a href="/dashboards/member/gallery.html" class="sidebar-link"><svg
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                        </svg>Gallery</a><a href="/dashboards/member/announcements.html"
+                        class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 17H2a3 3 0 003-3V9a7 7 0 0114 0v5a3 3 0 003 3zm-8.27 4a2 2 0 01-3.46 0" />
+                        </svg>Announcements</a>
+                </div>
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Personal</p><a href="/dashboards/member/profile.html"
+                        class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>Profile</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer"><button class="btn btn-ghost w-full" id="logout-btn"><svg viewBox="0 0 24 24"
+                        width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>Logout</button></div>
+        </aside>
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">Announcements</h1>
+                    <p class="dashboard-subtitle">Stay updated with club news</p>
+                </div>
+            </header>
+            <section class="card">
+                <div class="card-body">
+                    <div id="list" class="announcements-list">
+                        <div class="loading-placeholder">Loading...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script type="module">
+        import auth from '../../js/core/auth.js';
+        import routeGuard from '../../js/guards/routeGuard.js';
+        import store from '../../js/core/store.js';
+        store.initTheme();
+        async function init() {
+            const allowed = await routeGuard.check({ roles: ['admin', 'team', 'member'] });
+            if (!allowed) return;
+            document.getElementById('page-loader').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'grid';
+            document.getElementById('logout-btn').addEventListener('click', () => auth.logout());
+            await loadAnnouncements();
+        }
+        async function loadAnnouncements() {
+            try {
+                const response = await fetch('/api/v1/announcements?limit=50');
+                if (!response.ok) throw new Error('Failed');
+                const result = await response.json();
+                const items = result.data || [];
+                renderAnnouncements(items);
+            } catch (error) { console.error(error); }
+        }
+        function renderAnnouncements(items) {
+            const list = document.getElementById('list');
+            if (!items.length) { list.innerHTML = '<div class="empty-state"><p>No announcements yet</p></div>'; return; }
+            list.innerHTML = items.map(item => `<article class="announcement-card priority-${item.priority || 'normal'}"><div class="announcement-header"><h3 class="announcement-title">${item.title}</h3><span class="priority-badge priority-${item.priority || 'normal'}">${item.priority || 'normal'}</span></div><p class="announcement-content">${item.content}</p><div class="announcement-meta"><span>${formatDate(item.created_at)}</span></div></article>`).join('');
+        }
+        function formatDate(dateStr) { return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+        init();
+    </script>
+    <style>
+        .announcements-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .announcement-card {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-5);
+        }
+
+        .announcement-card.priority-high {
+            border-left: 4px solid var(--error);
+        }
+
+        .announcement-card.priority-normal {
+            border-left: 4px solid var(--primary);
+        }
+
+        .announcement-card.priority-low {
+            border-left: 4px solid var(--text-muted);
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+        }
+
+        .announcement-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+        }
+
+        .priority-badge {
+            font-size: var(--text-xs);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+        }
+
+        .priority-badge.priority-high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .priority-badge.priority-normal {
+            background: rgba(139, 92, 246, 0.2);
+            color: #8b5cf6;
+        }
+
+        .priority-badge.priority-low {
+            background: rgba(107, 114, 128, 0.2);
+            color: #6b7280;
+        }
+
+        .announcement-content {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-4);
+            line-height: 1.6;
+        }
+
+        .announcement-meta {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--space-12);
+            color: var(--text-muted);
+        }
+
+        .loading-placeholder {
+            text-align: center;
+            padding: var(--space-8);
+            color: var(--text-muted);
+        }
+    </style>
+</body>
+
+</html>

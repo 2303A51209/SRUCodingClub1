@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Events - SR University Coding Club">
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="../../css/main.css">
+    <title>Events | Member Dashboard</title>
+</head>
+
+<body>
+    <div class="page-loader" id="page-loader">
+        <div class="loader-logo">
+            <div class="spinner spinner-xl"></div>
+        </div>
+        <p class="loader-text">Loading events...</p>
+    </div>
+    <div class="dashboard" id="dashboard" style="display: none;">
+        <aside class="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="logo">
+                    <div class="logo-icon">>_</div><span>srucc</span>
+                </a><span class="badge"
+                    style="background: var(--success); color: white; font-size: 10px; padding: 2px 6px;">MEMBER</span>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Overview</p><a href="/dashboards/member/index.html"
+                        class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        </svg>Dashboard</a>
+                </div>
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Explore</p><a href="/dashboards/member/events.html"
+                        class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" />
+                        </svg>Events</a><a href="/dashboards/member/gallery.html" class="sidebar-link"><svg
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                        </svg>Gallery</a><a href="/dashboards/member/announcements.html" class="sidebar-link"><svg
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 17H2a3 3 0 003-3V9a7 7 0 0114 0v5a3 3 0 003 3zm-8.27 4a2 2 0 01-3.46 0" />
+                        </svg>Announcements</a>
+                </div>
+                <div class="sidebar-section">
+                    <p class="sidebar-section-title">Personal</p><a href="/dashboards/member/profile.html"
+                        class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>Profile</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer"><button class="btn btn-ghost w-full" id="logout-btn"><svg viewBox="0 0 24 24"
+                        width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>Logout</button></div>
+        </aside>
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">Events</h1>
+                    <p class="dashboard-subtitle">Browse and register for events</p>
+                </div>
+            </header>
+            <section class="card mb-6">
+                <div class="card-body">
+                    <div class="filters-row">
+                        <select id="status-filter" class="filter-select">
+                            <option value="">All Events</option>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="ongoing">Ongoing</option>
+                            <option value="completed">Past</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+            <section class="card">
+                <div class="card-body">
+                    <div id="events-grid" class="events-grid">
+                        <div class="loading-placeholder">Loading...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="toast-container" id="toast-container"></div>
+    <script type="module">
+        import auth from '../../js/core/auth.js';
+        import routeGuard from '../../js/guards/routeGuard.js';
+        import store from '../../js/core/store.js';
+        store.initTheme();
+        let events = [];
+        async function init() {
+            const allowed = await routeGuard.check({ roles: ['admin', 'team', 'member'] });
+            if (!allowed) return;
+            document.getElementById('page-loader').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'grid';
+            document.getElementById('status-filter').addEventListener('change', loadEvents);
+            document.getElementById('logout-btn').addEventListener('click', () => auth.logout());
+            await loadEvents();
+        }
+        async function loadEvents() {
+            const status = document.getElementById('status-filter').value;
+            try {
+                const params = new URLSearchParams({ limit: 50 });
+                if (status) params.append('status', status);
+                const response = await fetch(`/api/v1/events?${params}`);
+                if (!response.ok) throw new Error('Failed');
+                const result = await response.json();
+                events = result.data || [];
+                renderEvents();
+            } catch (error) { showToast('Failed to load', 'error'); }
+        }
+        function renderEvents() {
+            const grid = document.getElementById('events-grid');
+            if (!events.length) { grid.innerHTML = '<div class="empty-state"><p>No events found</p></div>'; return; }
+            grid.innerHTML = events.map(event => {
+                const date = new Date(event.date);
+                return `<article class="event-card"><div class="event-card-header"><div class="event-date-badge"><span class="day">${date.getDate()}</span><span class="month">${date.toLocaleString('default', { month: 'short' })}</span></div><span class="status-badge status-${event.status || 'upcoming'}">${event.status || 'upcoming'}</span></div><h3 class="event-card-title">${event.title}</h3><p class="event-card-desc">${event.description || 'No description'}</p><div class="event-card-meta"><span>${event.location || 'TBA'}</span></div><button class="btn btn-primary btn-sm w-full" onclick="registerEvent('${event.id}')">Register</button></article>`;
+            }).join('');
+        }
+        window.registerEvent = function (id) { showToast('Registration coming soon!', 'info'); };
+        function showToast(message, type = 'info') { const container = document.getElementById('toast-container'); const toast = document.createElement('div'); toast.className = `toast toast-${type}`; toast.textContent = message; container.appendChild(toast); setTimeout(() => toast.classList.add('show'), 10); setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000); }
+        init();
+    </script>
+    <style>
+        .filters-row {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        .filter-select {
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2) var(--space-3);
+            color: var(--text-primary);
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .event-card {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            transition: all var(--transition-fast);
+        }
+
+        .event-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .event-card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+        }
+
+        .event-date-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--space-2) var(--space-3);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--radius-lg);
+            color: white;
+        }
+
+        .event-date-badge .day {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            line-height: 1;
+        }
+
+        .event-date-badge .month {
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+        }
+
+        .status-badge {
+            font-size: var(--text-xs);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+        }
+
+        .status-upcoming {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .status-ongoing {
+            background: rgba(139, 92, 246, 0.2);
+            color: #8b5cf6;
+        }
+
+        .status-completed {
+            background: rgba(107, 114, 128, 0.2);
+            color: #6b7280;
+        }
+
+        .event-card-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-2);
+        }
+
+        .event-card-desc {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            margin-bottom: var(--space-3);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .event-card-meta {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+            margin-bottom: var(--space-4);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--space-12);
+            grid-column: 1 / -1;
+        }
+
+        .loading-placeholder {
+            text-align: center;
+            padding: var(--space-8);
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            z-index: 1100;
+        }
+
+        .toast {
+            padding: var(--space-3) var(--space-4);
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-sm);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s;
+            margin-top: var(--space-2);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast-success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .toast-error {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .toast-info {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .mb-6 {
+            margin-bottom: var(--space-6);
+        }
+    </style>
+</body>
+
+</html>
