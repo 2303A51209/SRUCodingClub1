@@ -293,16 +293,20 @@
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // Filter cards
-                projectCards.forEach(card => {
-                    if (filter === 'all' || card.dataset.category === filter) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                // Filter projects
+                if (filter === 'all') {
+                    renderProjects(allProjects);
+                } else {
+                    const filtered = allProjects.filter(p =>
+                        (p.tags || []).some(tag => tag.toLowerCase() === filter)
+                    );
+                    renderProjects(filtered);
+                }
             });
         });
+
+        // Load projects on page load
+        loadProjects();
     </script>
 
     <style>
