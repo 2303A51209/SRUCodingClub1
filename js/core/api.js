@@ -4,18 +4,15 @@
  */
 
 const getApiBase = () => {
-    // If running on backend port, use relative path
-    if (window.location.port === '3000') return '/api/v1';
-
-    // If running on other local ports (e.g. 5500 for Live Server) or file://
+    // If running on localhost for development
     if (window.location.hostname === 'localhost' ||
         window.location.hostname === '127.0.0.1' ||
         window.location.protocol === 'file:') {
         return 'http://localhost:3000/api/v1';
     }
 
-    // Production fallback
-    return 'https://srucodingclub1.onrender.com';
+    // Production - same domain (Render serves both frontend & backend)
+    return '/api/v1';
 };
 
 const API_BASE = getApiBase();
