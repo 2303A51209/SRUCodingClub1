@@ -1,179 +1,101 @@
-/**
- * API Client for Pure Supabase Auth
- * Sends Bearer token from localStorage
- */
+const express = require('express');
+const path = require('path');
+const helmet = require('helmet');
+const cors = require('cors');
+// const xss = require('xss-clean'); // Moved to middleware/sanitizer
+const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
+const config = require('./config');
+const logger = require('./utils/logger');
+const requestId = require('./middleware/requestId');
+const errorHandler = require('./middleware/errorHandler');
+const { apiLimiter } = require('./middleware/rateLimiter');
+const apiRoutes = require('./routes');
+const { ApiError } = require('./utils/errors');
 
-const getApiBase = () => {
-    // If running on localhost for development
-    if (window.location.hostname === 'localhost' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.protocol === 'file:') {
-        return 'http://localhost:3000/api/v1';
+const app = express();
+
+// 1. Request ID (Traceability)
+app.use(requestId);
+
+// 2. Security Headers
+// CSP disabled for development - inline scripts are used in frontend
+// In production, move scripts to external files and enable strict CSP
+app.use(helmet({
+    contentSecurityPolicy: false, // Disable CSP for now
+}));
+
+// 3. Block access to sensitive files/directories before static serving
+app.use((req, res, next) => {
+    const blocked = ['/backend', '/database', '/.env', '/.git', '/node_modules', '/package.json', '/package-lock.json'];
+    const lowerPath = req.path.toLowerCase();
+    if (blocked.some(b => lowerPath.startsWith(b))) {
+        return res.status(404).send('Not found');
     }
+    next();
+});
 
-    // Production - same domain (Render serves both frontend & backend)
-    return '/api/v1';
-};
+// 4. Serve Static Files from project root (GitHub Pages compatible structure)
+app.use(express.static(path.join(__dirname, '../../')));
 
-const API_BASE = getApiBase();
-const TOKEN_KEY = 'sb_access_token';
-const REFRESH_KEY = 'sb_refresh_token';
-
-class ApiClient {
-    constructor() {
-        this.isRefreshing = false;
-        this.failedQueue = [];
-    }
-
-    /**
-     * Process queued requests after token refresh
-     */
-    processQueue(error = null) {
-        this.failedQueue.forEach((promise) => {
-            if (error) {
-                promise.reject(error);
-            } else {
-                promise.resolve();
-            }
-        });
-        this.failedQueue = [];
-    }
-
-    /**
-     * Get access token from storage
-     */
-    getAccessToken() {
-        return localStorage.getItem(TOKEN_KEY);
-    }
-
-    /**
-     * Core request method
-     */
-    async request(endpoint, options = {}) {
-        const url = `${API_BASE}${endpoint}`;
-        const token = this.getAccessToken();
-
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
-                ...options.headers,
-            },
-            ...options,
-        };
-
-        // Convert body to JSON if object
-        if (config.body && typeof config.body === 'object') {
-            config.body = JSON.stringify(config.body);
+// 4. CORS - Handle multiple origins properly
+const allowedOrigins = (config.cors.origin || '').split(',').map(o => o.trim());
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin) return callback(null, true);
+        // Check if origin is in allowed list
+        if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+            return callback(null, origin);
         }
-
-        try {
-            const response = await fetch(url, config);
-
-            // Handle 401 - Attempt Token Refresh
-            if (response.status === 401 && !options._retry) {
-                // Don't refresh for auth endpoints
-                if (endpoint.includes('/auth/')) {
-                    const data = await response.json().catch(() => ({}));
-                    throw new Error(data.error?.message || 'Unauthorized');
-                }
-
-                // Try to refresh token
-                if (!this.isRefreshing) {
-                    this.isRefreshing = true;
-
-                    try {
-                        await this.refreshToken();
-                        this.processQueue();
-                    } catch (refreshError) {
-                        this.processQueue(refreshError);
-                        this.clearTokens();
-                        throw refreshError;
-                    } finally {
-                        this.isRefreshing = false;
-                    }
-                }
-
-                // Retry the original request
-                return this.request(endpoint, { ...options, _retry: true });
-            }
-
-            // Parse response
-            const data = await response.json().catch(() => ({}));
-
-            if (!response.ok) {
-                const error = new Error(data.error?.message || `Request failed: ${response.status}`);
-                error.status = response.status;
-                console.error('API Error:', error);
-                throw error;
-            }
-
-            return data;
-        } catch (error) {
-            console.error('API Error:', error);
-            throw error;
+        // Allow same onrender.com domain (frontend & backend on same Render service)
+        if (origin.includes('.onrender.com')) {
+            return callback(null, origin);
         }
-    }
-
-    /**
-     * Refresh access token
-     */
-    async refreshToken() {
-        const refreshToken = localStorage.getItem(REFRESH_KEY);
-
-        if (!refreshToken) {
-            throw new Error('No refresh token');
+        // In development, allow localhost
+        if (config.env === 'development' && origin.includes('localhost')) {
+            return callback(null, origin);
         }
+        callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+}));
 
-        const response = await fetch(`${API_BASE}/auth/refresh`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ refresh_token: refreshToken }),
-        });
+// 5. Rate Limiting (API Only)
+app.use('/api', apiLimiter);
 
-        if (!response.ok) {
-            throw new Error('Failed to refresh token');
-        }
+// 5. Body Parsing
+app.use(express.json({ limit: '10mb' })); // Limit body size
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(cookieParser(config.cookie.secret));
 
-        const data = await response.json();
+const sanitizer = require('./middleware/sanitizer');
+// ...
+// 6. Security (Data Sanitization & Param Pollution)
+app.use(sanitizer());
+app.use(hpp());
 
-        if (data.success && data.data?.session) {
-            localStorage.setItem(TOKEN_KEY, data.data.session.access_token);
-            if (data.data.session.refresh_token) {
-                localStorage.setItem(REFRESH_KEY, data.data.session.refresh_token);
-            }
-        }
-    }
+// 7. Request Logging
+app.use((req, res, next) => {
+    logger.info({
+        message: 'Incoming Request',
+        method: req.method,
+        path: req.path,
+        requestId: req.id,
+        ip: req.ip,
+    });
+    next();
+});
 
-    /**
-     * Clear tokens
-     */
-    clearTokens() {
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(REFRESH_KEY);
-    }
+// 8. Routes
+app.use('/api/v1', apiRoutes);
 
-    // HTTP Methods
-    get(endpoint, options = {}) {
-        return this.request(endpoint, { ...options, method: 'GET' });
-    }
+// 404 Handler
+app.use((req, res, next) => {
+    next(new ApiError(404, `Not found: ${req.originalUrl}`));
+});
 
-    post(endpoint, body, options = {}) {
-        return this.request(endpoint, { ...options, method: 'POST', body });
-    }
+// 9. Global Error Handler
+app.use(errorHandler);
 
-    patch(endpoint, body, options = {}) {
-        return this.request(endpoint, { ...options, method: 'PATCH', body });
-    }
-
-    put(endpoint, body, options = {}) {
-        return this.request(endpoint, { ...options, method: 'PUT', body });
-    }
-
-    delete(endpoint, options = {}) {
-        return this.request(endpoint, { ...options, method: 'DELETE' });
-    }
-}
-
-const api = new ApiClient();
-export default api;
+module.exports = app;
