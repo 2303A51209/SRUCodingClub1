@@ -38,22 +38,9 @@ app.use((req, res, next) => {
 // 4. Serve Static Files from project root (GitHub Pages compatible structure)
 app.use(express.static(path.join(__dirname, '../../')));
 
-// 4. CORS - Handle multiple origins properly
-const allowedOrigins = (config.cors.origin || '').split(',').map(o => o.trim());
+// 4. CORS - Allow all origins (same domain on Render)
 app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl)
-        if (!origin) return callback(null, true);
-        // Check if origin is in allowed list
-        if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
-            return callback(null, origin);
-        }
-        // In development, allow localhost
-        if (config.env === 'development' && origin.includes('localhost')) {
-            return callback(null, origin);
-        }
-        callback(new Error('Not allowed by CORS'));
-    },
+    origin: true,
     credentials: true,
 }));
 
